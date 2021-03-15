@@ -15,7 +15,7 @@ toggleCollapse = collapseID => () =>
 
 render() {
   return (
-    <div style={{display: "flex", zIndex: "1000", backgroundColor: "#202020"}}>
+    <div style={{display: "flex", zIndex: "1000", backgroundColor: "#25272c"}}>
       <MDBNavbarBrand>
         {/*Inserire logo!*/}
       </MDBNavbarBrand>

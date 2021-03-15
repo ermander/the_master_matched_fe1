@@ -1,16 +1,42 @@
 #offlineDutcherMainContainer {
     width: 100vw;
     height: 100vh;
-    background-color: black;
+    background-color: #25272c;
 }
 
 #cashback2VieTitleContainer{
     text-align: center;
-    margin-top: 3vh;
     padding: 3vh;
-    background-color: #202020;
+    background-color: #2e3339;
+    border-radius: 10px;
 }
 
 #cashback2VieTitle {
-    color: #c2c0c0;
+    color: #ff5252;
+}
+
+.calcolatore2vieContainer{
+    margin-top: 3vh;
+    background-color: rgba(46, 51, 57, 0.6);
+    min-height: 60vh;
+    max-width: 45vw;
+    border-radius: 10px;
+}
+
+.calcolatore2vieContainer2{
+    margin-top: 3vh;
+    background-color: rgba(46, 51, 57, 0.6);
+    min-height: 60vh;
+    max-width: 35vw;
+    border-radius: 10px;
+}
+
+._3yPwv._NwSHs._11JjB._1uvOH {
+    margin-bottom: 0;
+    font-weight: bold;
+    color: white;
+}
+
+._2hoJO._17_OS {
+    margin-bottom: 0;;
 }

@@ -1,0 +1,11 @@
+.dutcher-table-spinner-container{
+    text-align: center;
+}
+
+.dutcher-table-spinner {
+    width: 4rem;
+    height: 4rem;
+    color: #ff5252;
+    position: relative;
+    top: 25vh;
+}

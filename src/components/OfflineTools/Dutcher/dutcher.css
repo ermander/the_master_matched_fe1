@@ -1,0 +1,16 @@
+#offlineDutcherMainContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}
+
+#cashback2VieTitleContainer{
+    text-align: center;
+    margin-top: 3vh;
+    padding: 3vh;
+    background-color: #202020;
+}
+
+#cashback2VieTitle {
+    color: #c2c0c0;
+}

@@ -1,0 +1,23 @@
+.homepageContainer {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+#homepageImageContainer {
+    text-align: center;
+}
+
+#homepageLogo {
+    max-height: 45vh;
+}
+
+.loginRegisterButtons {
+    text-align: center;
+}
+
+.homepageButtons {
+    font-weight: bold;
+    min-width: 40vw;
+}

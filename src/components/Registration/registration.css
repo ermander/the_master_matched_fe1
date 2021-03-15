@@ -1,0 +1,23 @@
+.registrationContainer {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+#registrationImageContainer {
+    text-align: center;
+}
+
+#registrationLogo {
+    max-height: 45vh;
+}
+
+.registrationForm {
+    width: 45%;
+    margin: auto;
+}
+
+#registrationButton {
+    font-weight: bold;
+}

@@ -1,11 +1,30 @@
 import React, { Component } from 'react';
-import { Table, Spinner, Container } from "react-bootstrap"
+import { Table, Spinner, Container, Button } from "react-bootstrap"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
 import "./cashback-table.css"
 
 class CashbackTable extends Component {
     render() {
+
+        state = {            
+            modifyBookmakerModalShow: false
+        }
+        
+        openModifyBookmakerModal = () => {
+            this.setState({modifyBookmakerModalShow: true})
+        }
+    
+        closeModifyBookmakerModal = () => {
+            this.setState({modifyBookmakerModalShow: false})
+        }
+
         return (
-            <>
+            <>            
+            <ModifyBookmaker 
+                show={this.openModifyBookmakerModal}
+                noShow={this.closeModifyBookmakerModal}
+            />
             {
                 this.props.loadingBookmakers == true ?
                 (
@@ -20,6 +39,7 @@ class CashbackTable extends Component {
                             <tr>
                             <th>Bookmaker</th>
                             <th>Cashback</th>
+                            <th>Opzioni</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,6 +50,11 @@ class CashbackTable extends Component {
                                             <tr>
                                                 <td>{element.name}</td>
                                                 <td>{element.cashback}%</td>
+                                                <td style={{textAlign: "center"}}>
+                                                    <FontAwesomeIcon icon={faCog} className="option-icon"
+                                                        onClick={ () => console.log("oasifsod")}
+                                                    />
+                                                </td>
                                             </tr>
                                         </>
                                     )

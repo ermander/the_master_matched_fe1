@@ -1,0 +1,22 @@
+.new-bookmaker-title{
+    text-align: center;
+    color: white;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+}
+
+._cL4RU._3tLvr{
+    --bg-color: none;
+}
+
+.modal-dialog{
+    margin-top: 25vh;
+}
+
+.modal-content{
+    background-color: transparent;
+}
+
+.modal-body{
+    border-radius: 10px;
+}

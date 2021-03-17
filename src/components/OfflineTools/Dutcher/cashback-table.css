@@ -9,3 +9,26 @@
     position: relative;
     top: 25vh;
 }
+
+tr {
+    text-align: center;
+    color: white;
+}
+
+td{
+    color: white;
+}
+
+.option-icon{
+    font-size: 25px;
+    color: #ff5252;
+}
+
+.option-icon:hover{
+    font-size: 25px;
+    color: #fa3030;
+}
+
+._cL4RU._3tLvr{
+    --bg-color: none;
+}

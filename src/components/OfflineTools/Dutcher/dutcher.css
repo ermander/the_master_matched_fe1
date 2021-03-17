@@ -29,6 +29,7 @@
     min-height: 60vh;
     max-width: 35vw;
     border-radius: 10px;
+    text-align: center;
 }
 
 ._3yPwv._NwSHs._11JjB._1uvOH {
@@ -39,4 +40,16 @@
 
 ._2hoJO._17_OS {
     margin-bottom: 0;;
+}
+
+._cL4RU._3tLvr{
+    --bg-color: none;
+}
+
+._cL4RU._17_OS._3W7Om._3tLvr._39_ND{
+    background-color: #ff5252;
+}
+
+._cL4RU._17_OS._3W7Om._3tLvr._39_ND:hover{
+    background-color: #fa3030;
 }

@@ -1,16 +1,18 @@
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { Switch, TextField, Button } from 'ui-neumorphism'
 import Navbar from "../../Navbar/Navbar"
 import CashbackTable from "../Dutcher/CashbackTable"
+import NewCashBackBookmaker from "./NewCashBackBookmaker"
 import 'ui-neumorphism/dist/index.css'
 import "./dutcher.css"
+import ModifyBookmaker from './ModifyBookmaker';
 
 class Dutcher extends Component {
 
     state = {
         bookmakers: [],
-        loadingBookmakers: true
+        loadingBookmakers: true,
     }
 
     fetchBookmakers = async () => {
@@ -21,6 +23,11 @@ class Dutcher extends Component {
     }
 
     componentDidMount = () => {
+        this.fetchBookmakers()
+        console.log(this.props)
+    }
+
+    componentDidUpdate = () => {
         this.fetchBookmakers()
     }
 
@@ -39,7 +46,7 @@ class Dutcher extends Component {
                                     <Col xs={4} style={{textAlign: "center"}}>
                                         <Switch 
                                             color='var(--error)' 
-                                            checked 
+                                            checked
                                             label='Cashback Book 1'
                                             style={{color: "white"}}
                                         />
@@ -48,8 +55,8 @@ class Dutcher extends Component {
                                     <Col xs={4} style={{textAlign: "center"}}>
                                         <Switch 
                                             color='var(--error)' 
-                                                checked 
-                                                label='Cashback Book 2' 
+                                            checked 
+                                            label='Cashback Book 2' 
                                         />
                                     </Col>
                                 </Row>
@@ -104,13 +111,29 @@ class Dutcher extends Component {
                             </Container>                            
                         </Col>
                         <Col xs={5}>
-                            <Container className="calcolatore2vieContainer2 pb-5">
-                            
-                                <CashbackTable
-                                    className="dutcher-table"
-                                    loadingBookmakers={this.state.loadingBookmakers}
-                                    bookmakers={this.state.bookmakers}
-                                />
+                            <Container className="calcolatore2vieContainer2 pt-3">
+                                {
+                                    this.state.loadingBookmakers ?
+                                    (
+                                        
+                                        <CashbackTable
+                                            className="dutcher-table"
+                                            loadingBookmakers={this.state.loadingBookmakers}
+                                            bookmakers={this.state.bookmakers}
+                                        />
+                                    )
+                                    :
+                                    (
+                                        <>
+                                            <CashbackTable
+                                                className="dutcher-table"
+                                                loadingBookmakers={this.state.loadingBookmakers}
+                                                bookmakers={this.state.bookmakers}
+                                            />
+                                            <NewCashBackBookmaker/>
+                                        </>
+                                    )
+                                }
                             </Container>
                         </Col>
                     </Row>                    

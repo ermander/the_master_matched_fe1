@@ -45,7 +45,7 @@ class NewCashBackBookmaker extends Component {
     render() {
         return (
             <>
-            <Button className="mt-5" dark rounded onClick={() => this.showModal()}>
+            <Button className="mt-3" dark rounded onClick={() => this.showModal()}>
                 <span style={{color: "white"}}>Aggiungi Bookmaker</span>
             </Button>
             <Modal show={this.state.show} onHide={() => this.hideModal()}>

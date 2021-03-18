@@ -4,7 +4,7 @@ import { Switch, Button } from 'ui-neumorphism'
 import Navbar from "../../Navbar/Navbar"
 import CashbackTable from "../Dutcher/CashbackTable"
 import NewCashBackBookmaker from "./NewCashBackBookmaker"
-import DeleteBookmaker from "./DeleteBookmaker"
+import authAxios from "../../Utils/http"
 import 'ui-neumorphism/dist/index.css'
 import "./dutcher.css"
 
@@ -27,8 +27,10 @@ class Dutcher extends Component {
 
     fetchBookmakers = async () => {
         if (this.state.loadingBookmakers == false) this.setState({loadingBookmakers: true})
-        const response = await fetch("http://localhost:3004/cashback-bookmakers/get-bookmakers")
-        const bookmakers = await response.json()
+        const response = await authAxios("/cashback-bookmakers/get-bookmakers")
+        console.log(response.data)
+        const bookmakers = await response.data
+        console.log(bookmakers)
         this.setState({bookmakers: bookmakers})
         this.setState({loadingBookmakers: false})
     }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom"
 import { Container, Row, Col, Image, Form, Button, Alert } from 'react-bootstrap';
 
 import "./login.css"
@@ -8,6 +9,7 @@ function Login() {
     const [ email, setEmail ] = useState("")
     const [ password, setPassword ] = useState("")
     const [ show, setShow ] = useState(false)
+    const history = useHistory()
 
     const handleLogin = async () => {
         try {
@@ -23,7 +25,10 @@ function Login() {
                 }
             })
             if(response.ok){
-                window.location.href = "http://localhost:3000/cashback-2-vie"
+                localStorage.setItem("accessToken", response.accessToken)
+                localStorage.setItem("refreshToken", response.refreshToken)
+                history.push("/cashback-2-vie")
+                // window.location.href = "http://localhost:3000/cashback-2-vie"
                 
             }else{
                 console.log(response)

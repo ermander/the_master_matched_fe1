@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Form, Alert } from "react-bootstrap"
 import { Button } from 'ui-neumorphism'
+import authAxios from "../../Utils/http"
 
 class ModifyBookmaker extends Component {
     
@@ -11,6 +12,8 @@ class ModifyBookmaker extends Component {
     }
 
     modifyBookmaker = async () => {
+
+        
         try {
             if(this.state.nomeBookmaker == "" && this.state.cashback == ""){
                 console.log("Devi modificare almeno uno dei due valori!")
@@ -22,12 +25,10 @@ class ModifyBookmaker extends Component {
                     name: this.state.nomeBookmaker == "" ? this.props.bookmakerInfo.name : this.state.nomeBookmaker,
                     cashback: this.state.cashback == "" ? parseFloat(this.props.bookmakerInfo.cashback) : parseFloat(this.state.cashback)
                 }
-                const reponse = await fetch("http://localhost:3004/cashback-bookmakers/modify-bookmaker", {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
+                const reponse = await authAxios({
+                    method: "post",
+                    url: "/cashback-bookmakers/modify-bookmaker",
+                    data: data
                 })
                 console.log(reponse)
                 this.props.closeModifyBookmakerModal()

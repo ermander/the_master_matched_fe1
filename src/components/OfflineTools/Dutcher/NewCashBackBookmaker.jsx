@@ -35,6 +35,7 @@ class NewCashBackBookmaker extends Component {
                 })
                 console.log(response)
                 this.hideModal()
+                this.props.reFetchBookmakers()
             } catch (error) {
                console.log(error)
                this.hideModal()

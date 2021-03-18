@@ -25,8 +25,9 @@ function Login() {
                 }
             })
             if(response.ok){
-                localStorage.setItem("accessToken", response.accessToken)
-                localStorage.setItem("refreshToken", response.refreshToken)
+                const parsedResponse = await response.json()
+                localStorage.setItem("accessToken", parsedResponse.accessToken)
+                localStorage.setItem("refreshToken", parsedResponse.refreshToken)
                 history.push("/cashback-2-vie")
                 // window.location.href = "http://localhost:3000/cashback-2-vie"
                 

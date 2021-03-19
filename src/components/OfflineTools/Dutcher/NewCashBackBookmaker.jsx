@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Form, Alert } from "react-bootstrap"
 import { Button } from 'ui-neumorphism'
+import authAxios from '../../Utils/http';
 import "./new-cashback-bookmaker.css"
 
 class NewCashBackBookmaker extends Component {
@@ -26,13 +27,14 @@ class NewCashBackBookmaker extends Component {
 
         }else{
             try {
-                const response = await fetch("http://localhost:3004/cashback-bookmakers/post-new-bookmaker", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
+
+                const response = await authAxios.post("/cashback-bookmakers/post-new-bookmaker", {
+                    data: {
+                        name: this.state.bookmakerName,
+                        cashback: this.state.cashback
+                    }
                 })
+
                 console.log(response)
                 this.hideModal()
                 this.props.reFetchBookmakers()

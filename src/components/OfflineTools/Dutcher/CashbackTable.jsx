@@ -5,6 +5,7 @@ import { faCog, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import ModifyBookmaker from "./ModifyBookmaker"
 import DeleteBookmaker from "./DeleteBookmaker"
 import "./cashback-table.css"
+import authAxios from '../../Utils/http';
 
 class CashbackTable extends Component {
 
@@ -25,14 +26,13 @@ class CashbackTable extends Component {
 
     deleteBookmaker = async (_id) => {
         try {
-            console.log(_id)
-            const response = await fetch("http://localhost:3004/cashback-bookmakers/delete-bookmaker", {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({_id: _id})
+
+            const response = await authAxios.delete("/cashback-bookmakers/delete-bookmaker", {
+                data: {
+                    _id: _id
+                }
             })
+            
             if(response.ok){
                 console.log("ok")
                 this.props.reFetchBookmakers()

@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const authAxios = axios.create({
-    baseURL: "http://localhost:3004",
+    baseURL: "https://the-master-matched-be-new.herokuapp.com",
     headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     },

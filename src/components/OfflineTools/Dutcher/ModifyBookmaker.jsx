@@ -11,25 +11,21 @@ class ModifyBookmaker extends Component {
         showAlert: false
     }
 
-    modifyBookmaker = async () => {
-
-        
+    modifyBookmaker = async () => {        
         try {
             if(this.state.nomeBookmaker == "" && this.state.cashback == ""){
                 console.log("Devi modificare almeno uno dei due valori!")
                 this.setState({showAlert: true})
                 setTimeout(() => { this.setState({showAlert: false}) }, 2000);
-            }else{            
-                const data = {
-                    _id: this.props.bookmakerInfo._id,
-                    name: this.state.nomeBookmaker == "" ? this.props.bookmakerInfo.name : this.state.nomeBookmaker,
-                    cashback: this.state.cashback == "" ? parseFloat(this.props.bookmakerInfo.cashback) : parseFloat(this.state.cashback)
-                }
-                const reponse = await authAxios({
-                    method: "post",
-                    url: "/cashback-bookmakers/modify-bookmaker",
-                    data: data
+            }else{
+                const reponse = await authAxios.put("/cashback-bookmakers/modify-bookmaker",{
+                    data: {
+                        _id: this.props.bookmakerInfo._id,
+                        name: this.state.nomeBookmaker == "" ? this.props.bookmakerInfo.name : this.state.nomeBookmaker,
+                        cashback: this.state.cashback == "" ? parseFloat(this.props.bookmakerInfo.cashback) : parseFloat(this.state.cashback)
+                    }
                 })
+
                 console.log(reponse)
                 this.props.closeModifyBookmakerModal()
                 this.props.reFetchBookmakers()

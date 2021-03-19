@@ -3,7 +3,6 @@ import { Table, Spinner, Container, Button } from "react-bootstrap"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import ModifyBookmaker from "./ModifyBookmaker"
-import DeleteBookmaker from "./DeleteBookmaker"
 import "./cashback-table.css"
 import authAxios from '../../Utils/http';
 

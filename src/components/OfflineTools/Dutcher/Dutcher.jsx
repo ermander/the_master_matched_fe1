@@ -26,7 +26,7 @@ class Dutcher extends Component {
     }
 
     fetchBookmakers = async () => {
-        if (this.state.loadingBookmakers == false) this.setState({loadingBookmakers: true})
+        if (this.state.loadingBookmakers === false) this.setState({loadingBookmakers: true})
         const response = await authAxios("/cashback-bookmakers/get-bookmakers")
         console.log(response.data)
         const bookmakers = await response.data
@@ -37,7 +37,7 @@ class Dutcher extends Component {
 
     calculateROI = () => {
         
-        if(this.state.quotaPuntaUno == "" || this.state.quotaPuntaDue == "" || this.state.stake == ""){
+        if(this.state.quotaPuntaUno === "" || this.state.quotaPuntaDue === "" || this.state.stake === ""){
             this.setState({showMissingAlert: true})
             setTimeout(() => {  this.setState({showMissingAlert: false}) }, 2000);
             console.log("Devi inserire tutti i parametri!")
@@ -73,8 +73,8 @@ class Dutcher extends Component {
                 console.log("Secondo if")
                 // Calcolo ROI
                 // Solo il primo bookmaker ha il cashback
-                const bookmakerOne = this.state.cashbackBookOneName == "" ? 0 : this.state.bookmakers.find( book => book.name === this.state.cashbackBookOneName)
-                const cashbackPercentageOne = bookmakerOne == 0 ? 0 : parseFloat(bookmakerOne.cashback)
+                const bookmakerOne = this.state.cashbackBookOneName === "" ? 0 : this.state.bookmakers.find( book => book.name === this.state.cashbackBookOneName)
+                const cashbackPercentageOne = bookmakerOne === 0 ? 0 : parseFloat(bookmakerOne.cashback)
                 const cashbackOne = parseFloat((stake / 100) * cashbackPercentageOne)
                 const rawROI = (quotaUno * stake) - controPuntaStake - stake + cashbackOne
                 const ROI = rawROI.toFixed(2)
@@ -98,8 +98,8 @@ class Dutcher extends Component {
 
                 // Calcolo ROI
                 //Solo il secondo bookmaker ha il cashback
-                const bookmakerTwo = this.state.cashbackBookTwoName == "" ? 0 : this.state.bookmakers.find( book => book.name === this.state.cashbackBookTwoName)  
-                const cashbackPercentageTwo = bookmakerTwo == 0 ? 0 : parseFloat(bookmakerTwo.cashback)
+                const bookmakerTwo = this.state.cashbackBookTwoName === "" ? 0 : this.state.bookmakers.find( book => book.name === this.state.cashbackBookTwoName)  
+                const cashbackPercentageTwo = bookmakerTwo === 0 ? 0 : parseFloat(bookmakerTwo.cashback)
                 const cashbackTwo = parseFloat((controPuntaStake / 100) * cashbackPercentageTwo)
                 const rawROI = (quotaDue * controPuntaStake) - stake - stake + cashbackTwo
                 const ROI = rawROI.toFixed(2)
@@ -122,10 +122,10 @@ class Dutcher extends Component {
                 console.log("Quarto if")
                 // Calcolo ROI
                 // Entrambi i bookmaker hanno il cashback
-                const bookmakerOne = this.state.cashbackBookOneName == "" ? 0 : this.state.bookmakers.find( book => book.name === this.state.cashbackBookOneName)
-                const bookmakerTwo = this.state.cashbackBookTwoName == "" ? 0 : this.state.bookmakers.find( book => book.name === this.state.cashbackBookTwoName)
-                const cashbackPercentageOne = bookmakerOne == 0 ? 0 : parseFloat(bookmakerOne.cashback)
-                const cashbackPercentageTwo = bookmakerTwo == 0 ? 0 : parseFloat(bookmakerTwo.cashback)
+                const bookmakerOne = this.state.cashbackBookOneName === "" ? 0 : this.state.bookmakers.find( book => book.name === this.state.cashbackBookOneName)
+                const bookmakerTwo = this.state.cashbackBookTwoName === "" ? 0 : this.state.bookmakers.find( book => book.name === this.state.cashbackBookTwoName)
+                const cashbackPercentageOne = bookmakerOne === 0 ? 0 : parseFloat(bookmakerOne.cashback)
+                const cashbackPercentageTwo = bookmakerTwo === 0 ? 0 : parseFloat(bookmakerTwo.cashback)
                 const cashbackOne = parseFloat((stake / 100) * cashbackPercentageOne)
                 const cashbackTwo = parseFloat((controPuntaStake / 100) * cashbackPercentageTwo)
                 const rawROI = (quotaUno * stake) - controPuntaStake - stake + cashbackOne + cashbackTwo
@@ -169,11 +169,11 @@ class Dutcher extends Component {
     }
 
     setCashbackOne = () => {
-        this.state.cashbackBookOne == true ? this.setState({cashbackBookOne: false, cashbackBookOneName: ""}) : this.setState({cashbackBookOne: true})
+        this.state.cashbackBookOne === true ? this.setState({cashbackBookOne: false, cashbackBookOneName: ""}) : this.setState({cashbackBookOne: true})
     }
 
     setCashbackTwo = () => {
-        this.state.cashbackBookTwo == true ? this.setState({cashbackBookTwo: false, cashbackBookTwoName: ""}) : this.setState({cashbackBookTwo: true})
+        this.state.cashbackBookTwo === true ? this.setState({cashbackBookTwo: false, cashbackBookTwoName: ""}) : this.setState({cashbackBookTwo: true})
     }
     openDeleteModal = () => {
         this.setState({showDeleteBookmakerModal: true})
@@ -183,12 +183,8 @@ class Dutcher extends Component {
         this.setState({showDeleteBookmakerModal: false})
     }
 
-    deleteBookmaker = async () => {
-
-    }
     componentDidMount = () => {
         this.fetchBookmakers()
-        console.log(this.props)
     }
 
     render() {

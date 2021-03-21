@@ -55,7 +55,7 @@ class CashbackTable extends Component {
                 reFetchBookmakers={this.props.reFetchBookmakers}
             />
             {
-                this.props.loadingBookmakers == true ?
+                this.props.loadingBookmakers === true ?
                 (
                     <Container className="h-100 dutcher-table-spinner-container">
                         <Spinner animation="grow" className="dutcher-table-spinner"/>

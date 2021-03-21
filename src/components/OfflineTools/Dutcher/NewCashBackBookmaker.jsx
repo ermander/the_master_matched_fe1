@@ -17,11 +17,7 @@ class NewCashBackBookmaker extends Component {
     hideModal = () => this.setState({show: false})
 
     postNewBookmaker = async () => {
-        const data = {
-            name: this.state.bookmakerName,
-            cashback: this.state.cashback
-        }
-        if(this.state.bookmakerName == "" || this.state.cashback == ""){
+        if(this.state.bookmakerName === "" || this.state.cashback === ""){
             this.setState({showAlert: true})
             setTimeout(() => {  this.setState({showAlert: false}) }, 2000);
 

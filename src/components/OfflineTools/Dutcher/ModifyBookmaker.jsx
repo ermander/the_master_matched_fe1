@@ -13,7 +13,7 @@ class ModifyBookmaker extends Component {
 
     modifyBookmaker = async () => {        
         try {
-            if(this.state.nomeBookmaker == "" && this.state.cashback == ""){
+            if(this.state.nomeBookmaker === "" && this.state.cashback === ""){
                 console.log("Devi modificare almeno uno dei due valori!")
                 this.setState({showAlert: true})
                 setTimeout(() => { this.setState({showAlert: false}) }, 2000);
@@ -21,8 +21,8 @@ class ModifyBookmaker extends Component {
                 const reponse = await authAxios.put("/cashback-bookmakers/modify-bookmaker",{
                     data: {
                         _id: this.props.bookmakerInfo._id,
-                        name: this.state.nomeBookmaker == "" ? this.props.bookmakerInfo.name : this.state.nomeBookmaker,
-                        cashback: this.state.cashback == "" ? parseFloat(this.props.bookmakerInfo.cashback) : parseFloat(this.state.cashback)
+                        name: this.state.nomeBookmaker === "" ? this.props.bookmakerInfo.name : this.state.nomeBookmaker,
+                        cashback: this.state.cashback === "" ? parseFloat(this.props.bookmakerInfo.cashback) : parseFloat(this.state.cashback)
                     }
                 })
 

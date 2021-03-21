@@ -10,7 +10,7 @@ import NewCashBackBookmaker from '../Dutcher/NewCashBackBookmaker';
 class Trimatcher extends Component {
 
     state = {
-        loadingBookmakerss: true,
+        loadingBookmakers: true,
         cashbackBookOne: true,
         cashbackBookTwo: true,
         cashbackBookThree: true,
@@ -28,11 +28,11 @@ class Trimatcher extends Component {
     }
 
     fetchBookmakers = async () => {
-        if (this.state.loadingBookmakerss === false) this.setState({loadingBookmakerss: true})
+        if (this.state.loadingBookmakers === false) this.setState({loadingBookmakers: true})
         const response = await authAxios("/cashback-bookmakers/get-bookmakers")
         const bookmakers = await response.data
         this.setState({bookmakers: bookmakers})
-        this.setState({loadingBookmakerss: false})
+        this.setState({loadingBookmakers: false})
     }
 
     // Function for calculatin the ROIs anche Ratings
@@ -401,12 +401,12 @@ class Trimatcher extends Component {
                         <Col xs={5}>
                             <Container className="calcolatore3VieContainer2 pt-3" style={{height: "70vh"}}>
                                 {
-                                    this.state.loadingBookmakerss ?
+                                    this.state.loadingBookmakers ?
                                     (
                                         <CashbackTable
                                             className="trimatcher-table"
                                             reFetchBookmakers={this.fetchBookmakers}
-                                            loadingBookmakers={this.state.loadingBookmakerss}
+                                            loadingBookmakers={this.state.loadingBookmakers}
                                             bookmakers={this.state.bookmakers}
                                         />
                                     )
@@ -416,7 +416,7 @@ class Trimatcher extends Component {
                                         <CashbackTable
                                             className="trimatcher-table"
                                             reFetchBookmakers={this.fetchBookmakers}
-                                            loadingBookmakers={this.state.loadingBookmakerss}
+                                            loadingBookmakers={this.state.loadingBookmakers}
                                             bookmakers={this.state.bookmakers}
                                         />
                                         <NewCashBackBookmaker

@@ -15,6 +15,9 @@ import Dutcher from "./components/OfflineTools/Dutcher/Dutcher"
 import Trimatcher from "./components/OfflineTools/Trimatcher/Trimatcher"
 
 
+import ComingSoon from "./components/Coming Soon Page/ComingSoon"
+
+
 function App() {
   return (
     <>
@@ -38,6 +41,9 @@ function App() {
           </Route>
           <Route path="/cashback-3-vie" exact>
             <Trimatcher />
+          </Route>
+          <Route path="/coming-soon">
+            <ComingSoon />
           </Route>
         </Switch>
       </Router>

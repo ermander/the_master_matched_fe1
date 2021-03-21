@@ -20,22 +20,22 @@ render() {
         {/*Inserire logo!*/}
       </MDBNavbarBrand>
       <button className="dropbtn ml-auto">
-        <Link to="/oddsmatcher" style={{fontWeight: "400"}}>HOME</Link>
+        <Link to="/coming-soon" style={{fontWeight: "400"}}>HOME</Link>
       </button>
       <button className="dropbtn">GUIDE</button>
       <div className="dropdown">
         <button className="dropbtn">BONUS</button>
         <div className="dropdown-content">
-          <Link>
+          <Link to="/coming-soon">
             BONUS DI BENVENUTO
           </Link>
-          <Link>
+          <Link to="/coming-soon">
             BONUS RICORRENTI
           </Link>
-          <Link>
+          <Link to="/coming-soon">
             THE MASTER MATCHED
           </Link>
-          <Link>
+          <Link to="/coming-soon">
             ELITE MATCHED
           </Link>
         </div>
@@ -44,16 +44,16 @@ render() {
       <div className="dropdown">
         <button className="dropbtn">TOOLS</button>
         <div className="dropdown-content">
-          <Link to="/">
+          <Link to="/coming-soon">
             ODDSMATCHER
           </Link>
-          <Link to="/">
+          <Link to="/coming-soon">
             DUTCHER
           </Link>
-          <Link to="/">
+          <Link to="/coming-soon">
             TRIMATCHER
           </Link>
-          <Link>
+          <Link to="/coming-soon">
             TARGETER
           </Link>
         </div>
@@ -62,28 +62,28 @@ render() {
       <div className="dropdown">
         <button className="dropbtn">CALCOLATORI</button>
         <div className="dropdown-content">
-        <Link to="/punta-banca">
+        <Link to="/coming-soon">
             PUNTA BANCA
           </Link>
-          <Link to="/">
+          <Link to="/coming-soon">
             PUNTA PUNTA
           </Link>
-          <Link to="/">
+          <Link to="/coming-soon">
             TRIMATCHER
           </Link>
-          <Link to="/casino">
+          <Link to="/coming-soon">
             TOOL MULTIPLE 
           </Link>
-          <Link to="">
+          <Link to="/coming-soon">
             CONDIZIONATO
           </Link>
-          <Link to="">
+          <Link to="/coming-soon">
             COMBO - TOOL
           </Link>
-          <Link to="/converter">
+          <Link to="/coming-soon">
             CONVERTER
           </Link>
-          <Link>
+          <Link to="/coming-soon">
             CASINO
           </Link>
           <Link to="cashback-2-vie">
@@ -99,7 +99,7 @@ render() {
         <button className="dropbtn">ACCOUNT</button>
         <div className="dropdown-content">
           <Link>PROFILE</Link>
-          <Link to="/profit_tracker/in-progress">PROFIT TRACKER</Link>
+          <Link to="/coming-soon">PROFIT TRACKER</Link>
           <Link>LOG OUT</Link>
         </div>
       </div>

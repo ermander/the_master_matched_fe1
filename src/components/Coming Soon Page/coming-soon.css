@@ -1,0 +1,16 @@
+#coming-soon-container{
+    width: 100vw;
+    height: 100vh;
+    background-image: url("https://res.cloudinary.com/dnadfuxk0/image/upload/v1616289828/breno-machado-in9-n0JwgZ0-unsplash_bicfcd.jpg");
+    background-size: 100vw 100vh;
+    position: absolute;
+    text-align: center;
+}
+
+#coming-soon-container > h1{
+    position: relative;
+    top: 40vh;
+    font-weight: bold;
+    font-size: 100px;
+    color: white;
+}

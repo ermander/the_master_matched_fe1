@@ -44,7 +44,7 @@ function Login() {
         <>
         <Alert variant="danger" style={{textAlign: "center"}} show={show}>
             Le tue credenziali di accesso non sono corrette! 
-           <Alert.Link href="http://localhost:3000/registration"> <span style={{color: "black"}}>Clicca qui per registrarti ora!</span></Alert.Link>
+           <Alert.Link href="https://the-master-matched-fe1.herokuapp.com/login"> <span style={{color: "black"}}>Clicca qui per registrarti ora!</span></Alert.Link>
         </Alert>
         <Container fluid className="loginContainer">
             <Row className="no-gutters">

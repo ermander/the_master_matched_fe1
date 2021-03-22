@@ -25,7 +25,7 @@ class Login extends Component {
             if(this.state.username === "" || this.state.email === "" || this.state.password === ""){
                 console.log("An error occurred!")
             }else{
-                const response = await fetch("https://the-master-matched-be-new.herokuapp.com", {
+                const response = await fetch("https://the-master-matched-be-new.herokuapp.com/users/registration", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

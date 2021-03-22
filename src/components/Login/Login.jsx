@@ -37,7 +37,7 @@ function Login() {
                 setShow(true)
             }     
         } catch (error) {
-            console.log()
+            console.log(error)
         }
     }
 

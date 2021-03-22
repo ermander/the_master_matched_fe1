@@ -25,7 +25,7 @@ class Login extends Component {
             if(this.state.username === "" || this.state.email === "" || this.state.password === ""){
                 console.log("An error occurred!")
             }else{
-                const response = await fetch("http://localhost:3004/users/registration", {
+                const response = await fetch("https://the-master-matched-be-new.herokuapp.com", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -47,12 +47,12 @@ class Login extends Component {
             <>
             <Alert variant="secondary" style={{textAlign: "center"}} show={this.state.show}>
                 Se possiedi già un account 
-            <Alert.Link href="http://localhost:3000/login"> <span style={{color: "black"}}> clicca qui per effettuare il login!</span></Alert.Link>
+            <Alert.Link href="https://the-master-matched-be-new.herokuapp.com/login"> <span style={{color: "black"}}> clicca qui per effettuare il login!</span></Alert.Link>
             </Alert>
 
             <Alert variant="secondary" style={{textAlign: "center"}} show={this.state.showCreated}>
                 Il tuo account è stato correttamente creato! 
-            <Alert.Link href="http://localhost:3000/login"> <span style={{color: "black"}}> Clicca qui per effettuare subito il login!</span></Alert.Link>
+            <Alert.Link href="https://the-master-matched-be-new.herokuapp.com/login"> <span style={{color: "black"}}> Clicca qui per effettuare subito il login!</span></Alert.Link>
             </Alert>
 
 

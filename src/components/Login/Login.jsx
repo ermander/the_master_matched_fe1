@@ -25,6 +25,7 @@ function Login() {
                 }
             })
             if(response.ok){
+                console.log(response)
                 const parsedResponse = await response.json()
                 localStorage.setItem("accessToken", parsedResponse.accessToken)
                 localStorage.setItem("refreshToken", parsedResponse.refreshToken)

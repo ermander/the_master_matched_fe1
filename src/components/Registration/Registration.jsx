@@ -47,12 +47,12 @@ class Login extends Component {
             <>
             <Alert variant="secondary" style={{textAlign: "center"}} show={this.state.show}>
                 Se possiedi già un account 
-            <Alert.Link href="https://the-master-matched-be-new.herokuapp.com/login"> <span style={{color: "black"}}> clicca qui per effettuare il login!</span></Alert.Link>
+            <Alert.Link href="https://the-master-matched-fe1.herokuapp.com/login"> <span style={{color: "black"}}> clicca qui per effettuare il login!</span></Alert.Link>
             </Alert>
 
             <Alert variant="secondary" style={{textAlign: "center"}} show={this.state.showCreated}>
                 Il tuo account è stato correttamente creato! 
-            <Alert.Link href="https://the-master-matched-be-new.herokuapp.com/login"> <span style={{color: "black"}}> Clicca qui per effettuare subito il login!</span></Alert.Link>
+            <Alert.Link href="https://the-master-matched-fe1.herokuapp.com/login"> <span style={{color: "black"}}> Clicca qui per effettuare subito il login!</span></Alert.Link>
             </Alert>
 
 

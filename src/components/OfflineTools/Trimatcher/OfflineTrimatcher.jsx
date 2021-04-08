@@ -3,7 +3,7 @@ import { Switch, Button } from 'ui-neumorphism'
 import React, { Component } from 'react';
 import Navbar from "../../Navbar/Navbar"
 import authAxios from "../../Utils/http"
-import "./trimatcher.css"
+import "./OfflineTrimatcher.css"
 import CashbackTable from '../Dutcher/CashbackTable';
 import NewCashBackBookmaker from '../Dutcher/NewCashBackBookmaker';
 

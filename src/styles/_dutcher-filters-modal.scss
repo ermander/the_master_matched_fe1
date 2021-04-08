@@ -1,0 +1,62 @@
+.modal-dialog{
+    max-width: 90vw!important;
+    .modal-content{
+        background-color: #ffa500;
+    }
+    #title{
+        padding: 0.5rem 0.5rem;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+        background-color: brown;
+        color: white;
+    }
+
+    .row{
+        text-align: center;
+        padding-bottom: 0.7rem;
+    }
+
+    #filters-titles{
+        text-align: left;
+
+        .forms-cols{
+            border-radius: 5px;
+            padding: 1rem 1rem;
+            background-color: #e49503;
+            height: 100%;
+        }
+        
+        span{
+            font-weight: bold;
+        }
+    }
+
+    .filters-footer{
+        button{
+            width: 100%;
+            font-weight: bold;
+        }
+    }
+
+    .bookmakers-list{
+        padding: 1rem;
+        text-align: left;
+    }
+    
+    .card{        
+        max-width: 120px!important;
+        max-height: 60px!important;
+    }
+    .card-img-top{
+        max-width: 120px!important;
+        max-height: 60px!important;
+    }
+
+    #bookmakers-modal-buttons{
+        button{
+            width: 100%;
+            font-weight: bold;
+        }
+    }
+}

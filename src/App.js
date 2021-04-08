@@ -1,18 +1,20 @@
 // React Router Dom
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import "./App.scss"
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// Components
 //Homepage
 import Homepage from "./components/Homepage/Homepage"
 // User authentication and registration
 import Login from "./components/Login/Login"
 import Registration from "./components/Registration/Registration"
 // Offline tools
-import Dutcher from "./components/OfflineTools/Dutcher/Dutcher"
-import Trimatcher from "./components/OfflineTools/Trimatcher/Trimatcher"
+import OfflineDutcher from "./components/OfflineTools/Dutcher/OfflineDutcher"
+import OfflineTrimatcher from "./components/OfflineTools/Trimatcher/OfflineTrimatcher"
+
+// Online Tools
+import Dutcher from "./pages/Dutcher"
 
 
 import ComingSoon from "./components/Coming Soon Page/ComingSoon"
@@ -37,13 +39,17 @@ function App() {
 
           {/*Tools offline */}
           <Route path="/cashback-2-vie" exact>
-            <Dutcher />
+            <OfflineDutcher />
           </Route>
           <Route path="/cashback-3-vie" exact>
-            <Trimatcher />
+            <OfflineTrimatcher />
           </Route>
           <Route path="/coming-soon">
             <ComingSoon />
+          </Route>
+          {/* Tools Online */}
+          <Route path="/dutcher" exact>
+            <Dutcher />
           </Route>
         </Switch>
       </Router>

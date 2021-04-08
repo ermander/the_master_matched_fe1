@@ -47,7 +47,7 @@ render() {
           <Link to="/coming-soon">
             ODDSMATCHER
           </Link>
-          <Link to="/coming-soon">
+          <Link to="/dutcher">
             DUTCHER
           </Link>
           <Link to="/coming-soon">

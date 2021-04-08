@@ -2,7 +2,7 @@ import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { Switch, Button } from 'ui-neumorphism'
 import Navbar from "../../Navbar/Navbar"
-import CashbackTable from "../Dutcher/CashbackTable"
+import CashbackTable from "./CashbackTable"
 import NewCashBackBookmaker from "./NewCashBackBookmaker"
 import authAxios from "../../Utils/http"
 import 'ui-neumorphism/dist/index.css'

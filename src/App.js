@@ -15,6 +15,7 @@ import OfflineTrimatcher from "./components/OfflineTools/Trimatcher/OfflineTrima
 
 // Online Tools
 import Dutcher from "./pages/Dutcher"
+import Trimatcher from "./pages/Trimatcher"
 
 
 import ComingSoon from "./components/Coming Soon Page/ComingSoon"
@@ -50,6 +51,9 @@ function App() {
           {/* Tools Online */}
           <Route path="/dutcher" exact>
             <Dutcher />
+          </Route>
+          <Route path="/trimatcher" exact>
+            <Trimatcher />
           </Route>
         </Switch>
       </Router>

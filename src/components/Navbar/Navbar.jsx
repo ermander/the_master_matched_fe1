@@ -50,7 +50,7 @@ render() {
           <Link to="/dutcher">
             DUTCHER
           </Link>
-          <Link to="/coming-soon">
+          <Link to="/trimatcher">
             TRIMATCHER
           </Link>
           <Link to="/coming-soon">

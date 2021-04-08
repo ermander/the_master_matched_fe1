@@ -1,0 +1,73 @@
+#trimatcher-container{
+    min-height: 100vh;   
+    background-color: #25272c;
+    color: white;
+
+    span{
+        font-weight: bold; 
+    }
+
+    .trimatcher-settings-columns{
+        text-align: center;
+        margin-top: 1rem;
+        button{
+            width: 100%;
+            background-color: brown;
+            color: white;
+            letter-spacing: 2px;
+        }
+    }
+
+    #trimatcher-table-row{
+        margin-top: 1rem;
+    }
+    
+    .rt-table{
+
+        border-bottom: 1px solid white;
+        border-right: 1px solid white;
+
+        .rt-th{
+            border-left: 1px solid white;
+        }
+
+        .rt-thead.-header{
+            border: 1px solid white;
+        }
+
+        .rt-tr{
+            border-top: 1px solid white;
+        }
+
+        .rt-td{
+            border-left: 1px solid white;
+            text-align: center;
+        }
+    }
+
+    .pagination-bottom{
+        border: 1px solid white;
+        border-top: none;
+        .-previous{
+            button{
+                border: 1px solid white;
+                color: white!important;
+                font-weight: bold;
+            }
+        }
+
+        .-next{
+            button{
+                border: 1px solid white;
+                color: white!important;
+                font-weight: bold;
+            }
+        }
+
+    }
+
+    .rt-resizable-header-content{
+        font-weight: bold;
+    }
+
+}

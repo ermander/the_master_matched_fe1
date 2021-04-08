@@ -9,25 +9,21 @@ const DataTablePage = (props) => {
                 Header: "Data",
                 accessor: "data",
                 minWidth: 100,
-                filterable: true,
               },
               {
                 Header: "Ora",
                 accessor: "ora",
                 minWidth: 80,
-                filterable: true,
               },
               {
                 Header: "Campionato",
                 accessor: "campionato",
                 minWidth: 160,
-                filterable: true,
               },
               {
                 Header: "Evento",
                 accessor: "evento",
                 minWidth: 250,
-                filterable: true,
               },
               {
                 Header: "Mercato",

@@ -7,52 +7,52 @@ const DataTablePage = (props) => {
         columns: [
             {
                 Header: "Data",
-                accessor: "data",
+                accessor: "start_date",
                 minWidth: 100
             },
             {
                 Header: "Ora",
-                accessor: "ora",
+                accessor: "start_time",
                 minWidth: 80
             },
             {
               Header: "Campionato",
-              accessor: "campionato",
+              accessor: "tournament",
               minWidth: 160,
             },
             {
               Header: "Evento",
-              accessor: "evento",
+              accessor: "event",
               minWidth: 250,
             },
             {
                 Header: "1",
-                accessor: "1",
+                accessor: "odd_one",
                 minWidth: 80
             },
             {
                 Header: "Book 1",
-                accessor: "book_1",
+                accessor: "book_one",
                 minWidth: 120
             },            
             {
                 Header: "X",
-                accessor: "x",
+                accessor: "odd_two",
                 minWidth: 80
             },
             {
                 Header: "Book 2",
-                accessor: "book_2",
+                accessor: "book_two",
                 minWidth: 120
             },
             {
                 Header: "2",
-                accessor: "2",
+                accessor: "odd_three",
                 minWidth: 80
             },
             {
                 Header: "Book 3",
-                accessor: "book_3",
+                accessor: "book_three",
                 minWidth: 120
             },
             {

@@ -18,9 +18,6 @@ import "../styles/_dutcher.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPercentage } from "@fortawesome/free-solid-svg-icons"
 
-// Odds
-import oddss from "../components/Utils/dutcherOdds"
-
 export default class Dutcher extends Component {
     state={
         showFilterModal: false,

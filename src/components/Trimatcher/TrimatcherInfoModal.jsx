@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 // React BootStrap
 import { Row, Col, Modal, Button } from "react-bootstrap"
 
+// Book logos
+import { logos } from "../Utils/bookmakersLogos"
+
 export default class TrimatcherInfoModal extends Component {
     state = {
         stake: "",
@@ -25,10 +28,10 @@ export default class TrimatcherInfoModal extends Component {
                                 <p className="teams-name">Tipo: 1</p>
                             </div>
                             <div className="team-name-container">                          
-                                <p className="teams-name">Quota: #{this.props.matchInfo.quota1}</p>                            
+                                <p className="teams-name">Quota: #{this.props.matchInfo.odd_one}</p>                            
                             </div>
                             <div className="team-name-container">
-                                <img src="https://cdn1696.templcdn.com/wp-content/uploads/2018/10/Williamhill-logo.png" alt="unibet logo"/>
+                                <img src={logos[this.props.matchInfo.book_one]} alt={this.props.matchInfo.book_one}/>
                             </div>
                         </Col>
                         <Col xs={12} md={3} style={{marginTop: "0.5rem"}}>
@@ -42,10 +45,10 @@ export default class TrimatcherInfoModal extends Component {
                                 <p className="teams-name">Tipo: X</p>
                             </div>
                             <div className="team-name-container">                          
-                                <p className="teams-name">Quota: #{this.props.matchInfo.quota2}</p>                            
+                                <p className="teams-name">Quota: #{this.props.matchInfo.odd_two}</p>                            
                             </div>
                             <div className="team-name-container">
-                                <img src="https://acparma.it/wp-content/uploads/2018/06/unibet-logo.png" alt="unibet logo"/>
+                                <img src={logos[this.props.matchInfo.book_two]} alt={this.props.matchInfo.book_two}/>
                             </div>
                         </Col>
                         <Col xs={12} md={3} style={{marginTop: "0.5rem"}}>
@@ -59,15 +62,15 @@ export default class TrimatcherInfoModal extends Component {
                                 <p className="teams-name">Tipo: 2</p>
                             </div>
                             <div className="team-name-container">                          
-                                <p className="teams-name">Quota: #{this.props.matchInfo.quota3}</p>                            
+                                <p className="teams-name">Quota: #{this.props.matchInfo.odd_three}</p>                            
                             </div>
                             <div className="team-name-container">
-                                <img src="https://www.superscommesse.it/images/ss3/bookmaker/betclic-logo-alpha.png" alt="unibet logo"/>
+                                <img src={logos[this.props.matchInfo.book_three]} alt={this.props.matchInfo.book_three}/>
                             </div>
                         </Col>
                         <Col xs={12} md={3} style={{marginTop: "0.5rem"}}>                          
                             <div className="first-row-cols">
-                                <h4>{this.props.matchInfo.evento}</h4>
+                                <h4>{this.props.matchInfo.home} vs {this.props.matchInfo.away}</h4>
                             </div>
                             <Row className="inputs-row">
                                 <Col xs={12} md={6}>
@@ -89,7 +92,7 @@ export default class TrimatcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>                                    
                                     <div className="inputs-container">
-                                        <input type="number" placeholder={this.props.matchInfo.quota1} onChange={e => this.setState({quota1: e.currentTarget.value}, this.betInfo)}/>
+                                        <input type="number" placeholder={this.props.matchInfo.odd_one} onChange={e => this.setState({quota1: e.currentTarget.value}, this.betInfo)}/>
                                     </div>
                                 </Col>
                             </Row>
@@ -101,7 +104,7 @@ export default class TrimatcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>                                    
                                     <div className="inputs-container">
-                                        <input type="number" placeholder={this.props.matchInfo.quota2} onChange={e => this.setState({quota2: e.currentTarget.value}, this.betInfo)}/>
+                                        <input type="number" placeholder={this.props.matchInfo.odd_two} onChange={e => this.setState({quota2: e.currentTarget.value}, this.betInfo)}/>
                                     </div>
                                 </Col>
                             </Row>
@@ -113,7 +116,7 @@ export default class TrimatcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>                                    
                                     <div className="inputs-container">
-                                        <input type="number" placeholder={this.props.matchInfo.quota3} onChange={e => this.setState({quota2: e.currentTarget.value}, this.betInfo)}/>
+                                        <input type="number" placeholder={this.props.matchInfo.odd_three} onChange={e => this.setState({quota2: e.currentTarget.value}, this.betInfo)}/>
                                     </div>
                                 </Col>
                             </Row>
@@ -132,7 +135,7 @@ export default class TrimatcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <div className="match-info-container">
-                                        <p className="match-info">{this.props.matchInfo.data}</p>
+                                        <p className="match-info">{this.props.matchInfo.start_date}</p>
                                     </div>
                                 </Col>
                             </Row>
@@ -144,7 +147,7 @@ export default class TrimatcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <div className="match-info-container">
-                                        <p className="match-info">{this.props.matchInfo.ora}</p>
+                                        <p className="match-info">{this.props.matchInfo.start_time}</p>
                                     </div>
                                 </Col>
                             </Row>
@@ -156,7 +159,7 @@ export default class TrimatcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <div className="match-info-container">
-                                        <p className="match-info">{this.props.matchInfo.campionato}</p>
+                                        <p className="match-info">{this.props.matchInfo.tournament}</p>
                                     </div>
                                 </Col>
                             </Row>
@@ -168,7 +171,7 @@ export default class TrimatcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <div className="match-info-container">
-                                        <p className="match-info">{this.props.matchInfo.evento}</p>
+                                        <p className="match-info">{this.props.matchInfo.event}</p>
                                     </div>
                                 </Col>
                             </Row>
@@ -180,7 +183,7 @@ export default class TrimatcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <div className="match-info-container">
-                                        <p className="match-info">{this.props.matchInfo.mercato}</p>
+                                        <p className="match-info">{this.props.matchInfo.market}</p>
                                     </div>
                                 </Col>
                             </Row>
@@ -204,21 +207,21 @@ export default class TrimatcherInfoModal extends Component {
                             <Row className="stakes-info-row">
                                 <Col xs={12}>
                                     <div className="stakes-info-container">
-                                        <p className="stakes-info">Punta <span>{this.state.stake}€</span> a quota <span>#{this.props.matchInfo.punta1}</span> su <span>{this.props.matchInfo.book1}</span></p>
+                                        <p className="stakes-info">Punta <span>{this.state.stake}€</span> a quota <span>#{this.props.matchInfo.odd_one}</span> su <span>{this.props.matchInfo.book1}</span></p>
                                     </div>
                                 </Col>
                             </Row>
                             <Row className="stakes-info-row">
                                 <Col xs={12}>
                                     <div className="stakes-info-container">
-                                        <p className="stakes-info">Punta <span>{this.state.controPunta}€</span> a quota <span>#{this.props.matchInfo.punta2}</span> su <span>{this.props.matchInfo.book2}</span></p>
+                                        <p className="stakes-info">Punta <span>{this.state.controPunta}€</span> a quota <span>#{this.props.matchInfo.odd_two}</span> su <span>{this.props.matchInfo.book2}</span></p>
                                     </div>
                                 </Col>
                             </Row>
                             <Row className="stakes-info-row">
                                 <Col xs={12}>
                                     <div className="stakes-info-container">
-                                        <p className="stakes-info">Punta <span>{this.state.controPunta}€</span> a quota <span>#{this.props.matchInfo.punta2}</span> su <span>{this.props.matchInfo.book2}</span></p>
+                                        <p className="stakes-info">Punta <span>{this.state.controPunta}€</span> a quota <span>#{this.props.matchInfo.odd_three}</span> su <span>{this.props.matchInfo.book2}</span></p>
                                     </div>
                                 </Col>
                             </Row>

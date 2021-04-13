@@ -7,32 +7,32 @@ const DataTablePage = (props) => {
         columns: [
             {
                 Header: "Data",
-                accessor: "data",
+                accessor: "start_date",
                 minWidth: 100,
               },
               {
                 Header: "Ora",
-                accessor: "ora",
+                accessor: "start_time",
                 minWidth: 80,
               },
               {
                 Header: "Campionato",
-                accessor: "campionato",
+                accessor: "tournament",
                 minWidth: 160,
               },
               {
                 Header: "Evento",
-                accessor: "evento",
+                accessor: "event",
                 minWidth: 250,
               },
               {
                 Header: "Mercato",
-                accessor: "tipo",
+                accessor: "market",
                 minWidth: 80,
               },
               {
                 Header: "Book 1",
-                accessor: "book1",
+                accessor: "book_one",
                 minWidth: 120,
               },
               {
@@ -42,12 +42,12 @@ const DataTablePage = (props) => {
               },
               {
                 Header: "Punta 1",
-                accessor: "punta1",
+                accessor: "odd_one",
                 minWidth: 80,
               },
               {
                 Header: "Punta 2",
-                accessor: "punta2",
+                accessor: "odd_two",
                 minWidth: 80,
               },
               {
@@ -57,12 +57,12 @@ const DataTablePage = (props) => {
               },
               {
                 Header: "Book 2",
-                accessor: "book2logo",
+                accessor: "book_two",
                 minWidth: 100,
               },
               {
                 Header: "Rating",
-                accessor: "tableRating",
+                accessor: "tableRoi",
                 minWidth: 100,
               },
               {

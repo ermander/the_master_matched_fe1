@@ -42,19 +42,33 @@ export default class Dutcher extends Component {
     openMatchInfoModal = (odd) => this.setState({ showMatchInfoModal: true, matchInfo: odd })
     closeMatchInfoModal = () => this.setState({ showMatchInfoModal: false, matchInfo: {} })
 
-    // Adding the button for opening the match info modal
-    addButton = () => {
-        const newOdds = oddss.map((odd) => {
-            return ({
-                ...odd,
-                button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odd)} id="open-dutcher-match-info-modal-icon"/>
+    // Fetching odds and adding the button
+    fetchOdds = async () => {
+        try {
+            const response = await fetch("https://the-master-matched-be-new.herokuapp.com/google-odds/dutcher-odds")
+            const parsedResponse = await response.json()
+            const rawOdds = parsedResponse.map((odd) => {
+                return ({
+                    ...odd,
+                    event: odd.home + " vs " + odd.away,
+                    roi: odd.roi.toFixed(2),
+                    tableRoi: odd.roi.toFixed(2) + "%",                    
+                })
             })
-        })        
-        this.setState({odds: newOdds})
+            const odds = rawOdds.map((odd) => {
+                return({
+                    ...odd,
+                    button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odd)} id="open-dutcher-match-info-modal-icon"/>
+                })
+            })            
+            this.setState({odds: odds})
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     componentDidMount = () => {
-        this.addButton()
+        this.fetchOdds()
     }
 
     render() {

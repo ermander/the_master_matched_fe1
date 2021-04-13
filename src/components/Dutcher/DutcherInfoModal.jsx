@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 // React BootStrap
 import { Modal, Row, Col, Button, Form } from "react-bootstrap"
 
+import { logos } from "../Utils/bookmakersLogos"
+
 // SCSS file
 import "../../styles/_match-info-modal.scss"
 
@@ -10,23 +12,23 @@ export default class DutcherInfoModal extends Component {
     state={
         stake: "100",
         rating: "",
-        quota1: "",
-        quota2: "",
+        odd_one: "",
+        odd_two: "",
         controPunta: "",
         vincita: ""
     }
 
     betInfo = () => {
         const stake = this.state.stake === "100" ? 100 : parseFloat(this.state.stake)
-        const quota1 = this.state.quota1 === "" ? parseFloat(this.props.matchInfo.punta1) : parseFloat(this.state.quota1)
-        const quota2 = this.state.quota2 === "" ? parseFloat(this.props.matchInfo.punta2) : parseFloat(this.state.quota2)
+        const odd_one = this.state.odd_one === "" ? parseFloat(this.props.matchInfo.odd_one) : parseFloat(this.state.odd_one)
+        const odd_two = this.state.odd_two === "" ? parseFloat(this.props.matchInfo.odd_two) : parseFloat(this.state.odd_two)
 
-        const controPunta = Math.round((stake * quota1) / quota2)
+        const controPunta = Math.round((stake * odd_one) / odd_two)
 
-        const rawRating = 100 - ((((1 / quota1) + (1 / quota2)) * 100 - 100) * 2)
+        const rawRating = 100 - ((((1 / odd_one) + (1 / odd_two)) * 100 - 100) * 2)
         const rating = rawRating.toFixed(2)
 
-        const vincita = parseFloat(((stake * quota1) - stake) - controPunta)
+        const vincita = parseFloat(((stake * odd_one) - stake) - controPunta).toFixed(2)
 
         this.setState({rating: rating, controPunta: controPunta, vincita: vincita})
         console.log(this.state.rating, this.state.controPunta)
@@ -52,15 +54,15 @@ export default class DutcherInfoModal extends Component {
                                 <p className="teams-name">Tipo: {this.props.matchInfo.yes}</p>
                             </div>
                             <div className="team-name-container">                          
-                                <p className="teams-name">Quota: {this.props.matchInfo.punta1}</p>                            
+                                <p className="teams-name">Quota: {this.props.matchInfo.odd_one}</p>                            
                             </div>
                             <div className="team-name-container">
-                                <img src="https://acparma.it/wp-content/uploads/2018/06/unibet-logo.png" alt="unibet logo"/>
+                                <img src={logos[this.props.matchInfo.book_one]} alt=""/>
                             </div>
                         </Col>
                         <Col xs={12} md={4} style={{marginTop: "1rem"}}>                          
                             <div className="first-row-cols">
-                                <h4>{this.props.matchInfo.evento}</h4>
+                                <h4>{this.props.matchInfo.home} vs {this.props.matchInfo.away}</h4>
                             </div>
                             <Row className="inputs-row">
                                 <Col xs={12} md={6}>
@@ -82,7 +84,7 @@ export default class DutcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>                                    
                                     <div className="inputs-container">
-                                        <input type="number" placeholder={this.props.matchInfo.punta1} onChange={e => this.setState({quota1: e.currentTarget.value}, this.betInfo)}/>
+                                        <input type="number" placeholder={this.props.matchInfo.odd_one} onChange={e => this.setState({odd_one: e.currentTarget.value}, this.betInfo)}/>
                                     </div>
                                 </Col>
                             </Row>
@@ -94,7 +96,7 @@ export default class DutcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>                                    
                                     <div className="inputs-container">
-                                        <input type="number" placeholder={this.props.matchInfo.punta2} onChange={e => this.setState({quota2: e.currentTarget.value}, this.betInfo)}/>
+                                        <input type="number" placeholder={this.props.matchInfo.odd_two} onChange={e => this.setState({odd_two: e.currentTarget.value}, this.betInfo)}/>
                                     </div>
                                 </Col>
                             </Row>
@@ -113,10 +115,10 @@ export default class DutcherInfoModal extends Component {
                                 <p className="teams-name">Tipo: {this.props.matchInfo.no}</p>
                             </div>
                             <div className="team-name-container">                          
-                                <p className="teams-name">Quota: {this.props.matchInfo.punta2}</p>                            
+                                <p className="teams-name">Quota: {this.props.matchInfo.odd_two}</p>                            
                             </div>
                             <div className="team-name-container">
-                                <img src="https://cdn1696.templcdn.com/wp-content/uploads/2018/10/Williamhill-logo.png" alt="William Hill Logo"/>
+                                <img src={logos[this.props.matchInfo.book_two]} alt={this.props.matchInfo.book_two + " Logo" }/>
                             </div>
                         </Col>
                     </Row>
@@ -133,7 +135,7 @@ export default class DutcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <div className="match-info-container">
-                                        <p className="match-info">{this.props.matchInfo.data}</p>
+                                        <p className="match-info">{this.props.matchInfo.start_date}</p>
                                     </div>
                                 </Col>
                             </Row>
@@ -145,7 +147,7 @@ export default class DutcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <div className="match-info-container">
-                                        <p className="match-info">{this.props.matchInfo.ora}</p>
+                                        <p className="match-info">{this.props.matchInfo.start_time}</p>
                                     </div>
                                 </Col>
                             </Row>
@@ -157,7 +159,7 @@ export default class DutcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <div className="match-info-container">
-                                        <p className="match-info">{this.props.matchInfo.campionato}</p>
+                                        <p className="match-info">{this.props.matchInfo.tournament}</p>
                                     </div>
                                 </Col>
                             </Row>
@@ -169,7 +171,7 @@ export default class DutcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <div className="match-info-container">
-                                        <p className="match-info">{this.props.matchInfo.evento}</p>
+                                        <p className="match-info">{this.props.matchInfo.home} vs {this.props.matchInfo.away}</p>
                                     </div>
                                 </Col>
                             </Row>
@@ -181,7 +183,7 @@ export default class DutcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <div className="match-info-container">
-                                        <p className="match-info">{this.props.matchInfo.mercato}</p>
+                                        <p className="match-info">{this.props.matchInfo.market}</p>
                                     </div>
                                 </Col>
                             </Row>
@@ -193,7 +195,7 @@ export default class DutcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <div className="match-info-container">
-                                        <p className="match-info">{this.props.matchInfo.tableRating}</p>
+                                        <p className="match-info">{this.props.matchInfo.tableRoi}%</p>
                                     </div>
                                 </Col>
                             </Row>

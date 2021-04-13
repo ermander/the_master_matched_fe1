@@ -47,7 +47,7 @@ export default class Dutcher extends Component {
         const newOdds = oddss.map((odd) => {
             return ({
                 ...odd,
-                button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odd)} id="open-match-info-modal-icon"/>
+                button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odd)} id="open-dutcher-match-info-modal-icon"/>
             })
         })        
         this.setState({odds: newOdds})

@@ -44,6 +44,10 @@
 .inputs-row.row{
     padding-bottom: 0;
 
+    .col-6{
+        max-height: 40px;
+    }
+
     .btn.btn-light{
         font-size: 15px;
         font-weight: bold;
@@ -111,6 +115,77 @@
             font-weight: bold;
             color: white;
         }
+    }
+}
+
+.stakes-info-row.row{
+
+    .col-12{
+        max-height: 40px;
+    }
+
+    .stakes-info-container{
+        background-color: #e49503;
+        margin-top: 1rem;
+        border-radius: 5px;
+        text-align: center;
+        max-width: 80%;
+        position: relative;
+        margin-left: 10%;
+
+        .stakes-info{
+            font-weight: bold;
+            color: white;
+
+            span{
+                color: black;
+            }
+        }
+    }
+}
+
+.users-row.row{
+    padding-bottom: 0;
+
+    .col-12{
+        max-height: 50px;
+    }
+
+    .users-container{
+        background-color: #e49503;
+        margin-top: 1rem;
+        border-radius: 5px;
+        text-align: center;
+        max-width: 80%;
+        position: relative;
+        margin-left: 10%;
+
+        .users-info{
+            font-weight: bold;
+            color: white;
+        }
+    }
+
+    button{
+        font-weight: bold;
+        width: 70%;
+    }
+
+    .close-button{
+        margin-top: 1rem;
+        font-weight: bold;
+        width: 70%;
+    }
+
+    select{
+        background-color: transparent;
+        border: none;
+        color: black;
+        font-weight: bold;
+    }
+
+    select option{
+        background-color: transparent!important;
     }
 }
 

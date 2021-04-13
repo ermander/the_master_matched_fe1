@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { MDBNavbarBrand } from "mdbreact";
 import { Link } from 'react-router-dom';
-import "./navbar.css"
+import "../../styles/_navbar.scss"
 
 class NavbarPage extends Component {
 state = {
@@ -15,7 +15,7 @@ toggleCollapse = collapseID => () =>
 
 render() {
   return (
-    <div style={{display: "flex", zIndex: "1000", backgroundColor: "#25272c"}}>
+    <div style={{display: "flex", zIndex: "1000", backgroundColor: "#25272c"}} id="navbar">
       <MDBNavbarBrand>
         {/*Inserire logo!*/}
       </MDBNavbarBrand>

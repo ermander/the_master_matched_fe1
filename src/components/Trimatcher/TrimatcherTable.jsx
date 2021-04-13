@@ -68,7 +68,7 @@ const DataTablePage = (props) => {
             {
                 Header: "",
                 accessor: "button",
-                minWidth: 80
+                minWidth: 40
             },
         ],
     }

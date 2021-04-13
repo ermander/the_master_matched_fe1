@@ -11,10 +11,10 @@ const rowOdds = [
         mercato: "Doppia Chance",
         book1: "Unibet",
         yes: "1X",
-        punta1: "1.5",
+        punta1: "2",
         no: "2",
-        punta2: "3",
-        book2logo: "William Hill",
+        punta2: "1.95",
+        book2: "William Hill",
         tableRating: "100%",
         lastupdate: "sdfdg",
     }

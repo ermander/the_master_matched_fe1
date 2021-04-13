@@ -1,46 +1,90 @@
-import React, { useState } from 'react'
-import NavBar from "../components/Navbar/Navbar"
+import React, { Component } from 'react'
+
+// Components
 import ToolsTitle from "../components/ToolsTitle"
-import { Row, Col, Button } from "react-bootstrap"
-import odds from "../components/Utils/trimatcherOdds"
+import NavBar from "../components/Navbar/Navbar"
 import DataTablePage from '../components/Trimatcher/TrimatcherTable'
 import TrimatcherBookmakers from "../components/Trimatcher/TrimatcherBookmakers"
 import TrimatcherFiltersModal from '../components/Trimatcher/TrimatcherFiltersModal'
+import TrimatcherInfoModal from "../components/Trimatcher/TrimatcherInfoModal"
 
-export default function Trimatcher() {
-    const [showFilterModal, setFilterModal] = useState(false)
-    const [showBookmakersMoal, setBookmakersModal] = useState(false)
-    
-    const showFilters = () => setFilterModal(true)
-    const closeFilters = () => setFilterModal(false)
+// React BootStrap
+import { Row, Col, Button } from "react-bootstrap"
 
-    const showBookmakers = () => setBookmakersModal(true)
-    const closeBookmakers = () => setBookmakersModal(false)
+//SCSS 
+import "../styles/_trimatcher.scss"
 
-    return (
-        <div id="trimatcher-container">
-            <NavBar />
-            <ToolsTitle title={"Trimatcher"} />
-            <TrimatcherBookmakers show={showBookmakersMoal} onHide={closeBookmakers}/>
-            <TrimatcherFiltersModal show={showFilterModal} onHide={closeFilters} />
-            <Row>
-                <Col xs={12} md={6} className="trimatcher-settings-columns">
-                    <Button variant="light" onClick={showFilters}>
-                        <span>Opzioni Di Ricerca</span>
-                    </Button>
-                </Col>
-                <Col xs={12} md={6} className="trimatcher-settings-columns">
-                    <Button variant="light" onClick={showBookmakers}>
-                        <span>Opzioni Bookmakers</span>
-                    </Button>
-                </Col>
-            </Row>
+// FontAwesome icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPercentage } from "@fortawesome/free-solid-svg-icons"
 
-            <Row id="trimatcher-table-row">
-                <Col xs={12}>
-                    <DataTablePage odds={odds} />
-                </Col>
-            </Row>
-        </div>
-    )
+// Odds
+import odds from "../components/Utils/trimatcherOdds"
+
+export default class Trimatcher extends Component {
+    state = {
+        showBookmakersMoal: false,
+        showFilterModal: false,
+        showMatchInfoModal: false,
+        odds: [],
+        matchInfo: {}
+    }    
+
+    // Filter modal
+    openFilterModal = () => this.setState({showFilterModal: true})
+    closeFilterModal = () => this.setState({showFilterModal: false})
+
+    // Bookmaker filter modal
+    openBookmakerModal = () => this.setState({showBookmakersMoal: true})
+    closeBookmakerModal = () => this.setState({showBookmakersMoal: false})
+
+    // Match Info Modal
+    openMatchInfoModal = (odd) => this.setState({ showMatchInfoModal: true, matchInfo: odd })
+    closeMatchInfoModal = () => this.setState({ showMatchInfoModal: false, matchInfo: {} })
+
+    // Adding the button for opening the match info modal
+    addButton = () => {
+        const newOdds = odds.map((odd) => {
+            return ({
+                ...odd,
+                button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odd)} id="open-trimatcher-match-info-modal-icon"/>
+            })
+        })        
+        this.setState({odds: newOdds})
+    }
+
+    componentDidMount = () => {
+        this.addButton()
+    }
+
+    render() {
+        return (
+            <div id="trimatcher-container">
+                <NavBar />
+                <ToolsTitle title={"Trimatcher"} />
+                <TrimatcherBookmakers show={this.state.showBookmakersMoal} onHide={this.closeBookmakerModal}/>
+                <TrimatcherFiltersModal show={this.state.showFilterModal} onHide={this.closeFilterModal} />
+                <TrimatcherInfoModal show={this.state.showMatchInfoModal} onHide={this.closeMatchInfoModal} matchInfo={this.state.matchInfo}/>
+                <Row>
+                    <Col xs={12} md={6} className="trimatcher-settings-columns">
+                        <Button variant="light" onClick={this.openFilterModal}>
+                            <span>Opzioni Di Ricerca</span>
+                        </Button>
+                    </Col>
+                    <Col xs={12} md={6} className="trimatcher-settings-columns">
+                        <Button variant="light" onClick={this.openBookmakerModal}>
+                            <span>Opzioni Bookmakers</span>
+                        </Button>
+                    </Col>
+                </Row>
+
+                <Row id="trimatcher-table-row">
+                    <Col xs={12}>
+                        <DataTablePage odds={this.state.odds} />
+                    </Col>
+                </Row>
+            </div>
+        )
+    }
 }
+

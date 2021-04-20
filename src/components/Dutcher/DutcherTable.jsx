@@ -32,12 +32,12 @@ const DataTablePage = (props) => {
               },
               {
                 Header: "Book 1",
-                accessor: "book_one",
-                minWidth: 120,
+                accessor: "book_one_image",
+                minWidth: 100,
               },
               {
                 Header: "Tipo 1",
-                accessor: "yes",
+                accessor: "odd_one_type",
                 minWidth: 70,
               },
               {
@@ -52,12 +52,12 @@ const DataTablePage = (props) => {
               },
               {
                 Header: "Tipo 2",
-                accessor: "no",
+                accessor: "odd_two_type",
                 minWidth: 70,
               },
               {
                 Header: "Book 2",
-                accessor: "book_two",
+                accessor: "book_two_image",
                 minWidth: 100,
               },
               {

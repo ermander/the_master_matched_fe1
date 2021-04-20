@@ -99,7 +99,7 @@ render() {
         <button className="dropbtn">ACCOUNT</button>
         <div className="dropdown-content">
           <Link>PROFILE</Link>
-          <Link to="/coming-soon">PROFIT TRACKER</Link>
+          <Link to="/profit-tracker/partite-in-corso">PROFIT TRACKER</Link>
           <Link>LOG OUT</Link>
         </div>
       </div>

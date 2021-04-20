@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 // React BootStrap
-import { Modal, Row, Col, Button, Form } from "react-bootstrap"
+import { Modal, Row, Col, Button } from "react-bootstrap"
 
 import { logos } from "../Utils/bookmakersLogos"
 
@@ -10,7 +10,7 @@ import "../../styles/_match-info-modal.scss"
 
 export default class DutcherInfoModal extends Component {
     state={
-        stake: "100",
+        stake: "",
         rating: "",
         odd_one: "",
         odd_two: "",
@@ -19,7 +19,7 @@ export default class DutcherInfoModal extends Component {
     }
 
     betInfo = () => {
-        const stake = this.state.stake === "100" ? 100 : parseFloat(this.state.stake)
+        const stake = this.state.stake === "" ? 0 : parseFloat(this.state.stake)
         const odd_one = this.state.odd_one === "" ? parseFloat(this.props.matchInfo.odd_one) : parseFloat(this.state.odd_one)
         const odd_two = this.state.odd_two === "" ? parseFloat(this.props.matchInfo.odd_two) : parseFloat(this.state.odd_two)
 
@@ -51,7 +51,7 @@ export default class DutcherInfoModal extends Component {
                                 <p className="teams-name">Casa: {this.props.matchInfo.home}</p>
                             </div>
                             <div className="team-name-container">
-                                <p className="teams-name">Tipo: {this.props.matchInfo.yes}</p>
+                                <p className="teams-name" style={{textTransform: "uppercase"}}>Tipo: {this.props.matchInfo.odd_one_type}</p>
                             </div>
                             <div className="team-name-container">                          
                                 <p className="teams-name">Quota: {this.props.matchInfo.odd_one}</p>                            
@@ -112,7 +112,7 @@ export default class DutcherInfoModal extends Component {
                                 <p className="teams-name">Ospite: {this.props.matchInfo.away}</p>
                             </div>
                             <div className="team-name-container">
-                                <p className="teams-name">Tipo: {this.props.matchInfo.no}</p>
+                                <p className="teams-name" style={{textTransform: "uppercase"}}>Tipo: {this.props.matchInfo.odd_two_type}</p>
                             </div>
                             <div className="team-name-container">                          
                                 <p className="teams-name">Quota: {this.props.matchInfo.odd_two}</p>                            
@@ -195,7 +195,7 @@ export default class DutcherInfoModal extends Component {
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <div className="match-info-container">
-                                        <p className="match-info">{this.props.matchInfo.tableRoi}%</p>
+                                        <p className="match-info">{this.props.matchInfo.tableRoi}</p>
                                     </div>
                                 </Col>
                             </Row>

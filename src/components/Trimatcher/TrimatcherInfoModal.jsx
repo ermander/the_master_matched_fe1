@@ -25,7 +25,7 @@ export default class TrimatcherInfoModal extends Component {
                                 <p className="teams-name">Vittoria {this.props.matchInfo.home}</p>
                             </div>
                             <div className="team-name-container">
-                                <p className="teams-name">Tipo: 1</p>
+                                <p className="teams-name" style={{textTransform: "uppercase"}}>Tipo: {this.props.matchInfo.odd_one_type}</p>
                             </div>
                             <div className="team-name-container">                          
                                 <p className="teams-name">Quota: #{this.props.matchInfo.odd_one}</p>                            
@@ -42,7 +42,7 @@ export default class TrimatcherInfoModal extends Component {
                                 <p className="teams-name">Pareggio</p>
                             </div>
                             <div className="team-name-container">
-                                <p className="teams-name">Tipo: X</p>
+                                <p className="teams-name" style={{textTransform: "uppercase"}}>Tipo: {this.props.matchInfo.odd_two_type}</p>
                             </div>
                             <div className="team-name-container">                          
                                 <p className="teams-name">Quota: #{this.props.matchInfo.odd_two}</p>                            
@@ -59,7 +59,7 @@ export default class TrimatcherInfoModal extends Component {
                                 <p className="teams-name">Vittoria {this.props.matchInfo.away}</p>
                             </div>
                             <div className="team-name-container">
-                                <p className="teams-name">Tipo: 2</p>
+                                <p className="teams-name" style={{textTransform: "uppercase"}}>Tipo: {this.props.matchInfo.odd_three_type}</p>
                             </div>
                             <div className="team-name-container">                          
                                 <p className="teams-name">Quota: #{this.props.matchInfo.odd_three}</p>                            

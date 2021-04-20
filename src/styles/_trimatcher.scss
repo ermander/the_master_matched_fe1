@@ -3,6 +3,10 @@
     background-color: #25272c;
     color: white;
 
+    .refresh-button{
+        border-color: white;
+    }
+
     span{
         font-weight: bold; 
     }
@@ -42,6 +46,54 @@
         .rt-td{
             border-left: 1px solid white;
             text-align: center;
+        }
+
+        .rt-td:nth-child(1){
+            padding-top: 14px;
+        }
+        .rt-td:nth-child(2){
+            padding-top: 14px;
+        }
+        .rt-td:nth-child(3){
+            padding-top: 14px;
+        }
+        .rt-td:nth-child(4){
+            padding-top: 14px;
+        }
+        .rt-td:nth-child(5){
+            background-color: brown;
+            color: white;
+            font-weight: bold;
+            padding-top: 14px;
+        }
+        .rt-td:nth-child(7){
+            background-color: brown;
+            color: white;
+            font-weight: bold;
+            padding-top: 14px;
+        }
+        .rt-td:nth-child(9){
+            background-color: brown;
+            color: white;
+            font-weight: bold;
+            padding-top: 14px;
+        }
+        .rt-td:nth-child(11){
+            padding-top: 14px;
+        }
+        .rt-td:nth-child(12){
+            padding-top: 14px;
+        }
+        .rt-td:nth-child(13){
+            padding-top: 14px;
+        }
+
+        img {
+            min-width: 100px;
+            max-width: 100px;
+            min-height: 36px;
+            max-height: 36px;
+            object-fit: fill;
         }
     }
 

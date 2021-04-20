@@ -1,4 +1,4 @@
-import { Image, Container } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 import React, { Component } from 'react';
 import "./coming-soon.css"
 class ComingSoon extends Component {

@@ -19,6 +19,8 @@ import Trimatcher from "./pages/Trimatcher"
 
 
 import ComingSoon from "./components/Coming Soon Page/ComingSoon"
+// Profit Tracker
+import ProfitTracker from "./pages/ProfitTracker"
 
 
 function App() {
@@ -54,6 +56,10 @@ function App() {
           </Route>
           <Route path="/trimatcher" exact>
             <Trimatcher />
+          </Route>
+          {/* Profit Tracker */}
+          <Route path="/profit-tracker/partite-in-corso" exact>
+            <ProfitTracker />
           </Route>
         </Switch>
       </Router>

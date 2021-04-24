@@ -17,7 +17,7 @@ const DataTablePage = (props) => {
               },
               {
                 Header: "Campionato",
-                accessor: "event",
+                accessor: "tournament",
                 minWidth: 160,
               },
               {

@@ -12,10 +12,10 @@ export default class ProfitTracker extends Component {
                 <NavBar />                
                 <Title title={"Partite in corso"}/>
                 <Row>
-                    <Col xs={3}>
+                    <Col xs={1} id="sidebar_col">
                         <SideBar />
                     </Col>
-                    <Col xs={9}></Col>
+                    <Col xs={11}></Col>
                 </Row>      
             </div>
         )

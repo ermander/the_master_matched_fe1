@@ -17,10 +17,11 @@ import OfflineTrimatcher from "./components/OfflineTools/Trimatcher/OfflineTrima
 import Dutcher from "./pages/Dutcher"
 import Trimatcher from "./pages/Trimatcher"
 
-
 import ComingSoon from "./components/Coming Soon Page/ComingSoon"
+
 // Profit Tracker
 import ProfitTracker from "./pages/ProfitTracker"
+import Casino from "./components/ProfitTracker/Casino"
 
 
 function App() {
@@ -60,6 +61,9 @@ function App() {
           {/* Profit Tracker */}
           <Route path="/profit-tracker/partite-in-corso" exact>
             <ProfitTracker />
+          </Route>
+          <Route path="/profit-tracker/casino" exact>
+            <Casino />
           </Route>
         </Switch>
       </Router>

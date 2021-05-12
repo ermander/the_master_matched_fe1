@@ -1,9 +1,25 @@
 #casino_section_container{
     #casino_button_container{
         margin-top: 0.5rem;
+    }
+}
 
-        #casino_new_track_modal_footer{
-            
+#casino_new_track_modal_body{
+    div{
+        background-color: #a52a2a;
+        border-radius: 5px;
+        padding: 0.5rem 0.5rem;
+        color: white;
+
+        h2{
+            line-height: 1.2
         }
+    }
+}
+
+#casino_new_track_modal_footer{
+    button{
+        padding: 0.5rem 2rem;
+        margin: 0 2rem;
     }
 }

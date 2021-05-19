@@ -67,7 +67,7 @@ export default class Trimatcher extends Component {
                     button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odd)} id="open-trimatcher-match-info-modal-icon"/>
                 })
             })            
-            this.setState({odds: odds})
+            this.setState({odds: odds, temporaryOdds: odds})
         } catch (error) {
             console.log(error)
         }
@@ -96,7 +96,7 @@ export default class Trimatcher extends Component {
                     button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odd)} id="open-trimatcher-match-info-modal-icon"/>
                 })
             })            
-            this.setState({odds: odds})
+            this.setState({odds: odds, temporaryOdds: odds})
         } catch (error) {
             console.log(error)
         }

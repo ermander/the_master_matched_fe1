@@ -9,7 +9,7 @@ import DutcherInfoModal from "../components/Dutcher/DutcherInfoModal"
 import ToolsTitle from "../components/ToolsTitle"
 
 // React Bootstrap
-import { Row, Col, Button } from "react-bootstrap"
+import { Row, Col, Button, Form } from "react-bootstrap"
 
 // SCSS file
 import "../styles/_dutcher.scss"
@@ -28,7 +28,8 @@ export default class Dutcher extends Component {
         showBookmakersModal: false,
         showMatchInfoModal: false,
         odds: [],
-        matchInfo: {}
+        matchInfo: {},
+        firstBookmaker: "Bookmaker Principale"
     }
 
     // Filter Modals
@@ -55,7 +56,9 @@ export default class Dutcher extends Component {
                     roi: odd.roi.toFixed(2),
                     tableRoi: odd.roi.toFixed(2) + "%",
                     book_one_image: <img src={logos[odd.book_one]} alt={logos[odd.book_one] + " logo"}/>,
-                    book_two_image: <img src={logos[odd.book_two]} alt={logos[odd.book_two] + " logo"}/>
+                    book_two_image: <img src={logos[odd.book_two]} alt={logos[odd.book_two] + " logo"}/>,
+                    book_one: odd.book_one.toLowerCase(),
+                    book_two: odd.book_two.toLowerCase()
                 })
             })
             const odds = rawOdds.map((odd) => {
@@ -98,6 +101,44 @@ export default class Dutcher extends Component {
         }
     }
 
+    // First Bookmaker filter
+    firstBookmakerFilter = () => {
+        let odds = this.state.odds
+        let input = this.state.firstBookmaker
+
+        if(input === "" || input === "Bookmaker Principale"){
+            this.setState({odds: odds})
+        }
+
+        if(input === "GolGol"){
+            odds = odds.filter((odd) => odd.book_one)
+        }
+        if(input === "Eurobet"){
+            
+        }
+        if(input === "Lopoca"){
+            
+        }
+        if(input === "MarathonBet"){
+            
+        }
+        if(input === "OverPlus"){
+            
+        }
+        if(input === "PlanetWin365"){
+            
+        }
+        if(input === "Sisal"){
+            
+        }
+        if(input === "StarCasino"){
+            
+        }
+        if(input === "VinciTu"){
+            
+        }
+    } 
+
     componentDidMount = () => {
         this.fetchOdds()
     }
@@ -111,15 +152,33 @@ export default class Dutcher extends Component {
                 <DutcherInfoModal show={this.state.showMatchInfoModal} onHide={this.closeMatchInfoModal} matchInfo={this.state.matchInfo}/>
                 <ToolsTitle title={"Dutcher"}/>
                 <Row>
-                    <Col xs={12} md={5} className="dutcher-settings-columns">
+                    <Col xs={12} md={4} className="dutcher-settings-columns">
                         <Button variant="light" onClick={this.openfilterModal}>
                             <span>Opzioni Di Ricerca</span>
                         </Button>
                     </Col>
-                    <Col xs={12} md={5} className="dutcher-settings-columns">
+                    <Col xs={12} md={4} className="dutcher-settings-columns">
                         <Button variant="light" onClick={this.openBookmakersModal}>
                             <span>Opzioni Bookmakers</span>
                         </Button>
+                    </Col>
+                    <Col xs={12} md={2} className="dutcher-settings-columns">
+                        <Form>
+                        <Form.Group>
+                            <Form.Control as="select" onChange={(e) => console.log(e.currentTarget.value)}>
+                            <option>Bookmaker Principale</option>
+                            <option>GolGol</option>
+                            <option>Eurobet</option>
+                            <option>Lopoca</option>
+                            <option>MarathonBet</option>
+                            <option>OverPlus</option>
+                            <option>PlanetWin365</option>
+                            <option>Sisal</option>
+                            <option>StarCasino</option>
+                            <option>VinciTu</option>
+                            </Form.Control>
+                        </Form.Group>
+                        </Form>
                     </Col>
                     <Col xs={12} md={2} className="dutcher-settings-columns">
                         <Button className="refresh-button" onClick={this.refreshOdds}>

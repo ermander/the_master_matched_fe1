@@ -28,8 +28,9 @@ export default class Dutcher extends Component {
         showBookmakersModal: false,
         showMatchInfoModal: false,
         odds: [],
+        temporaryOdds: [],
         matchInfo: {},
-        firstBookmaker: "Bookmaker Principale"
+        firstBookmaker: ""
     }
 
     // Filter Modals
@@ -67,7 +68,8 @@ export default class Dutcher extends Component {
                     button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odd)} id="open-dutcher-match-info-modal-icon"/>
                 })
             })            
-            this.setState({odds: odds})
+            this.setState({odds: odds, temporaryOdds: odds})
+            console.log(odds)
         } catch (error) {
             console.log(error)
         }
@@ -105,38 +107,40 @@ export default class Dutcher extends Component {
     firstBookmakerFilter = () => {
         let odds = this.state.odds
         let input = this.state.firstBookmaker
+        console.log(input)
 
         if(input === "" || input === "Bookmaker Principale"){
-            this.setState({odds: odds})
+            this.setState({temporaryOdds: odds})
         }
 
         if(input === "GolGol"){
-            odds = odds.filter((odd) => odd.book_one)
+            odds = odds.filter((odd) => odd.book_one === "golgol" || odd.book_two === "golgol")
         }
         if(input === "Eurobet"){
-            
+            odds = odds.filter((odd) => odd.book_one === "eurobet" || odd.book_two === "eurobet")
         }
         if(input === "Lopoca"){
-            
+            odds = odds.filter((odd) => odd.book_one === "lopoca" || odd.book_two === "lopoca")
         }
         if(input === "MarathonBet"){
-            
+            odds = odds.filter((odd) => odd.book_one === "marathonbet" || odd.book_two === "marathonbet")
         }
         if(input === "OverPlus"){
-            
+            odds = odds.filter((odd) => odd.book_one === "overplus" || odd.book_two === "overplus")
         }
         if(input === "PlanetWin365"){
-            
+            odds = odds.filter((odd) => odd.book_one === "planetwin" || odd.book_two === "planetwin")
         }
         if(input === "Sisal"){
-            
+            odds = odds.filter((odd) => odd.book_one === "sisal" || odd.book_two === "sisal")
         }
         if(input === "StarCasino"){
-            
+            odds = odds.filter((odd) => odd.book_one === "starcasino" || odd.book_two === "starcasino")
         }
         if(input === "VinciTu"){
-            
+            odds = odds.filter((odd) => odd.book_one === "vincitu" || odd.book_two === "vincitu")
         }
+        this.setState({temporaryOdds: odds})
     } 
 
     componentDidMount = () => {
@@ -165,7 +169,7 @@ export default class Dutcher extends Component {
                     <Col xs={12} md={2} className="dutcher-settings-columns">
                         <Form>
                         <Form.Group>
-                            <Form.Control as="select" onChange={(e) => console.log(e.currentTarget.value)}>
+                            <Form.Control as="select" onChange={(e) => this.setState({firstBookmaker: e.currentTarget.value}, this.firstBookmakerFilter)}>
                             <option>Bookmaker Principale</option>
                             <option>GolGol</option>
                             <option>Eurobet</option>
@@ -188,7 +192,7 @@ export default class Dutcher extends Component {
                 </Row>
                 <Row id="dutcher-table-row">
                     <Col xs={12}>
-                        <DataTablePage odds={this.state.odds}/>
+                        <DataTablePage odds={this.state.temporaryOdds}/>
                     </Col>
                 </Row>
             </div>

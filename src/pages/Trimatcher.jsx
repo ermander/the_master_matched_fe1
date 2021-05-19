@@ -191,7 +191,7 @@ export default class Trimatcher extends Component {
 
                 <Row id="trimatcher-table-row">
                     <Col xs={12}>
-                        <DataTablePage odds={this.state.odds} />
+                        <DataTablePage odds={this.state.temporaryOdds} />
                     </Col>
                 </Row>
             </div>

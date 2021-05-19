@@ -107,7 +107,6 @@ export default class Dutcher extends Component {
     firstBookmakerFilter = () => {
         let odds = this.state.odds
         let input = this.state.firstBookmaker
-        console.log(input)
 
         if(input === "" || input === "Bookmaker Principale"){
             this.setState({temporaryOdds: odds})
@@ -168,20 +167,20 @@ export default class Dutcher extends Component {
                     </Col>
                     <Col xs={12} md={2} className="dutcher-settings-columns">
                         <Form>
-                        <Form.Group>
-                            <Form.Control as="select" onChange={(e) => this.setState({firstBookmaker: e.currentTarget.value}, this.firstBookmakerFilter)}>
-                            <option>Bookmaker Principale</option>
-                            <option>GolGol</option>
-                            <option>Eurobet</option>
-                            <option>Lopoca</option>
-                            <option>MarathonBet</option>
-                            <option>OverPlus</option>
-                            <option>PlanetWin365</option>
-                            <option>Sisal</option>
-                            <option>StarCasino</option>
-                            <option>VinciTu</option>
-                            </Form.Control>
-                        </Form.Group>
+                            <Form.Group>
+                                <Form.Control as="select" onChange={(e) => this.setState({firstBookmaker: e.currentTarget.value}, this.firstBookmakerFilter)}>
+                                <option>Bookmaker Principale</option>
+                                <option>GolGol</option>
+                                <option>Eurobet</option>
+                                <option>Lopoca</option>
+                                <option>MarathonBet</option>
+                                <option>OverPlus</option>
+                                <option>PlanetWin365</option>
+                                <option>Sisal</option>
+                                <option>StarCasino</option>
+                                <option>VinciTu</option>
+                                </Form.Control>
+                            </Form.Group>
                         </Form>
                     </Col>
                     <Col xs={12} md={2} className="dutcher-settings-columns">

@@ -9,7 +9,7 @@ import TrimatcherFiltersModal from '../components/Trimatcher/TrimatcherFiltersMo
 import TrimatcherInfoModal from "../components/Trimatcher/TrimatcherInfoModal"
 
 // React BootStrap
-import { Row, Col, Button } from "react-bootstrap"
+import { Row, Col, Button, Form } from "react-bootstrap"
 
 //SCSS 
 import "../styles/_trimatcher.scss"
@@ -28,7 +28,9 @@ export default class Trimatcher extends Component {
         showFilterModal: false,
         showMatchInfoModal: false,
         odds: [],
-        matchInfo: {}
+        temporaryOdds: [],
+        matchInfo: {},
+        firstBookmaker: ""
     }    
 
     // Filter modal
@@ -100,6 +102,45 @@ export default class Trimatcher extends Component {
         }
     }
 
+    // First Bookmaker filter
+    firstBookmakerFilter = () => {
+        let odds = this.state.odds
+        let input = this.state.firstBookmaker
+        console.log(input)
+        if(input === "" || input === "Bookmaker Principale"){
+            this.setState({temporaryOdds: odds})
+        }
+
+        if(input === "GolGol"){
+            odds = odds.filter((odd) => odd.book_one === "golgol" || odd.book_two === "golgol" || odd.book_three === "golgol")
+        }
+        if(input === "Eurobet"){
+            odds = odds.filter((odd) => odd.book_one === "eurobet" || odd.book_two === "eurobet" || odd.book_three === "eurobet")
+        }
+        if(input === "Lopoca"){
+            odds = odds.filter((odd) => odd.book_one === "lopoca" || odd.book_two === "lopoca" || odd.book_three === "lopoca")
+        }
+        if(input === "MarathonBet"){
+            odds = odds.filter((odd) => odd.book_one === "marathonbet" || odd.book_two === "marathonbet" || odd.book_three === "marathonbet")
+        }
+        if(input === "OverPlus"){
+            odds = odds.filter((odd) => odd.book_one === "overplus" || odd.book_two === "overplus" || odd.book_three === "overplus")
+        }
+        if(input === "PlanetWin365"){
+            odds = odds.filter((odd) => odd.book_one === "planetwin" || odd.book_two === "planetwin" || odd.book_three === "planetwin")
+        }
+        if(input === "Sisal"){
+            odds = odds.filter((odd) => odd.book_one === "sisal" || odd.book_two === "sisal" || odd.book_three === "sisal")
+        }
+        if(input === "StarCasino"){
+            odds = odds.filter((odd) => odd.book_one === "starcasino" || odd.book_two === "starcasino" || odd.book_three === "starcasino")
+        }
+        if(input === "VinciTu"){
+            odds = odds.filter((odd) => odd.book_one === "vincitu" || odd.book_two === "vincitu" || odd.book_three === "vincitu")
+        }
+        this.setState({temporaryOdds: odds})
+    }
+
     componentDidMount = () => {
         this.fetchOdds()
     }
@@ -113,15 +154,33 @@ export default class Trimatcher extends Component {
                 <TrimatcherFiltersModal show={this.state.showFilterModal} onHide={this.closeFilterModal} />
                 <TrimatcherInfoModal show={this.state.showMatchInfoModal} onHide={this.closeMatchInfoModal} matchInfo={this.state.matchInfo}/>
                 <Row>
-                    <Col xs={12} md={5} className="trimatcher-settings-columns">
+                    <Col xs={12} md={4} className="trimatcher-settings-columns">
                         <Button variant="light" onClick={this.openFilterModal}>
                             <span>Opzioni Di Ricerca</span>
                         </Button>
                     </Col>
-                    <Col xs={12} md={5} className="trimatcher-settings-columns">
+                    <Col xs={12} md={4} className="trimatcher-settings-columns">
                         <Button variant="light" onClick={this.openBookmakerModal}>
                             <span>Opzioni Bookmakers</span>
                         </Button>
+                    </Col>
+                    <Col xs={12} md={2} className="trimatcher-settings-columns">
+                    <Form>
+                        <Form.Group>
+                            <Form.Control as="select" onChange={(e) => this.setState({firstBookmaker: e.currentTarget.value}, this.firstBookmakerFilter)}>
+                                <option>Bookmaker Principale</option>
+                                <option>GolGol</option>
+                                <option>Eurobet</option>
+                                <option>Lopoca</option>
+                                <option>MarathonBet</option>
+                                <option>OverPlus</option>
+                                <option>PlanetWin365</option>
+                                <option>Sisal</option>
+                                <option>StarCasino</option>
+                                <option>VinciTu</option>
+                                </Form.Control>
+                            </Form.Group>
+                        </Form>
                     </Col>
                     <Col xs={12} md={2} className="trimatcher-settings-columns">
                         <Button className="refresh-button" onClick={this.refreshOdds}>

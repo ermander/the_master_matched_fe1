@@ -58,7 +58,10 @@ export default class Trimatcher extends Component {
                     tableRoi: odd.roi.toFixed(2) + "%",
                     book_one_image: <img src={logos[odd.book_one]} alt={logos[odd.book_one]} />, 
                     book_two_image: <img src={logos[odd.book_two]} alt={logos[odd.book_two]} />,
-                    book_three_image: <img src={logos[odd.book_three]} alt={logos[odd.book_three]} />
+                    book_three_image: <img src={logos[odd.book_three]} alt={logos[odd.book_three]} />,
+                    book_one: odd.book_one.toLowerCase(),
+                    book_two: odd.book_two.toLowerCase(),
+                    book_three: odd.book_three.toLowerCase()
                 })
             })
             const odds = rawOdds.map((odd) => {

@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Modal, Row, Col, Button, Form, InputGroup, FormControl } from "react-bootstrap"
 
-export default function DutcherFiltersModal({show, onHide}) {
-    return (
-        <Modal show={show} onHide={onHide}>
+export default class DutcherFiltersModal extends Component {
+    state = {
+        minOdd: "",
+        maxOdd: "",
+        startDate: "",
+        endDate: "",
+        startTime: "",
+        endTime: ""
+    }
+
+    render() {
+        return (
+            <Modal show={this.props.show} onHide={this.props.onHide}>
             <Modal.Body>
                 <div id="title">
                     <h3>Opzioni Di Ricerca</h3>
@@ -78,13 +88,17 @@ export default function DutcherFiltersModal({show, onHide}) {
                             <Col xs={7}>
                                 <InputGroup>
                                     <FormControl
-                                    type="date"/>
+                                        type="date"
+                                        onChange={(e) => this.setState({startDate: e.currentTarget.value})}
+                                    />
                                 </InputGroup>
                             </Col>
                             <Col xs={3}>
                                 <InputGroup>
                                     <FormControl 
-                                    type="date" />
+                                        type="time" 
+                                        onChange={(e) => this.setState({startTime: e.currentTarget.value})}
+                                    />
                                 </InputGroup>
                             </Col>
                         </Row>
@@ -95,13 +109,17 @@ export default function DutcherFiltersModal({show, onHide}) {
                             <Col xs={7}>
                                 <InputGroup>
                                     <FormControl
-                                    type="date"/>
+                                        type="date"
+                                        onChange={(e) => this.setState({endDate: e.currentTarget.value})}
+                                    />
                                 </InputGroup>
                             </Col>
                             <Col xs={3}>
                                 <InputGroup>
                                     <FormControl 
-                                    type="date" />
+                                        type="time" 
+                                        onChange={(e) => this.setState({endTime: e.currentTarget.value})}    
+                                    />
                                 </InputGroup>
                             </Col>
                         </Row>
@@ -112,16 +130,18 @@ export default function DutcherFiltersModal({show, onHide}) {
                             <Col xs={5}>
                                 <InputGroup>
                                     <FormControl 
-                                    type="text"
+                                    type="number"
                                     placeholder="Quota Min."
+                                    onChange={(e) => {this.setState({minOdd: e.currentTarget.value})}}
                                     />
                                 </InputGroup>
                             </Col>
                             <Col xs={5}>
                                 <InputGroup>
                                     <FormControl 
-                                    type="text"
+                                    type="number"
                                     placeholder="Quota Max."
+                                    onChange={(e) => {this.setState({maxOdd: e.currentTarget.value})}}
                                     />
                                 </InputGroup>
                             </Col>
@@ -161,15 +181,26 @@ export default function DutcherFiltersModal({show, onHide}) {
             </Row>
             <Row className="filters-footer">
                 <Col xs={12} md={4}>
-                    <Button variant="success">Salva</Button>
+                    <Button variant="success" onClick={() => this.props.setFilters({
+                        minOdd: parseFloat(this.state.minOdd),
+                        maxOdd: parseFloat(this.state.maxOdd),
+                        startDate: this.state.startDate,
+                        endDate: this.state.endDate,
+                        startTime: this.state.startTime,
+                        endTime: this.state.endTime
+                    })}>
+                        Salva
+                    </Button>
                 </Col>
                 <Col xs={12} md={4}>
-                    <Button onClick={onHide} variant="secondary">Chiudi</Button>
+                    <Button onClick={this.props.onHide} variant="secondary">Chiudi</Button>
                 </Col>
                 <Col xs={12} md={4}>
-                    <Button onClick={onHide} variant="danger">Reset</Button>
+                    <Button onClick={this.props.reSetOdds} variant="danger">Reset</Button>
                 </Col>
             </Row>
         </Modal>
-    )
+        )
+    }
 }
+

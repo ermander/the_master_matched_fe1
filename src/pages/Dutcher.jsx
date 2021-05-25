@@ -210,7 +210,7 @@ export default class Dutcher extends Component {
         // End Time
         if(!isNaN(endHour) && !isNaN(endMinute)){
             odds = odds.filter((odd) => 
-                parseInt(odd.start_time.split(":")[0] <= endHour) 
+                parseInt(odd.start_time.split(":")[0]) <= endHour
                 // &&
                 // parseInt(odd.start_time.split(":")[1]) <= startMinute
             )

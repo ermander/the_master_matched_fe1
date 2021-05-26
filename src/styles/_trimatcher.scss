@@ -24,6 +24,14 @@
 
     #trimatcher-table-row{
         margin-top: 1rem;
+        
+        .spinner-grow {
+            position: absolute;
+            top: 25vh;
+            right: 50vw;
+            width: 4rem;
+            height: 4rem;
+          }
     }
     
     .rt-table{

@@ -172,8 +172,6 @@ export default class Dutcher extends Component {
         let endHour = options.endTime !== "" ? parseInt(options.endTime.split(":")[0]) : NaN
         let endMinute = options.endTime !== "" ? parseInt(options.endTime.split(":")[1]) : NaN
 
-        console.log(startHour, endHour)
-
         // FILTERING ODDS BASE ON START/END OPTIONS
         // Deleting odds with no data or time specified
         odds = odds.filter((odd) => odd.start_date !== undefined && odd.start_time !== undefined)

@@ -181,15 +181,17 @@ export default class DutcherFiltersModal extends Component {
             </Row>
             <Row className="filters-footer">
                 <Col xs={12} md={4}>
-                    <Button variant="success" onClick={() => this.props.setFilters({
-                        minOdd: parseFloat(this.state.minOdd),
-                        maxOdd: parseFloat(this.state.maxOdd),
-                        startDate: this.state.startDate,
-                        endDate: this.state.endDate,
-                        startTime: this.state.startTime,
-                        endTime: this.state.endTime
-                    })}>
-                        Salva
+                    <Button 
+                        variant="success" 
+                        onClick={() => this.props.setFilters({
+                            minOdd: parseFloat(this.state.minOdd),
+                            maxOdd: parseFloat(this.state.maxOdd),
+                            startDate: this.state.startDate,
+                            endDate: this.state.endDate,
+                            startTime: this.state.startTime,
+                            endTime: this.state.endTime
+                        })}>
+                            Salva
                     </Button>
                 </Col>
                 <Col xs={12} md={4}>

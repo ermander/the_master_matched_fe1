@@ -20,7 +20,7 @@ import { faPercentage } from "@fortawesome/free-solid-svg-icons"
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons"
 
 // Logos
-import { logos } from "../components/Utils/bookmakersLogos"
+import { logos, bookmakerNames } from "../components/Utils/bookmakersLogos"
 
 export default class Trimatcher extends Component {
     state = {
@@ -93,7 +93,10 @@ export default class Trimatcher extends Component {
                     tableRoi: odd.roi.toFixed(2) + "%",                          
                     book_one_image: <img src={logos[odd.book_one]} alt={logos[odd.book_one]} />, 
                     book_two_image: <img src={logos[odd.book_two]} alt={logos[odd.book_two]} />,
-                    book_three_image: <img src={logos[odd.book_three]} alt={logos[odd.book_three]} />              
+                    book_three_image: <img src={logos[odd.book_three]} alt={logos[odd.book_three]} />,
+                    book_one: odd.book_one.toLowerCase(),
+                    book_two: odd.book_two.toLowerCase(),
+                    book_three: odd.book_three.toLowerCase()           
                 })
             })
             const odds = rawOdds.map((odd) => {
@@ -125,31 +128,31 @@ export default class Trimatcher extends Component {
         if(input === "" || input === "Bookmaker Principale"){
             this.setState({temporaryOdds: odds})        }
 
-        if(input === "GolGol"){
+        if(input === "golgol"){
             odds = odds.filter((odd) => odd.book_one === "golgol" || odd.book_two === "golgol" || odd.book_three === "golgol")
         }
-        if(input === "Eurobet"){
+        if(input === "eurobet"){
             odds = odds.filter((odd) => odd.book_one === "eurobet" || odd.book_two === "eurobet" || odd.book_three === "eurobet")
         }
-        if(input === "Lopoca"){
+        if(input === "lopoca"){
             odds = odds.filter((odd) => odd.book_one === "lopoca" || odd.book_two === "lopoca" || odd.book_three === "lopoca")
         }
-        if(input === "MarathonBet"){
+        if(input === "marathonbet"){
             odds = odds.filter((odd) => odd.book_one === "marathonbet" || odd.book_two === "marathonbet" || odd.book_three === "marathonbet")
         }
-        if(input === "OverPlus"){
+        if(input === "overplus"){
             odds = odds.filter((odd) => odd.book_one === "overplus" || odd.book_two === "overplus" || odd.book_three === "overplus")
         }
-        if(input === "PlanetWin365"){
+        if(input === "planetwin"){
             odds = odds.filter((odd) => odd.book_one === "planetwin" || odd.book_two === "planetwin" || odd.book_three === "planetwin")
         }
-        if(input === "Sisal"){
+        if(input === "sisal"){
             odds = odds.filter((odd) => odd.book_one === "sisal" || odd.book_two === "sisal" || odd.book_three === "sisal")
         }
-        if(input === "StarCasino"){
+        if(input === "starcasino"){
             odds = odds.filter((odd) => odd.book_one === "starcasino" || odd.book_two === "starcasino" || odd.book_three === "starcasino")
         }
-        if(input === "VinciTu"){
+        if(input === "vincitu"){
             odds = odds.filter((odd) => odd.book_one === "vincitu" || odd.book_two === "vincitu" || odd.book_three === "vincitu")
         }
         this.setState({temporaryOdds: odds, isLoading: false})
@@ -160,7 +163,7 @@ export default class Trimatcher extends Component {
         this.setState({isLoading: true})
         console.log(options)
 
-        // Splitting all the date informations
+        // Date informations
         let odds = this.state.odds
         let startYear = options.startDate !== "" ? parseInt(options.startDate.split("-")[0]) : NaN
         let startMonth = options.startDate !== "" ? parseInt(options.startDate.split("-")[1]) : NaN
@@ -213,6 +216,54 @@ export default class Trimatcher extends Component {
             )
         }
 
+        // Filter odds based on Min and Max odd
+        if(this.state.firstBookmaker !== "" || this.state.firstBookmaker !== "Bookmaker Principale"){
+            // Min Odd
+            if(!isNaN(options.minOdd)){
+                odds = odds.filter((odd) => 
+                    (
+                        odd.book_one === bookmakerNames[this.state.firstBookmaker] 
+                        && 
+                        parseFloat(odd.odd_one) >= options.minOdd
+                    )
+                    ||
+                    (
+                        odd.book_two === bookmakerNames[this.state.firstBookmaker] 
+                        && 
+                        parseFloat(odd.odd_two) >= options.minOdd
+                    )
+                    ||
+                    (
+                        odd.book_three === bookmakerNames[this.state.firstBookmaker] 
+                        && 
+                        parseFloat(odd.odd_three) >= options.minOdd
+                    )
+                ) 
+            }
+            // Max Odd
+            if(!isNaN(options.maxOdd)){
+                odds = odds.filter((odd) => 
+                    (
+                        odd.book_one === bookmakerNames[this.state.firstBookmaker] 
+                        && 
+                        parseFloat(odd.odd_one) <= options.maxOdd
+                    )
+                    ||
+                    (
+                        odd.book_two === bookmakerNames[this.state.firstBookmaker] 
+                        && 
+                        parseFloat(odd.odd_two) <= options.maxOdd
+                    )
+                    ||
+                    (
+                        odd.book_three === bookmakerNames[this.state.firstBookmaker] 
+                        && 
+                        parseFloat(odd.odd_three) <= options.maxOdd
+                    )
+                ) 
+            }
+        }
+
         this.setState({
             temporaryOdds: odds,
             isLoading: false,
@@ -258,7 +309,7 @@ export default class Trimatcher extends Component {
                     <Col xs={12} md={2} className="trimatcher-settings-columns">
                     <Form>
                         <Form.Group>
-                            <Form.Control as="select" onChange={(e) => this.setState({firstBookmaker: e.currentTarget.value}, this.firstBookmakerFilter)}>
+                            <Form.Control as="select" onChange={(e) => this.setState({firstBookmaker: e.currentTarget.value.toLowerCase()}, this.firstBookmakerFilter)}>
                                 <option>Bookmaker Principale</option>
                                 <option>GolGol</option>
                                 <option>Eurobet</option>

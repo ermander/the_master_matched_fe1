@@ -173,10 +173,6 @@ export default class Dutcher extends Component {
         let startMinute = options.startTime !== "" ? parseInt(options.startTime.split(":")[1]) : NaN
         let endHour = options.endTime !== "" ? parseInt(options.endTime.split(":")[0]) : NaN
         let endMinute = options.endTime !== "" ? parseInt(options.endTime.split(":")[1]) : NaN
-        
-        // Odd Informations
-        let minOdd = options.minOdd !== "" ? parseFloat(options.minOdd) : null
-        let maxOdd = options.maxOdd !== "" ? parseFloat(options.maxOdd) : null
 
         // FILTERING ODDS BASE ON START/END OPTIONS
         // Deleting odds with no data or time specified

@@ -221,7 +221,7 @@ export default class Dutcher extends Component {
         // Filter odds based on Min and Max odd
         if(this.state.firstBookmaker !== "" || this.state.firstBookmaker !== "Bookmaker Principale"){
             // Min Odd
-            if(options.minOdd !== null){
+            if(!isNaN(options.minOdd)){
                 odds = odds.filter((odd) => 
                     (
                         odd.book_one === bookmakerNames[this.state.firstBookmaker] 
@@ -237,7 +237,7 @@ export default class Dutcher extends Component {
                 ) 
             }
             // Max Odd
-            if(options.maxOdd !== null){
+            if(!isNaN(options.maxOdd)){
                 odds = odds.filter((odd) =>
                     (
                         odd.book_one === bookmakerNames[this.state.firstBookmaker]

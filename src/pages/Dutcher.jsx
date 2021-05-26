@@ -20,7 +20,7 @@ import { faPercentage } from "@fortawesome/free-solid-svg-icons"
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons"
 
 // Logos
-import { logos } from "../components/Utils/bookmakersLogos"
+import { logos, bookmakerNames } from "../components/Utils/bookmakersLogos"
 
 export default class Dutcher extends Component {
     state={
@@ -91,7 +91,9 @@ export default class Dutcher extends Component {
                     roi: odd.roi.toFixed(2),
                     tableRoi: odd.roi.toFixed(2) + "%",    
                     book_one_image: <img src={logos[odd.book_one]} alt={logos[odd.book_one] + " logo"}/>,
-                    book_two_image: <img src={logos[odd.book_two]} alt={logos[odd.book_two] + " logo"}/>                
+                    book_two_image: <img src={logos[odd.book_two]} alt={logos[odd.book_two] + " logo"}/>,    
+                    book_one: odd.book_one.toLowerCase(),
+                    book_two: odd.book_two.toLowerCase()          
                 })
             })
             const odds = rawOdds.map((odd) => {
@@ -123,31 +125,31 @@ export default class Dutcher extends Component {
         if(input === "" || input === "Bookmaker Principale"){
             this.setState({temporaryOdds: odds})
         }
-        if(input === "GolGol"){
+        if(input === "golgol"){
             odds = odds.filter((odd) => odd.book_one === "golgol" || odd.book_two === "golgol")
         }
-        if(input === "Eurobet"){
+        if(input === "eurobet"){
             odds = odds.filter((odd) => odd.book_one === "eurobet" || odd.book_two === "eurobet")
         }
-        if(input === "Lopoca"){
+        if(input === "lopoca"){
             odds = odds.filter((odd) => odd.book_one === "lopoca" || odd.book_two === "lopoca")
         }
-        if(input === "MarathonBet"){
+        if(input === "marathonbet"){
             odds = odds.filter((odd) => odd.book_one === "marathonbet" || odd.book_two === "marathonbet")
         }
-        if(input === "OverPlus"){
+        if(input === "overplus"){
             odds = odds.filter((odd) => odd.book_one === "overplus" || odd.book_two === "overplus")
         }
-        if(input === "PlanetWin365"){
+        if(input === "planetwin"){
             odds = odds.filter((odd) => odd.book_one === "planetwin" || odd.book_two === "planetwin")
         }
-        if(input === "Sisal"){
+        if(input === "sisal"){
             odds = odds.filter((odd) => odd.book_one === "sisal" || odd.book_two === "sisal")
         }
-        if(input === "StarCasino"){
+        if(input === "starcasino"){
             odds = odds.filter((odd) => odd.book_one === "starcasino" || odd.book_two === "starcasino")
         }
-        if(input === "VinciTu"){
+        if(input === "vincitu"){
             odds = odds.filter((odd) => odd.book_one === "vincitu" || odd.book_two === "vincitu")
         }
         
@@ -159,7 +161,7 @@ export default class Dutcher extends Component {
         this.setState({isLoading: true})
         console.log(options)
 
-        // Splitting all the date informations
+        // Date informations
         let odds = this.state.odds
         let startYear = options.startDate !== "" ? parseInt(options.startDate.split("-")[0]) : NaN
         let startMonth = options.startDate !== "" ? parseInt(options.startDate.split("-")[1]) : NaN
@@ -171,6 +173,10 @@ export default class Dutcher extends Component {
         let startMinute = options.startTime !== "" ? parseInt(options.startTime.split(":")[1]) : NaN
         let endHour = options.endTime !== "" ? parseInt(options.endTime.split(":")[0]) : NaN
         let endMinute = options.endTime !== "" ? parseInt(options.endTime.split(":")[1]) : NaN
+        
+        // Odd Informations
+        let minOdd = options.minOdd !== "" ? parseFloat(options.minOdd) : null
+        let maxOdd = options.maxOdd !== "" ? parseFloat(options.maxOdd) : null
 
         // FILTERING ODDS BASE ON START/END OPTIONS
         // Deleting odds with no data or time specified
@@ -212,14 +218,41 @@ export default class Dutcher extends Component {
             )
         }
 
-        // Filter odds based on first bookmaker shown
-        if(this.state.firstBookmaker === "" || this.state.firstBookmaker === "Bookmaker Principale"){
-            if(!isNaN(options.minOdd)){
-                odds = odds.filter((odd) => odd.odd_one >= options.minOdd)
+        // Filter odds based on Min and Max odd
+        if(this.state.firstBookmaker !== "" || this.state.firstBookmaker !== "Bookmaker Principale"){
+            // Min Odd
+            if(options.minOdd !== null){
+                odds = odds.filter((odd) => 
+                    (
+                        odd.book_one === bookmakerNames[this.state.firstBookmaker] 
+                        && 
+                        parseFloat(odd.odd_one) >= options.minOdd
+                    )
+                    ||
+                    (
+                        odd.book_two === bookmakerNames[this.state.firstBookmaker] 
+                        && 
+                        parseFloat(odd.odd_two) >= options.minOdd
+                    )
+                ) 
             }
-            if(!isNaN(options.maxOdd)){
-                odds = odds.filter((odd) => odd.odd_one <= options.maxOdd)
+            // Max Odd
+            if(options.maxOdd !== null){
+                odds = odds.filter((odd) =>
+                    (
+                        odd.book_one === bookmakerNames[this.state.firstBookmaker]
+                        &&
+                        parseFloat(odd.odd_one) <= options.maxOdd
+                    )
+                    ||
+                    (
+                        odd.book_two === bookmakerNames[this.state.firstBookmaker] 
+                        && 
+                        parseFloat(odd.odd_two) <= options.minOdd
+                    )
+                )
             }
+            console.log(logos)
         }
         this.setState({
             temporaryOdds: odds, 
@@ -260,7 +293,7 @@ export default class Dutcher extends Component {
                     <Col xs={12} md={2} className="dutcher-settings-columns">
                         <Form>
                             <Form.Group>
-                                <Form.Control as="select" onChange={(e) => this.setState({firstBookmaker: e.currentTarget.value}, this.firstBookmakerFilter)}>
+                                <Form.Control as="select" onChange={(e) => this.setState({firstBookmaker: e.currentTarget.value.toLowerCase()}, this.firstBookmakerFilter)}>
                                 <option>Bookmaker Principale</option>
                                 <option>GolGol</option>
                                 <option>Eurobet</option>

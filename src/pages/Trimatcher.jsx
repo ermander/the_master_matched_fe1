@@ -30,7 +30,8 @@ export default class Trimatcher extends Component {
         odds: [],
         temporaryOdds: [],
         matchInfo: {},
-        firstBookmaker: ""
+        firstBookmaker: "",
+        isLoading: true
     }    
 
     // Filter modal
@@ -47,6 +48,7 @@ export default class Trimatcher extends Component {
 
     // Fetch odds
     fetchOdds = async () => {
+        this.setState({isLoading: true})
         try {
             const response = await fetch("https://the-master-matched-be-new.herokuapp.com/google-odds/trimatcher-odds")
             const parsedResponse = await response.json()
@@ -70,7 +72,7 @@ export default class Trimatcher extends Component {
                     button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odd)} id="open-trimatcher-match-info-modal-icon"/>
                 })
             })            
-            this.setState({odds: odds, temporaryOdds: odds})
+            this.setState({odds: odds, temporaryOdds: odds, isLoading: false})
         } catch (error) {
             console.log(error)
         }
@@ -78,6 +80,7 @@ export default class Trimatcher extends Component {
 
     // Refresh Odds
     refreshOdds = async () => {
+        this.setState({isLoading: true})
         try {
             this.setState({odds: []})
             const response = await fetch("https://the-master-matched-be-new.herokuapp.com/google-odds/trimatcher-odds")
@@ -99,20 +102,28 @@ export default class Trimatcher extends Component {
                     button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odd)} id="open-trimatcher-match-info-modal-icon"/>
                 })
             })            
-            this.setState({odds: odds, temporaryOdds: odds})
+            this.setState({odds: odds, temporaryOdds: odds, isLoading: false})
         } catch (error) {
             console.log(error)
         }
+    }
+
+    // ReSet Odds
+    reSetOdds = () => {
+        this.setState({
+            temporaryOdds: this.state.odds
+        })
     }
 
     // First Bookmaker filter
     firstBookmakerFilter = () => {
         let odds = this.state.odds
         let input = this.state.firstBookmaker
-        console.log(input)
+        this.setState({isLoading: true})
+
+        // First checks if there is any main bookmaker selected
         if(input === "" || input === "Bookmaker Principale"){
-            this.setState({temporaryOdds: odds})
-        }
+            this.setState({temporaryOdds: odds})        }
 
         if(input === "GolGol"){
             odds = odds.filter((odd) => odd.book_one === "golgol" || odd.book_two === "golgol" || odd.book_three === "golgol")
@@ -141,8 +152,10 @@ export default class Trimatcher extends Component {
         if(input === "VinciTu"){
             odds = odds.filter((odd) => odd.book_one === "vincitu" || odd.book_two === "vincitu" || odd.book_three === "vincitu")
         }
-        this.setState({temporaryOdds: odds})
+        this.setState({temporaryOdds: odds, isLoading: false})
     }
+
+    // Set Filters
 
     componentDidMount = () => {
         this.fetchOdds()

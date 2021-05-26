@@ -123,9 +123,6 @@ export default class Dutcher extends Component {
         if(input === "" || input === "Bookmaker Principale"){
             this.setState({temporaryOdds: odds})
         }
-
-
-
         if(input === "GolGol"){
             odds = odds.filter((odd) => odd.book_one === "golgol" || odd.book_two === "golgol")
         }
@@ -157,8 +154,7 @@ export default class Dutcher extends Component {
         this.setState({temporaryOdds: odds, isLoading: false})
     }
 
-    // Min and Max odd filter
-
+    // Sets Filters
     setFilters = (options) => {
         this.setState({isLoading: true})
         console.log(options)
@@ -192,7 +188,9 @@ export default class Dutcher extends Component {
         // Start Time
         if(!isNaN(startHour) && !isNaN(startMinute)){
             odds = odds.filter((odd) => 
-                parseInt(odd.start_time.split(":")[0]) >= startHour
+                parseInt(odd.start_time.split(":")[0]) >= startHour 
+                //&&
+                //parseInt(odd.start_time.split(":")[1]) >= startMinute
             )
             // odds = odds.filter((odd) => 
             //     parseInt(odd.start_time.split(":")[1]) >= startMinute
@@ -212,7 +210,7 @@ export default class Dutcher extends Component {
             odds = odds.filter((odd) => 
                 parseInt(odd.start_time.split(":")[0]) <= endHour
                 // &&
-                // parseInt(odd.start_time.split(":")[1]) <= startMinute
+                // parseInt(odd.start_time.split(":")[1]) <= startMinute   
             )
         }
 

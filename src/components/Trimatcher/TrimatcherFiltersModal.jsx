@@ -1,3 +1,4 @@
+import { Input } from '@material-ui/core'
 import React, { Component } from 'react'
 import { Modal, Row, Col, Button, FormControl, InputGroup } from "react-bootstrap"
 
@@ -22,7 +23,7 @@ export default class TrimatcherFiltersModal extends Component {
             <Row id="filters-titles">
                 <Col xs={12}>
                     <div className="forms-col">
-                        <h4>Data e Ora:</h4>
+                        <h4>Data e Ora e Quote:</h4>
                         <Row>
                             <Col xs={2}>
                                 <strong>Inizio:</strong>
@@ -61,6 +62,29 @@ export default class TrimatcherFiltersModal extends Component {
                                     <FormControl 
                                         type="time" 
                                         onChange={(e) => this.setState({endTime: e.currentTarget.value})}
+                                    />
+                                </InputGroup>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={2}>
+                                <strong>Quota: </strong>
+                            </Col>
+                            <Col xs={5}>
+                                <InputGroup>
+                                    <FormControl
+                                        type="number"
+                                        placeholder="Quota Min."
+                                        onChange={(e) => this.setState({minOdd: e.currentTarget.value})}
+                                    />
+                                </InputGroup>
+                            </Col>
+                            <Col xs={5}>
+                                <InputGroup>
+                                    <FormControl
+                                        type="number"
+                                        placeholder="Quota Max."
+                                        onChange={(e) => this.setState({maxOdd: e.currentTarget.value})}
                                     />
                                 </InputGroup>
                             </Col>

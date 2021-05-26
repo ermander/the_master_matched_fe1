@@ -7,6 +7,7 @@ import DutcherFiltersModal from "../components/Dutcher/DutcherFiltersModal"
 import DutcherBookmakers from "../components/Dutcher/DutcherBookmakers"
 import DutcherInfoModal from "../components/Dutcher/DutcherInfoModal"
 import ToolsTitle from "../components/ToolsTitle"
+import Disclaimer from "../components/Disclaimer"
 
 // React Bootstrap
 import { Row, Col, Button, Form, Spinner } from "react-bootstrap"
@@ -21,6 +22,9 @@ import { faSyncAlt } from "@fortawesome/free-solid-svg-icons"
 
 // Logos
 import { logos, bookmakerNames } from "../components/Utils/bookmakersLogos"
+
+// Functions
+import  { firstBookmaker }  from "../components/Trimatcher/functions"
 
 export default class Dutcher extends Component {
     state={
@@ -122,36 +126,16 @@ export default class Dutcher extends Component {
         this.setState({isLoading: true})
 
         // First checks if there is any main bookmaker selected
-        if(input === "" || input === "Bookmaker Principale"){
-            this.setState({temporaryOdds: odds})
-        }
-        if(input === "golgol"){
-            odds = odds.filter((odd) => odd.book_one === "golgol" || odd.book_two === "golgol")
-        }
-        if(input === "eurobet"){
-            odds = odds.filter((odd) => odd.book_one === "eurobet" || odd.book_two === "eurobet")
-        }
-        if(input === "lopoca"){
-            odds = odds.filter((odd) => odd.book_one === "lopoca" || odd.book_two === "lopoca")
-        }
-        if(input === "marathonbet"){
-            odds = odds.filter((odd) => odd.book_one === "marathonbet" || odd.book_two === "marathonbet")
-        }
-        if(input === "overplus"){
-            odds = odds.filter((odd) => odd.book_one === "overplus" || odd.book_two === "overplus")
-        }
-        if(input === "planetwin"){
-            odds = odds.filter((odd) => odd.book_one === "planetwin" || odd.book_two === "planetwin")
-        }
-        if(input === "sisal"){
-            odds = odds.filter((odd) => odd.book_one === "sisal" || odd.book_two === "sisal")
-        }
-        if(input === "starcasino"){
-            odds = odds.filter((odd) => odd.book_one === "starcasino" || odd.book_two === "starcasino")
-        }
-        if(input === "vincitu"){
-            odds = odds.filter((odd) => odd.book_one === "vincitu" || odd.book_two === "vincitu")
-        }
+        if(input === "" || input === "Bookmaker Principale") this.setState({temporaryOdds: odds})
+        if(input === "golgol") odds = odds.filter( odd => odd.book_one === "golgol" || odd.book_two === "golgol")
+        if(input === "eurobet") odds = odds.filter( odd => odd.book_one === "eurobet" || odd.book_two === "eurobet")
+        if(input === "lopoca") odds = odds.filter( odd => odd.book_one === "lopoca" || odd.book_two === "lopoca")
+        if(input === "marathonbet") odds = odds.filter( odd => odd.book_one === "marathonbet" || odd.book_two === "marathonbet")
+        if(input === "overplus") odds = odds.filter( odd => odd.book_one === "overplus" || odd.book_two === "overplus")
+        if(input === "planetwin") odds = odds.filter( odd => odd.book_one === "planetwin" || odd.book_two === "planetwin")
+        if(input === "sisal") odds = odds.filter( odd => odd.book_one === "sisal" || odd.book_two === "sisal")
+        if(input === "starcasino") odds = odds.filter( odd => odd.book_one === "starcasino" || odd.book_two === "starcasino")
+        if(input === "vincitu") odds = odds.filter( odd => odd.book_one === "vincitu" || odd.book_two === "vincitu")
         
         this.setState({temporaryOdds: odds, isLoading: false})
     }
@@ -324,6 +308,7 @@ export default class Dutcher extends Component {
                         }
                     </Col>
                 </Row>
+                <Disclaimer />
             </div>
         )
     }

@@ -7,6 +7,7 @@ import DataTablePage from '../components/Trimatcher/TrimatcherTable'
 import TrimatcherBookmakers from "../components/Trimatcher/TrimatcherBookmakers"
 import TrimatcherFiltersModal from '../components/Trimatcher/TrimatcherFiltersModal'
 import TrimatcherInfoModal from "../components/Trimatcher/TrimatcherInfoModal"
+import Disclaimer from "../components/Disclaimer"
 
 // React BootStrap
 import { Row, Col, Button, Form, Spinner } from "react-bootstrap"
@@ -344,7 +345,8 @@ export default class Trimatcher extends Component {
                             )
                         }
                     </Col>
-                </Row>
+                </Row>                
+                <Disclaimer />
             </div>
         )
     }

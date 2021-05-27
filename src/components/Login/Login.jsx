@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom"
 import { Container, Row, Col, Image, Form, Button, Alert } from 'react-bootstrap';
+import { useStateValue } from "../../state/stateProvider";
+import { actionTypes } from "../../reducer/reducer";
 
 import "./login.css"
 
@@ -10,6 +12,7 @@ function Login() {
     const [ password, setPassword ] = useState("")
     const [ show, setShow ] = useState(false)
     const history = useHistory()
+    const [{}, dispatch] = useStateValue();
 
     const handleLogin = async () => {
         try {
@@ -25,6 +28,10 @@ function Login() {
                 }
             })
             if(response.ok){
+                dispatch({
+                    type: actionTypes.SET_USER,
+                    user: true,
+                  });
                 console.log(response)
                 const parsedResponse = await response.json()
                 localStorage.setItem("accessToken", parsedResponse.accessToken)

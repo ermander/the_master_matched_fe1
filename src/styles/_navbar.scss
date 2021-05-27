@@ -118,6 +118,29 @@ a{
     max-height: 50px;
 }
 
+#navbar{
+    text-align: center;
+    .btn.btn-primary{
+        background-color: transparent!important;
+        border: none;
+        border-radius: 0;
+        border-top: 1px solid white;
+        padding: 16px;
+        margin: 0;
+        width: 100%
+    }
+    .btn.btn-primary:hover{
+        border: none;
+        border-radius: 0;
+        border-top: 1px solid white;
+        padding: 16px;
+        margin: 0;
+        width: 100%;
+        background-color: #40434b!important;
+    }
+
+}
+
 @media screen and(max-width: 680px){
     #navbar{
         display: none!important;

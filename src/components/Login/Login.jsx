@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom"
 import { Container, Row, Col, Image, Form, Button, Alert } from 'react-bootstrap';
-import { useStateValue } from "../../state/stateProvider";
-import { actionTypes } from "../../reducer/reducer";
+import { useStateValue } from "../../redux/state/stateProvider";
+import { actionTypes } from "../../redux/reducer/reducer";
+import { connect } from "react-redux"
 
 import "./login.css"
 
@@ -13,6 +14,14 @@ function Login() {
     const [ show, setShow ] = useState(false)
     const history = useHistory()
     const [{}, dispatch] = useStateValue();
+
+    const mapStateToProps = (state) => ({
+        user: state.user
+    })
+
+    const setUserLogged = () => {
+
+    }
 
     const handleLogin = async () => {
         try {
@@ -102,4 +111,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default connect()(Login);

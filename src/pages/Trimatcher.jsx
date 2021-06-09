@@ -32,8 +32,10 @@ export default class Trimatcher extends Component {
         temporaryOdds: [],
         matchInfo: {},
         firstBookmaker: "",
-        isLoading: true
+        isLoading: true,
     }    
+
+
 
     // Filter modal
     openFilterModal = () => this.setState({showFilterModal: true})
@@ -50,10 +52,12 @@ export default class Trimatcher extends Component {
     // Fetch odds
     fetchOdds = async () => {
         this.setState({isLoading: true})
+        console.log(this.state.marketFilter)
         try {
             const response = await fetch("https://the-master-matched-be-new.herokuapp.com/google-odds/trimatcher-odds")
             const parsedResponse = await response.json()
-            const rawOdds = parsedResponse.map((odd) => {
+            console.log(typeof(parsedResponse))
+            const odds = parsedResponse.map((odd) => {
                 return ({
                     ...odd,
                     event: odd.home + " vs " + odd.away,
@@ -67,12 +71,66 @@ export default class Trimatcher extends Component {
                     book_three: odd.book_three.toLowerCase()
                 })
             })
-            const odds = rawOdds.map((odd) => {
-                return({
-                    ...odd,
-                    button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odd)} id="open-trimatcher-match-info-modal-icon"/>
-                })
-            })            
+            
+            const newOdds = []
+            odds.forEach(odd => newOdds.push(odd))
+            const propertyNames = Object.keys(odds).lenght;
+            console.log("prova " + propertyNames)
+            console.log(odds[1].book_one)
+
+
+            // Lista Casi CashBack
+            for(let i = 0; i < odds.lenght; i++){
+                // Caso in cui nessuna delle 3 odd è cashback
+                const odd_one = parseFloat(odds[i].odd_one)
+                const odd_two = parseFloat(odds[i].odd_two)
+                const odd_three = parseFloat(odds[i].odd_three)
+                
+                if(
+                    (odds[i].book_one !== ("overplus" || "golgol")) 
+                    || 
+                    (odds[i].book_two !==  ("overplus" || "golgol"))
+                    || 
+                    (odds[i].book_three !== ("overplus" || "golgol"))
+                    ){
+                        // Calcolo stakes di copertura
+                        // Calculating covering bet stakes
+                        const firstLayStake = Math.floor((odd_one * 100) / odd_two)
+                        const secondLayStake = Math.floor((odd_one * 100) / odd_two)
+
+                        // Calcolo ROI assoluto
+                        // Calculate the absolute ROI
+                        const rowRoi = 100 * odd_one - firstLayStake - secondLayStake - 100
+                        const rawAbsoluteRoi = rowRoi.toFixed(2);
+                        // Calcolo ROI percentuale
+                        // Calculating ROI in percentage
+                        const absoluteRoi = parseFloat(rawAbsoluteRoi)
+
+                        // Calcolo percentuale variazione ROI
+                        // Calculating the ROI variance in percentage
+                        const initialValue = 100 - firstLayStake - secondLayStake
+                        const finalValue = initialValue + absoluteRoi
+
+                        const percentageRoi = (
+                            ((finalValue - initialValue) * 100)
+                        ).toFixed(2)
+
+                        odds[i] = {
+                            ...odds[i],
+                            tablePercentageRoi: percentageRoi + "%",
+                            percentageRoi : percentageRoi,
+                            button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odds[i])} id="open-trimatcher-match-info-modal-icon"/>
+                        }
+
+                        console.log(odds[i].percentageRoi)
+                }
+            }
+            // const odds = odds.map((odd) => {
+            //     return({
+            //         ...odd,
+            //         button: <FontAwesomeIcon icon={faPercentage} onClick={() => this.openMatchInfoModal(odd)} id="open-trimatcher-match-info-modal-icon"/>
+            //     })
+            // })            
             this.setState({odds: odds, temporaryOdds: odds, isLoading: false})
         } catch (error) {
             console.log(error)
@@ -297,12 +355,12 @@ export default class Trimatcher extends Component {
                     matchInfo={this.state.matchInfo}
                 />
                 <Row>
-                    <Col xs={12} md={4} className="trimatcher-settings-columns">
+                    <Col xs={12} md={2} className="trimatcher-settings-columns">
                         <Button variant="light" onClick={this.openFilterModal}>
                             <span>Opzioni Di Ricerca</span>
                         </Button>
                     </Col>
-                    <Col xs={12} md={4} className="trimatcher-settings-columns">
+                    <Col xs={12} md={2} className="trimatcher-settings-columns">
                         <Button variant="light" onClick={this.openBookmakerModal}>
                             <span>Opzioni Bookmakers</span>
                         </Button>
@@ -324,6 +382,12 @@ export default class Trimatcher extends Component {
                                 </Form.Control>
                             </Form.Group>
                         </Form>
+                    </Col>
+                    <Col xs={12} md={2} className="trimatcher-settings-columns">
+                        <Button className="refresh-button"><strong>Filtra Per Rating</strong></Button>
+                    </Col>
+                    <Col xs={12} md={2} className="trimatcher-settings-columns">
+                        <Button className="refresh-button"><strong>Filtra Per ROI</strong></Button>
                     </Col>
                     <Col xs={12} md={2} className="trimatcher-settings-columns">
                         <Button className="refresh-button" onClick={this.refreshOdds}>

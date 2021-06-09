@@ -36,6 +36,10 @@ export default class Dutcher extends Component {
     matchInfo: {},
     isLoading: true,
     firstBookmaker: "",
+    all: true,
+    dc: false,
+    uo: false,
+    ggNg: false,
   };
 
   // Filter Modals
@@ -51,6 +55,155 @@ export default class Dutcher extends Component {
     this.setState({ showMatchInfoModal: true, matchInfo: odd });
   closeMatchInfoModal = () =>
     this.setState({ showMatchInfoModal: false, matchInfo: {} });
+
+  // Sets Filters
+  setFilters = (options) => {
+    console.log(options);
+    let odds = this.state.odds;
+    console.log("prima" + odds.length + "options" + options.uo)
+    
+    this.setState({ isLoading: true, temporaryOdds: odds });
+    for(let i = 0; i<200; i++){
+      console.log(odds[i].market)
+    }
+    // Filter based on market
+
+    const allStatus = options.all
+    const dcStatus = options.dc
+    const uoStatus = options.uo
+    const ggNgStatus = options.ggNg
+
+    // Start to filter the odds only if the all market options is not true
+    if(allStatus === false){
+      console.log("Entro nel filtro per all")
+      // If the DC filter is false, we filter out all the DC odds.
+      // If it's false, the user do not want to see them, soo we mantain only the other odds.
+      if(dcStatus === false){
+        console.log("Entro nel filtro per la DC")
+        for(let i = 0; i < odds.length; i++){
+          odds[i].market === "DC" ? odds.slice(i) : odds[i].market = odds[i].market
+        }
+      }
+      if(uoStatus === false){
+        odds = odds.filter((odd) => odd.market !== "U/O")
+      }
+      if(ggNgStatus === false){
+        odds = odds.filter((odd) => odd.market !== "GG/NG")
+      }
+    }
+
+    console.log("dopo" + odds.length)
+
+    // Date informations
+    let startYear =
+      options.startDate !== ""
+        ? parseInt(options.startDate.split("-")[0])
+        : NaN;
+    let startMonth =
+      options.startDate !== ""
+        ? parseInt(options.startDate.split("-")[1])
+        : NaN;
+    let startDay =
+      options.startDate !== ""
+        ? parseInt(options.startDate.split("-")[2])
+        : NaN;
+    let endYear =
+      options.endDate !== "" ? parseInt(options.endDate.split("-")[0]) : NaN;
+    let endMonth =
+      options.endDate !== "" ? parseInt(options.endDate.split("-")[1]) : NaN;
+    let endDay =
+      options.endDate !== "" ? parseInt(options.endDate.split("-")[2]) : NaN;
+    let startHour =
+      options.startTime !== ""
+        ? parseInt(options.startTime.split(":")[0])
+        : NaN;
+    let startMinute =
+      options.startTime !== ""
+        ? parseInt(options.startTime.split(":")[1])
+        : NaN;
+    let endHour =
+      options.endTime !== "" ? parseInt(options.endTime.split(":")[0]) : NaN;
+    let endMinute =
+      options.endTime !== "" ? parseInt(options.endTime.split(":")[1]) : NaN;
+
+    // FILTERING ODDS BASE ON START/END OPTIONS
+    // Deleting odds with no data or time specified
+    odds = odds.filter(
+      (odd) => odd.start_date !== undefined && odd.start_time !== undefined
+    );
+    // Start Date
+    if (!isNaN(startYear) && !isNaN(startMonth) && !isNaN(startDay)) {
+      odds = odds.filter(
+        (odd) =>
+          parseInt(odd.start_date.split("/")[0]) >= startDay &&
+          parseInt(odd.start_date.split("/")[1]) >= startMonth &&
+          parseInt(odd.start_date.split("/")[2]) >= startYear
+      );
+    }
+    // Start Time
+    if (!isNaN(startHour) && !isNaN(startMinute)) {
+      odds = odds.filter(
+        (odd) => parseInt(odd.start_time.split(":")[0]) >= startHour
+        //&&
+        //parseInt(odd.start_time.split(":")[1]) >= startMinute
+      );
+      // odds = odds.filter((odd) =>
+      //     parseInt(odd.start_time.split(":")[1]) >= startMinute
+      // )
+    }
+
+    // End Date
+    if (!isNaN(endYear) && !isNaN(endMonth) && !isNaN(endDay)) {
+      odds = odds.filter(
+        (odd) =>
+          parseInt(odd.start_date.split("/")[0]) <= endDay &&
+          parseInt(odd.start_date.split("/")[1]) <= endMonth &&
+          parseInt(odd.start_date.split("/")[2]) <= endYear
+      );
+    }
+    // End Time
+    if (!isNaN(endHour) && !isNaN(endMinute)) {
+      odds = odds.filter(
+        (odd) => parseInt(odd.start_time.split(":")[0]) <= endHour
+        // &&
+        // parseInt(odd.start_time.split(":")[1]) <= startMinute
+      );
+    }
+
+    // Filter odds based on Min and Max odd
+    if (
+      this.state.firstBookmaker !== "" ||
+      this.state.firstBookmaker !== "Bookmaker Principale"
+    ) {
+      // Min Odd
+      if (!isNaN(options.minOdd)) {
+        odds = odds.filter(
+          (odd) =>
+            (odd.book_one === bookmakerNames[this.state.firstBookmaker] &&
+              parseFloat(odd.odd_one) >= options.minOdd) ||
+            (odd.book_two === bookmakerNames[this.state.firstBookmaker] &&
+              parseFloat(odd.odd_two) >= options.minOdd)
+        );
+      }
+      // Max Odd
+      if (!isNaN(options.maxOdd)) {
+        odds = odds.filter(
+          (odd) =>
+            (odd.book_one === bookmakerNames[this.state.firstBookmaker] &&
+              parseFloat(odd.odd_one) <= options.maxOdd) ||
+            (odd.book_two === bookmakerNames[this.state.firstBookmaker] &&
+              parseFloat(odd.odd_two) <= options.minOdd)
+        );
+      }
+      console.log(logos);
+    }
+    this.setState({
+      temporaryOdds: odds,
+      isLoading: false,
+      showFilterModal: false,
+    });
+    console.log(odds);
+  };
 
   // Fetching odds and adding the button
   fetchOdds = async () => {
@@ -82,7 +235,9 @@ export default class Dutcher extends Component {
           book_two: odd.book_two.toLowerCase(),
         };
       });
+
       for (let i = 0; i < odds.length; i++) {
+        console.log(odds[i].market);
         if (odds[i].book_one === "overplus" && odds[i].odd_one >= 2) {
           const odd_one = parseFloat(odds[i].odd_one);
           const odd_two = parseFloat(odds[i].odd_two);
@@ -522,6 +677,10 @@ export default class Dutcher extends Component {
   reSetOdds = () => {
     this.setState({
       temporaryOdds: this.state.odds,
+      all: true,
+      dc: false,
+      uo: false,
+      ggNg: false,
     });
   };
 
@@ -575,123 +734,6 @@ export default class Dutcher extends Component {
     this.setState({ temporaryOdds: odds, isLoading: false });
   };
 
-  // Sets Filters
-  setFilters = (options) => {
-    this.setState({ isLoading: true });
-    console.log(options);
-
-    // Date informations
-    let odds = this.state.odds;
-    let startYear =
-      options.startDate !== ""
-        ? parseInt(options.startDate.split("-")[0])
-        : NaN;
-    let startMonth =
-      options.startDate !== ""
-        ? parseInt(options.startDate.split("-")[1])
-        : NaN;
-    let startDay =
-      options.startDate !== ""
-        ? parseInt(options.startDate.split("-")[2])
-        : NaN;
-    let endYear =
-      options.endDate !== "" ? parseInt(options.endDate.split("-")[0]) : NaN;
-    let endMonth =
-      options.endDate !== "" ? parseInt(options.endDate.split("-")[1]) : NaN;
-    let endDay =
-      options.endDate !== "" ? parseInt(options.endDate.split("-")[2]) : NaN;
-    let startHour =
-      options.startTime !== ""
-        ? parseInt(options.startTime.split(":")[0])
-        : NaN;
-    let startMinute =
-      options.startTime !== ""
-        ? parseInt(options.startTime.split(":")[1])
-        : NaN;
-    let endHour =
-      options.endTime !== "" ? parseInt(options.endTime.split(":")[0]) : NaN;
-    let endMinute =
-      options.endTime !== "" ? parseInt(options.endTime.split(":")[1]) : NaN;
-
-    // FILTERING ODDS BASE ON START/END OPTIONS
-    // Deleting odds with no data or time specified
-    odds = odds.filter(
-      (odd) => odd.start_date !== undefined && odd.start_time !== undefined
-    );
-    // Start Date
-    if (!isNaN(startYear) && !isNaN(startMonth) && !isNaN(startDay)) {
-      odds = odds.filter(
-        (odd) =>
-          parseInt(odd.start_date.split("/")[0]) >= startDay &&
-          parseInt(odd.start_date.split("/")[1]) >= startMonth &&
-          parseInt(odd.start_date.split("/")[2]) >= startYear
-      );
-    }
-    // Start Time
-    if (!isNaN(startHour) && !isNaN(startMinute)) {
-      odds = odds.filter(
-        (odd) => parseInt(odd.start_time.split(":")[0]) >= startHour
-        //&&
-        //parseInt(odd.start_time.split(":")[1]) >= startMinute
-      );
-      // odds = odds.filter((odd) =>
-      //     parseInt(odd.start_time.split(":")[1]) >= startMinute
-      // )
-    }
-
-    // End Date
-    if (!isNaN(endYear) && !isNaN(endMonth) && !isNaN(endDay)) {
-      odds = odds.filter(
-        (odd) =>
-          parseInt(odd.start_date.split("/")[0]) <= endDay &&
-          parseInt(odd.start_date.split("/")[1]) <= endMonth &&
-          parseInt(odd.start_date.split("/")[2]) <= endYear
-      );
-    }
-    // End Time
-    if (!isNaN(endHour) && !isNaN(endMinute)) {
-      odds = odds.filter(
-        (odd) => parseInt(odd.start_time.split(":")[0]) <= endHour
-        // &&
-        // parseInt(odd.start_time.split(":")[1]) <= startMinute
-      );
-    }
-
-    // Filter odds based on Min and Max odd
-    if (
-      this.state.firstBookmaker !== "" ||
-      this.state.firstBookmaker !== "Bookmaker Principale"
-    ) {
-      // Min Odd
-      if (!isNaN(options.minOdd)) {
-        odds = odds.filter(
-          (odd) =>
-            (odd.book_one === bookmakerNames[this.state.firstBookmaker] &&
-              parseFloat(odd.odd_one) >= options.minOdd) ||
-            (odd.book_two === bookmakerNames[this.state.firstBookmaker] &&
-              parseFloat(odd.odd_two) >= options.minOdd)
-        );
-      }
-      // Max Odd
-      if (!isNaN(options.maxOdd)) {
-        odds = odds.filter(
-          (odd) =>
-            (odd.book_one === bookmakerNames[this.state.firstBookmaker] &&
-              parseFloat(odd.odd_one) <= options.maxOdd) ||
-            (odd.book_two === bookmakerNames[this.state.firstBookmaker] &&
-              parseFloat(odd.odd_two) <= options.minOdd)
-        );
-      }
-      console.log(logos);
-    }
-    this.setState({
-      temporaryOdds: odds,
-      isLoading: false,
-      showFilterModal: false,
-    });
-    console.log(odds);
-  };
-
   componentDidMount = () => {
     this.fetchOdds();
   };
@@ -717,12 +759,12 @@ export default class Dutcher extends Component {
         />
         <ToolsTitle title={"Dutcher"} />
         <Row>
-          <Col xs={12} md={4} className="dutcher-settings-columns">
+          <Col xs={12} md={2} className="dutcher-settings-columns">
             <Button variant="light" onClick={this.openfilterModal}>
               <span>Opzioni Di Ricerca</span>
             </Button>
           </Col>
-          <Col xs={12} md={4} className="dutcher-settings-columns">
+          <Col xs={12} md={2} className="dutcher-settings-columns">
             <Button variant="light" onClick={this.openBookmakersModal}>
               <span>Opzioni Bookmakers</span>
             </Button>
@@ -752,6 +794,16 @@ export default class Dutcher extends Component {
                 </Form.Control>
               </Form.Group>
             </Form>
+          </Col>
+          <Col xs={12} md={2} className="dutcher-settings-columns">
+            <Button className="refresh-button">
+              <strong>Filtra Per Rating</strong>
+            </Button>
+          </Col>
+          <Col xs={12} md={2} className="dutcher-settings-columns">
+            <Button className="refresh-button">
+              <strong>Filtra Per ROI</strong>
+            </Button>
           </Col>
           <Col xs={12} md={2} className="dutcher-settings-columns">
             <Button className="refresh-button" onClick={this.refreshOdds}>

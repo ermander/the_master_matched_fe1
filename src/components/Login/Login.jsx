@@ -38,7 +38,7 @@ function Login() {
                 const parsedResponse = await response.json()
                 localStorage.setItem("accessToken", parsedResponse.accessToken)
                 localStorage.setItem("refreshToken", parsedResponse.refreshToken)
-                history.push("/cashback-2-vie")
+                history.push("/dutcher")
                 // window.location.href = "http://localhost:3000/cashback-2-vie"
                 
             }else{

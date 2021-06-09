@@ -58,13 +58,13 @@ const DataTablePage = (props) => {
                 minWidth: 100
             },
             {
-                Header: "Roi",
+                Header: "Rating",
                 accessor: "tableRoi",
                 minWidth: 120
             },
             {
-                Header: "Last Upd.",
-                accessor: "last_update",
+                Header: "CashBack ROI %",
+                accessor: "tablePercentageRoi",
                 minWidth: 80
             },
             {

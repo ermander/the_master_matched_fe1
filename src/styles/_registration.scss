@@ -1,13 +1,12 @@
-.login-page-container{
-
+.registration-page-container{
     height: 100vh;
-    .left-side-login-container{
-        @media screen and (max-width: 600px){
+    .left-side-registration-container{
+        @media screen and (max-width: 600px) {
             display: none;
         }
         .image-container{
             margin: 25% auto;
-        }
+        }        
         height: 100%;        
         text-align: center;
         background-color: #a06df2;
@@ -20,7 +19,7 @@
         }
     }
 
-    .right-side-login-container{
+    .right-side-registration-container{
         background-color: #27343e;
         color: white;
         height: 100%;
@@ -30,18 +29,18 @@
             width: 100%;
             border-radius: 0%;
         }
-        .small-screen-logo{    
-            text-align: center;  
+        .small-screen-logo{
+            text-align: center;
             margin-top: -20%;
             margin-bottom: 10%;
             img{
-                width: 70%;    
-                @media screen and (min-width: 600px){
+                width: 70%;
+                @media screen and (min-width: 600px) {
                     display: none;
                 }
             }
         }
-        .login-form{
+        .registration-form{            
             @media screen and (min-width: 1200px) {
                 margin: 25% auto;
             }
@@ -58,7 +57,7 @@
                 margin: 50% auto;
                 width: 100vw!important;
             }
-            .first-row{
+            .first-row{                
                 p{
                     display: inline;
                     padding-bottom: 0.5rem;
@@ -69,18 +68,19 @@
                     color: white!important;
                     text-decoration: none;
                 }
-                p:nth-child(1){
+                p:nth-child(2){
                     font-weight: 500;
                     border-bottom: 2px solid #939a9f;
-                    margin-right: 0.5rem;
+                    
                 }
-                p:nth-child(1):hover{
+                p:nth-child(2):hover{
                     cursor: pointer;
                 }
                 a{
                     color: #000;
                     font-weight: 100;
                     border-bottom: 2px solid #e8e8e8;
+                    margin-right: 0.5rem;
                 }
                 a:hover{
                     border-bottom: 2px solid #939a9f;
@@ -104,7 +104,6 @@
                     background-color: white;
                 }
             }
-
             .button-row{
                 margin-top: 1rem;
                 margin-bottom: 1.5rem;
@@ -120,27 +119,8 @@
                         margin: auto;
                     }
                 }
-                a{
-                    display: inline;
-                    border: none;
-                    margin-left: 1rem;
-                    font-size: 12px;
-                    font-weight: bold;
-                    @media screen and (max-width: 830px) {
-                        display: block;
-                        text-align: center;
-                        margin: 1rem 0;
-                    }
-                }
-                a:hover{
-                    text-decoration: none;
-                    border-bottom: 2px solid white;
-                    transition: none;
-                    cursor: pointer;
-                }
             }
-
-            .alternative-login{
+            .alternative-registration{
                 font-size: 14px;
                 p{
                     display: inline;

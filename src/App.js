@@ -9,6 +9,7 @@ import Homepage from "./components/Homepage/Homepage"
 // User authentication and registration
 import Login from "./components/Login/Login"
 import Registration from "./components/Registration/Registration"
+import RestorePassword from "./components/Restore Password/RestorePassword";
 // Offline tools
 import OfflineDutcher from "./components/OfflineTools/Dutcher/OfflineDutcher"
 import OfflineTrimatcher from "./components/OfflineTools/Trimatcher/OfflineTrimatcher"
@@ -39,6 +40,9 @@ function App() {
           </Route>
           <Route path="/registration" exact>
             <Registration />
+          </Route>
+          <Route path="/restore-password" exact>
+            <RestorePassword />
           </Route>
 
           {/*Tools offline */}

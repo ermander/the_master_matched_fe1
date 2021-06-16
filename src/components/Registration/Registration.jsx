@@ -1,15 +1,21 @@
-import React, { Component } from 'react';
-import { Container, Row, Col, Image, Form, Button, Alert } from 'react-bootstrap';
+import React, { Component } from 'react'
+// React Router Dom
+import { Link } from "react-router-dom"
+// Bootstrap
+import { Row, Col, Button, Image, Alert } from "react-bootstrap"
+// FontAwasome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGooglePlusG, faFacebook } from "@fortawesome/free-brands-svg-icons"
+// SASS
+import "../../styles/_registration.scss"
 
-import "./registration.css"
-
-class Login extends Component {
+export default class Registration extends Component {
 
     state = {
         username: "",
         email: "",
         password: "",
-        show: true,
+        show: false,
         showCreated: false
     }
 
@@ -24,6 +30,8 @@ class Login extends Component {
 
             if(this.state.username === "" || this.state.email === "" || this.state.password === ""){
                 console.log("An error occurred!")
+                this.setState({ show: true })
+                setTimeout( () => this.setState({ show: false }), 1500) 
             }else{
                 const response = await fetch("https://the-master-matched-be-new.herokuapp.com/users/registration", {
                     method: "POST",
@@ -35,105 +43,95 @@ class Login extends Component {
 
                 if(response.ok){
                     this.setState({ show: false })
-                    setTimeout( () => this.setState({ showCreated: true}), 1500)  
+                    setTimeout( () => this.setState({ showCreated: true }), 1500)  
                 }     
             }                      
         } catch (error) {
             console.log(error)
         }
     }
+
     render() {
         return (
             <>
-            <Alert variant="secondary" style={{textAlign: "center"}} show={this.state.show}>
-                Se possiedi già un account 
-            <Alert.Link href="https://the-master-matched-fe1.herokuapp.com/login"> <span style={{color: "black"}}> clicca qui per effettuare il login!</span></Alert.Link>
-            </Alert>
-
-            <Alert variant="secondary" style={{textAlign: "center"}} show={this.state.showCreated}>
-                Il tuo account è stato correttamente creato! 
-            <Alert.Link href="https://the-master-matched-fe1.herokuapp.com/login"> <span style={{color: "black"}}> Clicca qui per effettuare subito il login!</span></Alert.Link>
-            </Alert>
-
-
-            <Container fluid className="registrationContainer">
-                <Row className="no-gutters">
-                    <Col xs={12} className="mt-4">
-                        <Container id="registrationImageContainer">
-                            <Image id="registrationLogo" src="https://res.cloudinary.com/dnadfuxk0/image/upload/v1615767803/photo_2021-03-15_01-12-53_nhmrr2.jpg" />
-                        </Container>
+                <Row className="no-gutters registration-page-container">
+                    <Col xs={4} className="left-side-registration-container">
+                        <div className="image-container">
+                            <Image src="https://res.cloudinary.com/dnadfuxk0/image/upload/v1623768881/Il%20Diaro%20Del%20Matched%20Bettista/loghi-mb-bianco-medio_josplc.png" alt="The Master Matched logo" />
+                            <h5>Lorem Ipsum is simply dummy text of the <br/>printing and typesetting industry.</h5>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Hic perspiciatis, voluptas esse quibusdam, nihil laboriosam quasi nisi, 
+                                in magnam fugiat tempore. Reprehenderit nulla recusandae laboriosam fugiat odit
+                                sit minus nobis.
+                            </p>
+                        </div>
+                    </Col>
+                    <Col xs={8} className="right-side-registration-container">
+                        <Alert variant="danger" show={this.state.show}>Devi compilare tutti i campi correttamente!</Alert>
+                        <Row className="no-gutters registration-form">
+                            <Col xs={3}></Col>
+                            <Col xs={6}>
+                                <Row className="no-gutters small-screen-logo">
+                                    <Col xs={12}>
+                                        <Image src="https://res.cloudinary.com/dnadfuxk0/image/upload/v1623777903/Il%20Diaro%20Del%20Matched%20Bettista/logTavola_disegno_9_copia_2_e5ts6b.png" alt="The Master Matched logo" />
+                                    </Col>
+                                </Row>
+                                <Row className="first-row no-gutters">
+                                    <Col xs={12}>
+                                        <Link to="/login">
+                                            Login
+                                        </Link>
+                                        <p>Registration</p>
+                                    </Col>
+                                </Row>
+                                <Row className="inputs-row no-gutters">
+                                    <Col xs={12}>
+                                        <input 
+                                            type="text"
+                                            placeholder="Nickname..."
+                                            onChange={e => this.setState({ username: e.currentTarget.value })}
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row className="inputs-row no-gutters">
+                                    <Col xs={12}>
+                                        <input 
+                                            type="text"
+                                            placeholder="Email..."
+                                            onChange={e => this.setState({ email: e.currentTarget.value })}
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row className="inputs-row no-gutters">
+                                    <Col xs={12}>
+                                        <input 
+                                            type="password"
+                                            placeholder="Password..."
+                                            onChange={e => this.setState({ password: e.currentTarget.value })}
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row className="button-row no-gutters">
+                                    <Col xs={12}>
+                                        <Button onClick={this.postNewUser}>Registrati</Button>
+                                    </Col>
+                                </Row>
+                                <Row className="alternative-registration no-gutters">
+                                    <Col xs={12}>
+                                        <p>Oppure registrati con</p>
+                                        <span className="alternative-icons-container">
+                                            <FontAwesomeIcon icon={faGooglePlusG} id="google-icon"/>
+                                            <FontAwesomeIcon icon={faFacebook} id="facebook-icon"/>
+                                        </span>
+                                    </Col>
+                                </Row>
+                            </Col>
+                            <Col xs={3}></Col>
+                        </Row>
                     </Col>
                 </Row>
-                <Row className="mt-3 no-gutters">
-                    <Col xs={12}>
-                        <Container style={{textAlign: "center"}}>
-                            <Form.Group className="registrationForm">
-                                <Form.Label> </Form.Label>
-                                <Form.Control 
-                                    type="email" 
-                                    placeholder="Inserire la email"
-                                    onChange={e => this.setState({ email: e.currentTarget.value })}
-                                />
-                            </Form.Group>
-                        </Container>                        
-                    </Col>
-                </Row>
-                <Row className="no-gutters">
-                    <Col xs={12}>
-                        <Container style={{textAlign: "center"}}>
-                            <Form.Group className="registrationForm">
-                                <Form.Label> </Form.Label>
-                                <Form.Control 
-                                    type="text" 
-                                    placeholder="Inserire il nickname" 
-                                    onChange={(e) => this.setState({ username: e.currentTarget.value })}
-                                />
-                            </Form.Group>
-                        </Container>                        
-                    </Col>
-                </Row>
-                <Row className="no-gutters">
-                    <Col xs={12}>
-                        <Container style={{textAlign: "center"}}>
-                            <Form.Group className="registrationForm">
-                                <Form.Label> </Form.Label>
-                                <Form.Control 
-                                    type="password" 
-                                    placeholder="Inserire la password" 
-                                    onChange={e => this.setState({ password: e.currentTarget.value })}
-                                />
-                            </Form.Group>
-                        </Container>                        
-                    </Col>
-                </Row>   
-                <Row className="no-gutters">
-                    <Col xs={12}>
-                        <Container style={{textAlign: "center"}}>
-                            <Form.Group className="registrationForm">
-                                <Form.Label> </Form.Label>
-                                <Form.Control type="password" placeholder="Ripeti la password" />
-                            </Form.Group>
-                        </Container>                        
-                    </Col>
-                </Row>  
-                <Row className="no-gutters">
-                    <Col xs={12}>
-                        <Container style={{textAlign: "center"}}>
-                            <Button 
-                                id="registrationButton" 
-                                className="mt-3" 
-                                variant="dark"
-                                onClick={this.postNewUser}
-                            >
-                                Registrati ora!
-                            </Button>
-                        </Container>
-                    </Col>
-                </Row>   
-            </Container>
             </>
-        );
+        )
     }
 }
-
-export default Login;

@@ -80,13 +80,13 @@ function Login() {
                                     <Image src="https://res.cloudinary.com/dnadfuxk0/image/upload/v1623777903/Il%20Diaro%20Del%20Matched%20Bettista/logTavola_disegno_9_copia_2_e5ts6b.png" alt="Il Diario Del Matched Bettista Logo" />
                                 </Col>
                             </Row>
-                            <Row className="first-row">
+                            <Row className="no-gutters first-row">
                                 <Col xs={12}>
                                     <p>Login</p>
                                     <Link to="/registration">Registration</Link>
                                 </Col>
                             </Row>
-                            <Row className="inputs-row">
+                            <Row className="no-gutters inputs-row">
                                 <Col xs={12}>
                                     <input
                                         type="text"
@@ -95,7 +95,7 @@ function Login() {
                                     />
                                 </Col>
                             </Row>
-                            <Row className="inputs-row">
+                            <Row className="no-gutters inputs-row">
                                 <Col xs={12}>
                                     <input 
                                         type="password"
@@ -105,18 +105,18 @@ function Login() {
                                     />
                                 </Col>
                             </Row>
-                            <Row className="button-row">
+                            <Row className="no-gutters button-row">
                                 <Col xs={12}>
                                     <Button
                                     onClick={handleLogin}
                                     >
                                         Login
                                     </Button>
-                                    <p>Password dimenticata?</p>
+                                    <Link to="/restore-password">Password dimenticata?</Link>
                                 </Col>
                             </Row>
-                            <Row>
-                                <Col xs={12} className="alternative-login">
+                            <Row className="no-gutters alternative-login">
+                                <Col xs={12}>
                                     <p>Oppure accedi con</p>
                                     <span className="alternative-icons-container">
                                         <FontAwesomeIcon icon={faGooglePlusG} id="google-icon"/>

@@ -25,6 +25,7 @@ import ProfitTracker from "./pages/ProfitTracker"
 import Casino from "./components/ProfitTracker/Casino"
 
 import NewSidebar from "./components/NewSidebar/NewSidebar";
+import NewDutcher from "./components/NewDutcher/NewDutcher";
 
 
 function App() {
@@ -62,7 +63,7 @@ function App() {
           </Route>
           {/* Tools Online */}
           <Route path="/dutcher" exact>
-            <Dutcher />
+            <NewDutcher />
           </Route>
           <Route path="/trimatcher" exact>
             <Trimatcher />

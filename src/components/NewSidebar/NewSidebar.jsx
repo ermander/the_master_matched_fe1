@@ -11,10 +11,17 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 
+// SASS
+import "../../styles/_new-sidebar.scss"
+
 export default class NewSidebar extends Component {
+    componentDidUpdate = () => {
+        console.log(this.props)
+    }
+
   render() {
     return (
-      <div className="sidebar">
+      <div className={this.props.collapsed ? "sidebar collapsed" : "sidebar"}>
         <div className="sidebar-header">
           <img
             src="https://res.cloudinary.com/dnadfuxk0/image/upload/v1623859634/Il%20Diaro%20Del%20Matched%20Bettista/logTavola_disegno_9_copia_4_qsfzqv.png"

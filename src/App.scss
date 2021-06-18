@@ -10,6 +10,9 @@
 @import "./styles/login";
 @import "./styles//registration";
 @import "./styles//restore-password";
+@import "./styles/new-sidebar";
+@import '~react-pro-sidebar/dist/scss/styles.scss';
+
 
 .row{
     margin-left: 0!important;

@@ -24,6 +24,8 @@ import ComingSoon from "./components/Coming Soon Page/ComingSoon"
 import ProfitTracker from "./pages/ProfitTracker"
 import Casino from "./components/ProfitTracker/Casino"
 
+import NewSidebar from "./components/NewSidebar/NewSidebar";
+
 
 function App() {
   return (
@@ -43,6 +45,9 @@ function App() {
           </Route>
           <Route path="/restore-password" exact>
             <RestorePassword />
+          </Route>
+          <Route path="/prova">
+            <NewSidebar />
           </Route>
 
           {/*Tools offline */}

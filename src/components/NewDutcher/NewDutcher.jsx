@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+// Components
 import NewSidebar from "../NewSidebar/NewSidebar";
+import DutcherTable from "../Dutcher/DutcherTable";
+// FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// ChartJS
 import {
     faBars
   } from "@fortawesome/free-solid-svg-icons";
@@ -19,10 +24,13 @@ export default class NewDutcher extends Component {
     return <>
     <div className="dutcher-container">
         <NewSidebar collapsed={this.state.collapsed}/>
-        <div className="burger-menu-container">
+        <div className={this.state.collapsed ? "burger-menu-container-collapsed" : "burger-menu-container"}>
             <button onClick={this.collapeSidebar} className={this.state.collapsed ? "burger-menu-collapsed" : "burger-menu"}>
                 <FontAwesomeIcon icon={faBars}/>
             </button>
+        </div>
+        <div className="dutcher-container-right-side">
+          <DutcherTable />
         </div>
     </div>
     </>;

@@ -1,54 +1,138 @@
-.dutcher-container {
+.dutcher-page {
   display: flex;
-  flex-wrap: wrap;
-  background-color: #181924;
+  flex-direction: row;
+  background-color: #22222f;
+  .sidebar {
+    margin-left: 0;
+    transition-duration: margin-left 0.6s;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 1030;
+  }
+  .sidebar-collapsed {
+    margin-left: -15%;
+    transition-duration: margin-left 0.6s;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 1030;
+  }
+  .dutcher-container {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 100vh;
+    margin-left: 15%;
+    background-color: #0a0b18;
+    width: 100%;
+    transition-duration: margin-left 0.6s;
 
-  .burger-menu-container {
-    transform: translateX(0%);
-    transition-duration: 0.6s;
-    button {
-      width: 70px;
-      height: 50px;
-      background-color: transparent;
-      border: none;
-      color: #cacacc;
-      svg {
-        font-size: 25px;
-        font-weight: 200;
+    .burger-menu-container {
+      background-color: #2c2c34;
+      button {
+        width: 70px;
+        height: 50px;
+        background-color: transparent;
+        border: none;
+        color: #cacacc;
+        svg {
+          font-size: 25px;
+          font-weight: 200;
+        }
+      }
+    }
+    .MuiPaper-root.makeStyles-root-1.MuiPaper-elevation1.MuiPaper-rounded {
+      margin: auto;
+      margin-left: 2.5%;
+      margin-right: 2.5%;
+      width: 95% !important;
+      background-color: #23242d;
+      th {
+        background-color: #23242d;
+        color: white;
+      }
+      td {
+        color: white;
+      }
+      .MuiTablePagination-root {
+        color: white;
+        svg {
+          color: white;
+        }
+      }
+      ::-webkit-scrollbar {
+        background-color: #3a3b44;
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        color: #7267d3;
+        width: 10px;
+        border-radius: 0%;
+      }
+      ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #7267d3;
       }
     }
   }
+  .dutcher-container-collapsed {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 100vh;
+    margin-left: 0;
+    background-color: #0a0b18;
+    width: 95%;
+    transition-duration: margin-left 0.6s;
 
-  .burger-menu-container-collapsed {
-    transform: translateX(-320%);
-    transition-duration: 0.6s;
-    button {
-      width: 70px;
-      height: 50px;
-      background-color: transparent;
-      border: none;
-      color: #cacacc;
-      svg {
-        font-size: 25px;
-        font-weight: 200;
+    .burger-menu-container {
+      background-color: #2c2c34;
+      button {
+        width: 70px;
+        height: 50px;
+        background-color: transparent;
+        border: none;
+        color: #cacacc;
+        svg {
+          font-size: 25px;
+          font-weight: 200;
+        }
       }
     }
-  }
-
-  .dutcher-container-right-side{
-    background-color: #3a3b44;
-    z-index: 1000;
-    max-width: calc(100% - 15%);
-    margin: auto;
-    transform: translateX(0%);
-    transition-duration: 0.6s;
-  }
-  .dutcher-container-right-side-collapsed{
-    background-color: #3a3b44;
-    z-index: 1000;
-    max-width: calc(100% - 15%);
-    margin: auto;
-    transform: translateX(-13%);
-    transition-duration: 0.6s;
+    .MuiPaper-root.makeStyles-root-1.MuiPaper-elevation1.MuiPaper-rounded {
+      margin: auto;
+      margin-left: 2.5%;
+      margin-right: 2.5%;
+      background-color: #23242d;
+      th {
+        background-color: #23242d;
+        color: white;
+      }
+      td {
+        color: white;
+      }
+      .MuiTablePagination-root {
+        color: white;
+        svg {
+          color: white;
+        }
+      }
+      ::-webkit-scrollbar {
+        background-color: #3a3b44;
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        color: #7267d3;
+        width: 10px;
+        border-radius: 0%;
+      }
+      ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #7267d3;
+      }
+    }
   }
 }

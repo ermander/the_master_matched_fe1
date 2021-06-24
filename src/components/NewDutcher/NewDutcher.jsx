@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 // SASS
-import "../../styles/_dutcher.scss"
+import "../../styles/_dutcher.scss";
 
 import { logos } from "../Utils/bookmakersLogos";
 
@@ -18,7 +18,7 @@ export default class NewDutcher extends Component {
     collapsed: false,
     odds: [],
     temporaryOdds: [],
-    isLoading: true
+    isLoading: true,
   };
 
   collapeSidebar = () => {
@@ -66,37 +66,26 @@ export default class NewDutcher extends Component {
   };
 
   componentDidMount = () => {
-    this.fetchOdds()
-  }
+    this.fetchOdds();
+  };
   render() {
     return (
       <>
-        <div className="dutcher-container">
-          <NewSidebar collapsed={this.state.collapsed} />
+        <div className="dutcher-page">
+          <NewSidebar collapsed={this.state.collapsed} className={this.state.collapsed ? "sidebar-collapsed" : "sidebar"}/>
           <div
             className={
               this.state.collapsed
-                ? "burger-menu-container-collapsed"
-                : "burger-menu-container"
+                ? "dutcher-container-collapsed"
+                : "dutcher-container"
             }
           >
-            <button
-              onClick={this.collapeSidebar}
-              className={
-                this.state.collapsed ? "burger-menu-collapsed" : "burger-menu"
-              }
-            >
-              <FontAwesomeIcon icon={faBars} />
-            </button>
-          </div>
-          <div
-            className={
-              this.state.collapsed
-                ? "dutcher-container-right-side-collapsed"
-                : "dutcher-container-right-side"
-            }
-          >
-            <DutcherTable odds={this.state.temporaryOdds}/>
+            <div className="burger-menu-container">
+              <button onClick={this.collapeSidebar} className="burger-menu">
+                <FontAwesomeIcon icon={faBars} />
+              </button>
+            </div>
+            <DutcherTable odds={this.state.temporaryOdds} />
           </div>
         </div>
       </>

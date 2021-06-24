@@ -1,13 +1,13 @@
 .dutcher-container {
   display: flex;
   flex-wrap: wrap;
-  background-color: #0a0b18;
+  background-color: #181924;
 
   .burger-menu-container {
     transform: translateX(0%);
     transition-duration: 0.6s;
     button {
-      width: 100px;
+      width: 70px;
       height: 50px;
       background-color: transparent;
       border: none;
@@ -20,10 +20,10 @@
   }
 
   .burger-menu-container-collapsed {
-    transform: translateX(-227%);
+    transform: translateX(-320%);
     transition-duration: 0.6s;
     button {
-      width: 100px;
+      width: 70px;
       height: 50px;
       background-color: transparent;
       border: none;
@@ -38,5 +38,17 @@
   .dutcher-container-right-side{
     background-color: #3a3b44;
     z-index: 1000;
+    max-width: calc(100% - 15%);
+    margin: auto;
+    transform: translateX(0%);
+    transition-duration: 0.6s;
+  }
+  .dutcher-container-right-side-collapsed{
+    background-color: #3a3b44;
+    z-index: 1000;
+    max-width: calc(100% - 15%);
+    margin: auto;
+    transform: translateX(-13%);
+    transition-duration: 0.6s;
   }
 }

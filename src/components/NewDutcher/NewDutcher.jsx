@@ -6,33 +6,100 @@ import DutcherTable from "../Dutcher/DutcherTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // ChartJS
-import {
-    faBars
-  } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-// Bootstrap
-import { Row, Col } from "react-bootstrap";
+// SASS
+import "../../styles/_dutcher.scss"
+
+import { logos } from "../Utils/bookmakersLogos";
 
 export default class NewDutcher extends Component {
   state = {
     collapsed: false,
+    odds: [],
+    temporaryOdds: [],
+    isLoading: true
   };
+
   collapeSidebar = () => {
-      this.setState({collapsed: !this.state.collapsed})
+    this.setState({ collapsed: !this.state.collapsed });
+  };
+
+  fetchOdds = async () => {
+    this.setState({ isLoading: true });
+    try {
+      const response = await fetch(
+        "https://the-master-matched-be-new.herokuapp.com/google-odds/dutcher-odds"
+      );
+      const parsedResponse = await response.json();
+      let odds = parsedResponse.map((odd) => {
+        return {
+          ...odd,
+          event: odd.home + " vs " + odd.away,
+          roi: odd.roi.toFixed(2),
+          tableRoi: odd.roi.toFixed(2) + "%",
+          book_one_image: (
+            <img
+              src={logos[odd.book_one]}
+              alt={logos[odd.book_one] + " logo"}
+            />
+          ),
+          book_two_image: (
+            <img
+              src={logos[odd.book_two]}
+              alt={logos[odd.book_two] + " logo"}
+            />
+          ),
+          book_one: odd.book_one.toLowerCase(),
+          book_two: odd.book_two.toLowerCase(),
+        };
+      });
+
+      odds.sort((a, b) => {
+        return b.percentageRoi - a.percentageRoi;
+      });
+      this.setState({ odds: odds, temporaryOdds: odds, isLoading: false });
+      console.log(odds);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  componentDidMount = () => {
+    this.fetchOdds()
   }
   render() {
-    return <>
-    <div className="dutcher-container">
-        <NewSidebar collapsed={this.state.collapsed}/>
-        <div className={this.state.collapsed ? "burger-menu-container-collapsed" : "burger-menu-container"}>
-            <button onClick={this.collapeSidebar} className={this.state.collapsed ? "burger-menu-collapsed" : "burger-menu"}>
-                <FontAwesomeIcon icon={faBars}/>
+    return (
+      <>
+        <div className="dutcher-container">
+          <NewSidebar collapsed={this.state.collapsed} />
+          <div
+            className={
+              this.state.collapsed
+                ? "burger-menu-container-collapsed"
+                : "burger-menu-container"
+            }
+          >
+            <button
+              onClick={this.collapeSidebar}
+              className={
+                this.state.collapsed ? "burger-menu-collapsed" : "burger-menu"
+              }
+            >
+              <FontAwesomeIcon icon={faBars} />
             </button>
+          </div>
+          <div
+            className={
+              this.state.collapsed
+                ? "dutcher-container-right-side-collapsed"
+                : "dutcher-container-right-side"
+            }
+          >
+            <DutcherTable odds={this.state.temporaryOdds}/>
+          </div>
         </div>
-        <div className="dutcher-container-right-side">
-          <DutcherTable />
-        </div>
-    </div>
-    </>;
+      </>
+    );
   }
 }

@@ -10,8 +10,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 
 const columns = [
-  { id: "start_date", label: "Data", minWidth: 100, align: "center" },
-  { id: "start_time", label: "Ora", minWidth: 50, align: "center" },
+  { id: "match_start", label: "Data", minWidth: 100, align: "center" },
   {
     id: "nation",
     label: "Nazione",

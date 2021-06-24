@@ -29,6 +29,13 @@
     width: 100%;
     transition-duration: margin-left 0.6s;
 
+    .buttons-container{
+      display: flex;
+      flex-direction: row;
+      justify-content: left;
+      margin: 2.5%;
+    }
+
     .burger-menu-container {
       background-color: #2c2c34;
       button {
@@ -44,7 +51,7 @@
       }
     }
     .MuiPaper-root.makeStyles-root-1.MuiPaper-elevation1.MuiPaper-rounded {
-      margin: auto;
+      
       margin-left: 2.5%;
       margin-right: 2.5%;
       width: 95% !important;
@@ -75,6 +82,20 @@
         border-radius: 10px;
         background-color: #7267d3;
       }
+      .MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignCenter:nth-child(9){
+        background-color: #a6d8ff;
+        color: black;
+        font-weight: bold;
+        border: 2px solid white!important;
+        border-left: 3px solid white!important;
+      }
+      .MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignCenter:nth-child(10){
+        background-color: #fac9d1;
+        color: black;
+        font-weight: bold;
+        border: 2px solid white!important;
+        border-right: 3px solid white!important;
+      }
     }
   }
   .dutcher-container-collapsed {
@@ -85,8 +106,15 @@
     min-height: 100vh;
     margin-left: 0;
     background-color: #0a0b18;
-    width: 95%;
+    width: 100%;
     transition-duration: margin-left 0.6s;
+
+    .buttons-container{
+      display: flex;
+      flex-direction: row;
+      justify-content: left;
+      margin: 2.5%;
+    }
 
     .burger-menu-container {
       background-color: #2c2c34;
@@ -103,9 +131,9 @@
       }
     }
     .MuiPaper-root.makeStyles-root-1.MuiPaper-elevation1.MuiPaper-rounded {
-      margin: auto;
       margin-left: 2.5%;
       margin-right: 2.5%;
+      width: 95% !important;
       background-color: #23242d;
       th {
         background-color: #23242d;

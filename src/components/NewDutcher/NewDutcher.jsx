@@ -13,6 +13,9 @@ import "../../styles/_dutcher.scss";
 
 import { logos } from "../Utils/bookmakersLogos";
 
+// MaterialUI
+import { Button } from "@material-ui/core"
+
 export default class NewDutcher extends Component {
   state = {
     collapsed: false,
@@ -52,6 +55,7 @@ export default class NewDutcher extends Component {
           ),
           book_one: odd.book_one.toLowerCase(),
           book_two: odd.book_two.toLowerCase(),
+          match_start: odd.start_date + ", " + odd.start_time
         };
       });
 
@@ -84,6 +88,14 @@ export default class NewDutcher extends Component {
               <button onClick={this.collapeSidebar} className="burger-menu">
                 <FontAwesomeIcon icon={faBars} />
               </button>
+            </div>
+            <div className="buttons-container">
+              <Button variant="outlined" color="primary"> Filtri </Button>
+              <Button variant="outlined" color="primary"> Filtri </Button>
+              <Button variant="outlined" color="primary"> Filtri </Button>
+              <Button variant="outlined" color="primary"> Filtri </Button>
+              <Button variant="outlined" color="primary"> Filtri </Button>
+              <Button variant="outlined" color="primary"> Filtri </Button>
             </div>
             <DutcherTable odds={this.state.temporaryOdds} />
           </div>

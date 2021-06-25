@@ -3,6 +3,7 @@ import {
   makeStyles,
   ThemeProvider,
   createMuiTheme,
+  useTheme,
 } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -11,33 +12,23 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { Paper } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: "#23242d",
+    color: "#ffffff",
+  },
   formControl: {
-    margin: theme.spacing(1),
     minWidth: 200,
     maxWidth: 300,
+    color: "red",
   },
   chip: {
     margin: 2,
+    color: "#ffffff",
   },
-  noLabel: {
-    marginTop: theme.spacing(3),
+  icon: {
+    color: "#ffffff",
   },
 }));
-
-const theme = createMuiTheme({
-  palette: {
-    background: {
-      paper: "#23242d",
-    },
-    text: {
-      primary: "#cacacc",
-      disabled: "#cacacc",
-    },
-    action: {
-      disabled: "#cacacc",
-    },
-  },
-});
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -51,18 +42,18 @@ const MenuProps = {
 };
 
 const names = [
-    "GolGol",
-    "Eurobet",
-    "Lopoca",
-    "MarathonBet",
-    "OverPlus",
-    "Planetwin365",
-    "Sisal",
-    "StarCasino",
-    "VinciTu",
-  ];
+  "GolGol",
+  "Eurobet",
+  "Lopoca",
+  "MarathonBet",
+  "OverPlus",
+  "Planetwin365",
+  "Sisal",
+  "StarCasino",
+  "VinciTu",
+];
 
-function getStyles(name, personName) {
+function getStyles(name, personName, theme) {
   return {
     fontWeight:
       personName.indexOf(name) === -1
@@ -73,36 +64,38 @@ function getStyles(name, personName) {
 
 export default function MultipleSelect() {
   const classes = useStyles();
+  const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
-
   return (
-    <ThemeProvider theme={theme}>
-      <Paper>
-        {" "}
-        <FormControl className={classes.formControl}>
-          <InputLabel id="demo-mutiple-name-label">
-            Seleziona Bookmaker
-          </InputLabel>
-          <Select
-            labelId="demo-mutiple-name-label"
-            id="demo-mutiple-name"
-            multiple
-            value={personName}
-            input={<Input />}
-            MenuProps={MenuProps}
+    <FormControl
+      className={classes.formControl}
+      style={{ backgroundColor: "#23242d" }}
+    >
+      <InputLabel
+        id="demo-mutiple-name-label"
+        style={{ color: "white", zIndex: "1000" }}
+      >
+        Seleziona Bookmaker
+      </InputLabel>
+      <Select
+        labelId="demo-mutiple-name-label"
+        id="demo-mutiple-name"
+        multiple
+        value={personName}
+        input={<Input />}
+        MenuProps={MenuProps}
+        style={{ backgroundColor: "#23242d" }}
+      >
+        {names.map((name) => (
+          <MenuItem
+            key={name}
+            value={name}
+            style={{ backgroundColor: "#23242d" }}
           >
-            {names.map((name) => (
-              <MenuItem
-                key={name}
-                value={name}
-                style={getStyles(name, personName)}
-              >
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Paper>
-    </ThemeProvider>
+            {name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }

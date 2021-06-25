@@ -12,9 +12,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+.MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded{
+  background-color: #23242d;
+  color: white;
+}
+.MuiList-root.MuiMenu-list.MuiList-padding{
+  background-color: #23242d;
+}
 .MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded::-webkit-scrollbar {
-  background-color: #3a3b44;
+  background-color: #23242d;
   width: 8px;
 }
 
@@ -26,6 +32,9 @@ code {
 .MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: #7267d3;
+}
+.MuiButtonBase-root.MuiListItem-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiListItem-gutters.MuiListItem-button:hover{
+  background-color: #5c5c62;
 }
 
 ::-webkit-scrollbar {

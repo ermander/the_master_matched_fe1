@@ -1,7 +1,6 @@
 import React from "react";
 import {
   makeStyles,
-  useTheme,
   ThemeProvider,
   createMuiTheme,
 } from "@material-ui/core/styles";

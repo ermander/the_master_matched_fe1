@@ -41,7 +41,6 @@
       flex-direction: row;
       justify-content: left;
       margin: 2.5%;
-      height: 50px;
       .MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl {
         border-bottom: 1px solid white;
       }
@@ -51,9 +50,17 @@
       .MuiSvgIcon-root.MuiSelect-icon {
         color: white;
       }
-    }
-    .first-bookmaker-containter:nth-child(2){
-      top: -16px;
+      #refresh-icon{
+        margin: auto;
+        margin-left: 1%;
+        color: white;
+        cursor: pointer;
+        font-size: 40px;
+      }
+      #refresh-icon:hover{
+        color: rgb(180, 178, 178);
+      }
+      
     }
 
     .burger-menu-container {

@@ -16,6 +16,8 @@ import { logos } from "../Utils/bookmakersLogos";
 
 // MaterialUI
 import { Button } from "@material-ui/core";
+import RefreshIcon from '@material-ui/icons/Refresh';
+
 
 export default class NewDutcher extends Component {
   state = {
@@ -30,7 +32,7 @@ export default class NewDutcher extends Component {
   };
 
   fetchOdds = async () => {
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, temporaryOdds: [] });
     try {
       const response = await fetch(
         "https://the-master-matched-be-new.herokuapp.com/google-odds/dutcher-odds"
@@ -69,6 +71,10 @@ export default class NewDutcher extends Component {
       console.log(error);
     }
   };
+
+  refreshOdds = async() => {
+    return this.fetchOdds()
+  }
 
   componentDidMount = () => {
     this.fetchOdds();
@@ -121,6 +127,7 @@ export default class NewDutcher extends Component {
             </div>
             <div className="first-bookmaker-containter">
               <FirstBookmakerSelectForm />
+              <RefreshIcon id="refresh-icon" onClick={this.refreshOdds}/>
             </div>
             <DutcherTable odds={this.state.temporaryOdds} />
           </div>

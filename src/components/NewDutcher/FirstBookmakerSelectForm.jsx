@@ -1,16 +1,21 @@
-import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import React from "react";
+import {
+  makeStyles,
+  useTheme,
+  ThemeProvider,
+  createMuiTheme,
+} from "@material-ui/core/styles";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import { Paper } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 200,
     maxWidth: 300,
-    color: "white"
   },
   chip: {
     margin: 2,
@@ -20,6 +25,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const theme = createMuiTheme({
+  palette: {
+    background: {
+      paper: "#23242d",
+    },
+    text: {
+      primary: "#cacacc",
+      disabled: "#cacacc",
+    },
+    action: {
+      disabled: "#cacacc",
+    },
+  },
+});
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -27,24 +47,25 @@ const MenuProps = {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
       width: 250,
+      color: "white",
+      borderColor: "white",
     },
   },
 };
 
 const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
+    "GolGol",
+    "Eurobet",
+    "Lopoca",
+    "MarathonBet",
+    "OverPlus",
+    "Planetwin365",
+    "Sisal",
+    "StarCasino",
+    "VinciTu",
+  ];
 
-function getStyles(name, personName, theme) {
+function getStyles(name, personName) {
   return {
     fontWeight:
       personName.indexOf(name) === -1
@@ -55,26 +76,36 @@ function getStyles(name, personName, theme) {
 
 export default function MultipleSelect() {
   const classes = useStyles();
-  const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
   return (
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-name-label">Name</InputLabel>
-        <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={personName}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {names.map((name) => (
-            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+    <ThemeProvider theme={theme}>
+      <Paper>
+        {" "}
+        <FormControl className={classes.formControl}>
+          <InputLabel id="demo-mutiple-name-label">
+            Seleziona Bookmaker
+          </InputLabel>
+          <Select
+            labelId="demo-mutiple-name-label"
+            id="demo-mutiple-name"
+            multiple
+            value={personName}
+            input={<Input />}
+            MenuProps={MenuProps}
+          >
+            {names.map((name) => (
+              <MenuItem
+                key={name}
+                value={name}
+                style={getStyles(name, personName)}
+              >
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Paper>
+    </ThemeProvider>
   );
 }

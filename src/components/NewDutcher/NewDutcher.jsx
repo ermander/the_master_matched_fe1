@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // Components
 import NewSidebar from "../NewSidebar/NewSidebar";
 import DutcherTable from "../Dutcher/DutcherTable";
+import FirstBookmakerSelectForm from "./FirstBookmakerSelectForm";
 // FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -14,7 +15,7 @@ import "../../styles/_dutcher.scss";
 import { logos } from "../Utils/bookmakersLogos";
 
 // MaterialUI
-import { Button } from "@material-ui/core"
+import { Button } from "@material-ui/core";
 
 export default class NewDutcher extends Component {
   state = {
@@ -55,7 +56,7 @@ export default class NewDutcher extends Component {
           ),
           book_one: odd.book_one.toLowerCase(),
           book_two: odd.book_two.toLowerCase(),
-          match_start: odd.start_date + ", " + odd.start_time
+          match_start: odd.start_date + ", " + odd.start_time,
         };
       });
 
@@ -76,7 +77,10 @@ export default class NewDutcher extends Component {
     return (
       <>
         <div className="dutcher-page">
-          <NewSidebar collapsed={this.state.collapsed} className={this.state.collapsed ? "sidebar-collapsed" : "sidebar"}/>
+          <NewSidebar
+            collapsed={this.state.collapsed}
+            className={this.state.collapsed ? "sidebar-collapsed" : "sidebar"}
+          />
           <div
             className={
               this.state.collapsed
@@ -90,12 +94,33 @@ export default class NewDutcher extends Component {
               </button>
             </div>
             <div className="buttons-container">
-              <Button variant="outlined" color="primary"> Filtri </Button>
-              <Button variant="outlined" color="primary"> Filtri </Button>
-              <Button variant="outlined" color="primary"> Filtri </Button>
-              <Button variant="outlined" color="primary"> Filtri </Button>
-              <Button variant="outlined" color="primary"> Filtri </Button>
-              <Button variant="outlined" color="primary"> Filtri </Button>
+              <Button variant="outlined" color="primary">
+                {" "}
+                Filtri{" "}
+              </Button>
+              <Button variant="outlined" color="primary">
+                {" "}
+                Filtri{" "}
+              </Button>
+              <Button variant="outlined" color="primary">
+                {" "}
+                Filtri{" "}
+              </Button>
+              <Button variant="outlined" color="primary">
+                {" "}
+                Filtri{" "}
+              </Button>
+              <Button variant="outlined" color="primary">
+                {" "}
+                Filtri{" "}
+              </Button>
+              <Button variant="outlined" color="primary">
+                {" "}
+                Filtri{" "}
+              </Button>
+            </div>
+            <div className="first-bookmaker-containter">
+              <FirstBookmakerSelectForm />
             </div>
             <DutcherTable odds={this.state.temporaryOdds} />
           </div>

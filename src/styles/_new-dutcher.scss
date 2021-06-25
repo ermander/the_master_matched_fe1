@@ -82,14 +82,14 @@
         border-radius: 10px;
         background-color: #7267d3;
       }
-      .MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignCenter:nth-child(9){
+      .MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignCenter:nth-child(8){
         background-color: #a6d8ff;
         color: black;
         font-weight: bold;
         border: 2px solid white!important;
         border-left: 3px solid white!important;
       }
-      .MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignCenter:nth-child(10){
+      .MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignCenter:nth-child(9){
         background-color: #fac9d1;
         color: black;
         font-weight: bold;
@@ -116,6 +116,14 @@
       margin: 2.5%;
     }
 
+    .first-bookmaker-containter{
+      display: flex;
+      flex-direction: row;
+      justify-content: left;
+      margin: 2.5%;
+      color: white!important;
+    }
+
     .burger-menu-container {
       background-color: #2c2c34;
       button {
@@ -131,21 +139,21 @@
       }
     }
     .MuiPaper-root.makeStyles-root-1.MuiPaper-elevation1.MuiPaper-rounded {
-      margin-left: 2.5%;
-      margin-right: 2.5%;
+      margin-left: 2.5%!important;
+      margin-right: 2.5%!important;
       width: 95% !important;
-      background-color: #23242d;
+      background-color: #23242d!important;
       th {
-        background-color: #23242d;
-        color: white;
+        background-color: #23242d!important;
+        color: white!important;
       }
       td {
-        color: white;
+        color: white!important;
       }
       .MuiTablePagination-root {
-        color: white;
+        color: white!important;
         svg {
-          color: white;
+          color: white!important;
         }
       }
       ::-webkit-scrollbar {
@@ -161,17 +169,17 @@
         border-radius: 10px;
         background-color: #7267d3;
       }
-      .MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignCenter:nth-child(9){
-        background-color: #a6d8ff;
-        color: black;
-        font-weight: bold;
+      .MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignCenter:nth-child(8){
+        background-color: #a6d8ff!important;
+        color: black!important;
+        font-weight: bold!important;
         border: 2px solid white!important;
         border-left: 3px solid white!important;
       }
-      .MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignCenter:nth-child(10){
-        background-color: #fac9d1;
-        color: black;
-        font-weight: bold;
+      .MuiTableCell-root.MuiTableCell-body.MuiTableCell-alignCenter:nth-child(9){
+        background-color: #fac9d1!important;
+        color: black!important;
+        font-weight: bold!important;
         border: 2px solid white!important;
         border-right: 3px solid white!important;
       }

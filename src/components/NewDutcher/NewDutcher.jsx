@@ -1,138 +1,111 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from 'react'
 // Components
 import NewSidebar from "../NewSidebar/NewSidebar";
 import DutcherTable from "../Dutcher/DutcherTable";
 import FirstBookmakerSelectForm from "./FirstBookmakerSelectForm";
+import Disclaimer from "../Disclaimer"
+import DutcherFilters from "./DutcherFilters"
 // FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 // ChartJS
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-
 // SASS
 import "../../styles/_dutcher.scss";
-
-import { logos } from "../Utils/bookmakersLogos";
-
 // MaterialUI
 import { Button } from "@material-ui/core";
-import RefreshIcon from '@material-ui/icons/Refresh';
+import RefreshIcon from "@material-ui/icons/Refresh";
+import ToolsTitle from "../ToolsTitle";
+// Functions
+import { setBookmaker, fetchOdds } from "./dutcherFunctions"
 
+function NewDutcher() {
+  const [sidebarStatus, setSidebarStatus] = useState(false)
+  const [mainOdds, setOdds] = useState([])
+  const [temporaryOdds, setTemporaryOdds] = useState([])
+  const [loading, setLoading] = useState(true)
 
-export default class NewDutcher extends Component {
-  state = {
-    collapsed: false,
-    odds: [],
-    temporaryOdds: [],
-    isLoading: true,
+  const collapeSidebar = () => {
+    setSidebarStatus(!sidebarStatus)
   };
 
-  collapeSidebar = () => {
-    this.setState({ collapsed: !this.state.collapsed });
-  };
-
-  fetchOdds = async () => {
-    this.setState({ isLoading: true, temporaryOdds: [] });
+  const handleFetchOdds = async () => {
+    setLoading(true)
+    setTemporaryOdds([])
+    setOdds([])
     try {
-      const response = await fetch(
-        "https://the-master-matched-be-new.herokuapp.com/google-odds/dutcher-odds"
-      );
-      const parsedResponse = await response.json();
-      let odds = parsedResponse.map((odd) => {
-        return {
-          ...odd,
-          event: odd.home + " vs " + odd.away,
-          roi: odd.roi.toFixed(2),
-          tableRoi: odd.roi.toFixed(2) + "%",
-          book_one_image: (
-            <img
-              src={logos[odd.book_one]}
-              alt={logos[odd.book_one] + " logo"}
-            />
-          ),
-          book_two_image: (
-            <img
-              src={logos[odd.book_two]}
-              alt={logos[odd.book_two] + " logo"}
-            />
-          ),
-          book_one: odd.book_one.toLowerCase(),
-          book_two: odd.book_two.toLowerCase(),
-          match_start: odd.start_date + ", " + odd.start_time,
-        };
-      });
-
-      odds.sort((a, b) => {
-        return b.percentageRoi - a.percentageRoi;
-      });
-      this.setState({ odds: odds, temporaryOdds: odds, isLoading: false });
-      console.log(odds);
+      const odds = await fetchOdds()
+      setOdds(odds)
+      setTemporaryOdds(odds)
+      setLoading(false)
     } catch (error) {
       console.log(error);
     }
   };
 
-  refreshOdds = async() => {
-    return this.fetchOdds()
+  const refreshOdds = async () => {
+    return handleFetchOdds();
+  };
+
+  const handleSetBookmaker = (bookmaker) => {
+    setTemporaryOdds([])
+    setLoading(true)
+    const odds = setBookmaker(mainOdds, bookmaker)
+    setTemporaryOdds(odds)
+    setLoading(false)
   }
 
-  componentDidMount = () => {
-    this.fetchOdds();
-  };
-  render() {
-    return (
-      <>
-        <div className="dutcher-page">
-          <NewSidebar
-            collapsed={this.state.collapsed}
-            className={this.state.collapsed ? "sidebar-collapsed" : "sidebar"}
-          />
-          <div
-            className={
-              this.state.collapsed
-                ? "dutcher-container-collapsed"
-                : "dutcher-container"
-            }
-          >
-            <div className="burger-menu-container">
-              <button onClick={this.collapeSidebar} className="burger-menu">
-                <FontAwesomeIcon icon={faBars} />
-              </button>
-            </div>
-            <div className="buttons-container">
-              <Button variant="outlined" color="primary">
-                {" "}
-                Filtri{" "}
-              </Button>
-              <Button variant="outlined" color="primary">
-                {" "}
-                Filtri{" "}
-              </Button>
-              <Button variant="outlined" color="primary">
-                {" "}
-                Filtri{" "}
-              </Button>
-              <Button variant="outlined" color="primary">
-                {" "}
-                Filtri{" "}
-              </Button>
-              <Button variant="outlined" color="primary">
-                {" "}
-                Filtri{" "}
-              </Button>
-              <Button variant="outlined" color="primary">
-                {" "}
-                Filtri{" "}
-              </Button>
-            </div>
-            <div className="first-bookmaker-containter">
-              <FirstBookmakerSelectForm />
-              <RefreshIcon id="refresh-icon" onClick={this.refreshOdds}/>
-            </div>
-            <DutcherTable odds={this.state.temporaryOdds} />
-          </div>
-        </div>
-      </>
-    );
+  const setFilters = (options) => {
+    console.log(options.minOdd)
+    console.log("porcodio")
   }
+
+  useEffect(() => {
+    handleFetchOdds()
+  }, [])
+
+
+  return (
+    <>
+    <div className="dutcher-page">
+      <NewSidebar
+        collapsed={sidebarStatus}
+        className={sidebarStatus ? "sidebar-collapsed" : "sidebar"}
+      />
+      <div
+        className={
+          sidebarStatus
+            ? "dutcher-container-collapsed"
+            : "dutcher-container"
+        }
+      >
+        <div className="burger-menu-container">
+          <button onClick={collapeSidebar} className="burger-menu">
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+        </div>
+        <div className="title-container">
+          <ToolsTitle title="Odds - Matcher" />
+        </div>
+        <div className="first-bookmaker-containter">
+          <FirstBookmakerSelectForm setFirstBookmaker={handleSetBookmaker}/>
+          <Button
+            variant="outlined"
+            color="primary"
+            className="refresh-button"
+            onClick={refreshOdds}
+          >
+            Ricarica
+            <RefreshIcon />
+          </Button>
+          <DutcherFilters setFilters={setFilters}/>
+        </div>
+        <DutcherTable odds={temporaryOdds} />
+        <Disclaimer />
+      </div>
+    </div>
+  </>
+  )
 }
+
+export default NewDutcher
+

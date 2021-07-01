@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { CButton, CCollapse, CCard, CCardBody } from "@coreui/react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 function SidebarItem({ title, numberOfItems, icon }) {
   const [visible, setVisible] = useState(false);

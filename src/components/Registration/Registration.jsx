@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 // React Router Dom
 import { useHistory, Link } from "react-router-dom";
 // Bootstrap

@@ -84,7 +84,6 @@ export default class Trimatcher extends Component {
                 // Caso in cui nessuna delle 3 odd è cashback
                 const odd_one = parseFloat(odds[i].odd_one)
                 const odd_two = parseFloat(odds[i].odd_two)
-                const odd_three = parseFloat(odds[i].odd_three)
                 
                 if(
                     (odds[i].book_one !== ("overplus" || "golgol")) 

@@ -1,101 +1,128 @@
 import React from "react";
-import {
-  makeStyles,
-  ThemeProvider,
-  createMuiTheme,
-  useTheme,
-} from "@material-ui/core/styles";
-import Input from "@material-ui/core/Input";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { Paper } from "@material-ui/core";
+
 const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: "#23242d",
-    color: "#ffffff",
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+    svg: {
+      color: "white",
+    },
   },
   formControl: {
-    minWidth: 200,
-    maxWidth: 300,
-    color: "red",
+    margin: theme.spacing(1),
+    minWidth: 120,
+    color: "white",
   },
-  chip: {
-    margin: 2,
-    color: "#ffffff",
+  button: {
+    color: "white",
+    borderBottom: "1px solid white",
+    borderBottomLeftRadius: "0%",
+    borderBottomRightRadius: "0%",
+    "&:hover": {
+      backgroundColor: "rgba(255, 255, 255, 0.08)",
+    },
   },
-  icon: {
-    color: "#ffffff",
+  dialog: {
+    backgroundColor: "#3a3b44",
+    color: "white",
+  },
+  input: {
+    color: "white",
+  },
+  select: {
+    border: "none",
   },
 }));
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const names = [
-  "GolGol",
-  "Eurobet",
-  "Lopoca",
-  "MarathonBet",
-  "OverPlus",
-  "Planetwin365",
-  "Sisal",
-  "StarCasino",
-  "VinciTu",
-];
-
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
-export default function MultipleSelect() {
+export default function DialogSelect({ setFirstBookmaker }) {
   const classes = useStyles();
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [bookmaker, setBookmaker] = React.useState("");
+
+  const handleChange = (event) => {
+    setBookmaker(event.target.value);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const setBookmakerProp = () => {
+    setFirstBookmaker(bookmaker);
+    setOpen(false);
+  };
+
   return (
-    <FormControl
-      className={classes.formControl}
-      style={{ backgroundColor: "#23242d" }}
-    >
-      <InputLabel
-        id="demo-mutiple-name-label"
-        style={{ color: "white", zIndex: "1000" }}
+    <div>
+      <Button onClick={handleClickOpen} className={classes.button}>
+        Bookmaker
+      </Button>
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        open={open}
+        onClose={handleClose}
       >
-        Seleziona Bookmaker
-      </InputLabel>
-      <Select
-        labelId="demo-mutiple-name-label"
-        id="demo-mutiple-name"
-        multiple
-        value={personName}
-        input={<Input />}
-        MenuProps={MenuProps}
-        style={{ backgroundColor: "#23242d" }}
-      >
-        {names.map((name) => (
-          <MenuItem
-            key={name}
-            value={name}
-            style={{ backgroundColor: "#23242d" }}
-          >
-            {name}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+        <DialogTitle className={classes.dialog}>
+          Seleziona il bookmaker
+        </DialogTitle>
+        <DialogContent className={classes.dialog}>
+          <form className={classes.container}>
+            <FormControl className={classes.formControl}>
+              <InputLabel
+                id="demo-dialog-select-label"
+                className={classes.input}
+              >
+                Book...
+              </InputLabel>
+              <Select
+                labelId="demo-dialog-select-label"
+                id="demo-dialog-select"
+                value={bookmaker}
+                onChange={handleChange}
+                input={<Input />}
+                className={classes.select}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={"GolGol"}>GolGol</MenuItem>
+                <MenuItem value={"Eurobet"}>Eurobet</MenuItem>
+                <MenuItem value={"Lopoca"}>Lopoca</MenuItem>
+                <MenuItem value={"MarathonBet"}>MarathonBet</MenuItem>
+                <MenuItem value={"OverPlus"}>OverPlus</MenuItem>
+                <MenuItem value={"PlanetWin365"}>PlanetWin365</MenuItem>
+                <MenuItem value={"Sisal"}>Sisal</MenuItem>
+                <MenuItem value={"StarCasino"}>StarCasino</MenuItem>
+                <MenuItem value={"VinciTu"}>VinciTu</MenuItem>
+              </Select>
+            </FormControl>
+          </form>
+        </DialogContent>
+        <DialogActions className={classes.dialog}>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={setBookmakerProp} color="primary">
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }

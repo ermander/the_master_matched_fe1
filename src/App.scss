@@ -12,18 +12,21 @@
 @import "./styles//restore-password";
 @import "./styles/new-sidebar";
 @import "./styles//new-dutcher";
-
+@import "./styles/dutcher-filters-body";
 .row {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
 
 .disclaimer {
-  width: 100%;
-  padding: 1rem;
+  width: 95%;
+  margin: 0.5% 2.5%;
   p {
+    color: whitesmoke;
     padding: 1.5rem;
-    border: 2px solid #ffa500 !important;
+    text-align: center;
+    border: 1px solid #7267d3;
+    box-shadow: 5px 5px 5px  #7267d3;
   }
 }
 

@@ -76,16 +76,45 @@ const columns = [
     label: "%",
     minWidth: 30,
     align: "center",
-  }
+  },
 ];
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
+    width: "95%",
+    marginLeft: "2.5%",
+    marginRight: "2.5%",
+    padding: "1%",
+    backgroundColor: "#23242d!important",
   },
   container: {
     maxHeight: 440,
+    backgroundColor: "#23242d",
   },
+  thCells: {
+    color: "white",
+    backgroundColor: "#23242d",
+  },
+  tdColors: {
+    color: "white",
+    "&:nth-child(8)": {
+      backgroundColor: "#a6d8ff!important",
+      color: "black",
+      fontWeight: "bold",
+      border: "2px solid white",
+      borderLeft: "3px solid white"
+    },
+    "&:nth-child(9)": {
+      backgroundColor: "#fac9d1!important",
+      color: "black",
+      fontWeight: "bold",
+      border: "2px solid white",
+      borderRight: "3px solid white"
+    },
+    pagination: {
+      color: "white"
+    }
+  }
 });
 
 export default function StickyHeadTable({ odds }) {
@@ -106,13 +135,14 @@ export default function StickyHeadTable({ odds }) {
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
+          <TableHead className={classes.tableHead}>
+            <TableRow className={classes.tableHead}>
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
+                  className={classes.thCells}
                 >
                   {column.label}
                 </TableCell>
@@ -128,7 +158,11 @@ export default function StickyHeadTable({ odds }) {
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          className={classes.tdColors}
+                        >
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
@@ -149,6 +183,7 @@ export default function StickyHeadTable({ odds }) {
         page={page}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
+        className={classes.pagination}
       />
     </Paper>
   );

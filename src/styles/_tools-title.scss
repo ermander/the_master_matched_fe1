@@ -1,11 +1,10 @@
 #tools-title {
   text-align: center;
-
+  margin: auto;
+  width: 100%;
+  border-bottom: 1px solid whitesmoke;
   h2 {
-    background-color: orange;
-    color: black;
-    padding: .5rem 0;
+    color: white;
     font-weight: bold;
-    margin-bottom: 0;
   }
 }

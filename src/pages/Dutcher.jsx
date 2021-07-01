@@ -23,8 +23,6 @@ import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 // Logos
 import { logos, bookmakerNames } from "../components/Utils/bookmakersLogos";
 
-// Functions
-import { firstBookmaker } from "../components/Trimatcher/functions";
 
 export default class Dutcher extends Component {
   state = {
@@ -81,7 +79,7 @@ export default class Dutcher extends Component {
       if(dcStatus === false){
         console.log("Entro nel filtro per la DC")
         for(let i = 0; i < odds.length; i++){
-          odds[i].market === "DC" ? odds.slice(i) : odds[i].market = odds[i].market
+          //odds[i].market === "DC" ? odds.slice(i) : odds[i].market = odds[i].market
         }
       }
       if(uoStatus === false){

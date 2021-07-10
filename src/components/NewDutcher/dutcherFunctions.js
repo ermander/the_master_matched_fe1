@@ -16,7 +16,7 @@ export const setBookmaker = (odds, bookmaker) => {
 
 export const fetchOdds = async() => {
     try {
-        const response = await fetch("https://the-master-matched-be-new.herokuapp.com/google-odds/dutcher-odds");
+        const response = await fetch("https://odds-and-db-be-server.herokuapp.com/google-odds/dutcher-odds");
         const parsedResponse = await response.json();
         let odds = parsedResponse.map((odd) => {
             return {

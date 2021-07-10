@@ -56,7 +56,6 @@ function NewDutcher() {
 
   const setFilters = (options) => {
     console.log(options.minOdd)
-    console.log("porcodio")
   }
 
   useEffect(() => {

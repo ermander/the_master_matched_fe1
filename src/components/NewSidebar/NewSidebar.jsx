@@ -15,10 +15,6 @@ import {
 import "../../styles/_new-sidebar.scss"
 
 export default class NewSidebar extends Component {
-    componentDidUpdate = () => {
-        console.log(this.props)
-    }
-
   render() {
     return (
       <div className={this.props.collapsed ? "sidebar collapsed" : "sidebar"}>

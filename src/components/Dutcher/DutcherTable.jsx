@@ -105,7 +105,7 @@ const useStyles = makeStyles({
       borderLeft: "3px solid white"
     },
     "&:nth-child(9)": {
-      backgroundColor: "#fac9d1!important",
+      backgroundColor: "#a6d8ff!important",
       color: "black",
       fontWeight: "bold",
       border: "2px solid white",

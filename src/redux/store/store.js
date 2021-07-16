@@ -2,7 +2,9 @@ import { createStore } from "redux"
 import { mainReducer } from "../reducer/reducer"
 
 const initialState = {
-    isUserLogged: false
+    isUserLogged: false,
+    showDutcherFilterModal: false,
+    dutcherFilters: {}
 }
 
 export default function configureStore() {

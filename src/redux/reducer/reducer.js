@@ -6,6 +6,25 @@ export const mainReducer = (state, action) => {
         isUserLogged: true,
       };
 
+    case "OPEN_DUTCHER_FILTER_MODAL":
+      return {
+        ...state,
+        showDutcherFilterModal: true,
+      };
+      
+    case "CLOSE_DUTCHER_FILTER_MODAL":
+      return {
+        ...state,
+        showDutcherFilterModal: false,
+        dutcherFilters: action.payload
+      };
+    
+    case "SYMPLE_CLOSE_DUTCHER_FILTER_MODAL":
+      return {
+        ...state, 
+        showDutcherFilterModal: false
+      }
+
     default:
       return state;
   }

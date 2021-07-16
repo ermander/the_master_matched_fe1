@@ -25,7 +25,7 @@ import ProfitTracker from "./pages/ProfitTracker"
 import Casino from "./components/ProfitTracker/Casino"
 
 import NewSidebar from "./components/NewSidebar/NewSidebar";
-import NewDutcher from "./components/NewDutcher/NewDutcher";
+import NewDutcher from "./pages/NewDutcher";
 
 
 function App() {

@@ -1,7 +1,7 @@
-import "date-fns";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+
+// MaterialUI
 import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
@@ -13,37 +13,40 @@ import { Button } from "@material-ui/core";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
+
+import DateFnsUtils from "@date-io/date-fns";
+import "date-fns";
 // SASS
 import "../../styles/_dutcher-filters-body.scss";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: "#3a3b44",
-  },
-  container: {
-    color: "white",
-    backgroundColor: "#3a3b44",
-  },
-  form: {
-    margin: "10px 10px",
-  },
-  button: {
-    margin: "5px",
-    color: "white",
-    borderBottom: "1px solid white",
-    borderBottomLeftRadius: "0%",
-    borderBottomRightRadius: "0%",
-    "&:hover": {
-      backgroundColor: "rgba(255, 255, 255, 0.08)",
-      boxShadow: "10px white",
+export default function DutcherFiltersBody({props, filterOdds}) {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      backgroundColor: "#3a3b44",
     },
-  },
-  sportSwitch: {
-    color: "white",
-  },
-}));
+    container: {
+      color: "white",
+      backgroundColor: "#3a3b44",
+    },
+    form: {
+      margin: "10px 10px",
+    },
+    button: {
+      margin: "5px",
+      color: "white",
+      borderBottom: "1px solid white",
+      borderBottomLeftRadius: "0%",
+      borderBottomRightRadius: "0%",
+      "&:hover": {
+        backgroundColor: "rgba(255, 255, 255, 0.08)",
+        boxShadow: "10px white",
+      },
+    },
+    sportSwitch: {
+      color: "white",
+    },
+  }));
 
-export default function DutcherFiltersBody({ handleClose, setFilters }) {
   const classes = useStyles();
   // The first commit of Material-UI
   const [initialDate, setInitialDate] = useState(new Date());
@@ -224,9 +227,8 @@ export default function DutcherFiltersBody({ handleClose, setFilters }) {
       checkedUnderOver: false,
       checkedGoalNoGoal: false,
     });
-    handleClose()
+    props.handleClose();
   };
-
   return (
     <>
       <div>
@@ -437,18 +439,37 @@ export default function DutcherFiltersBody({ handleClose, setFilters }) {
 
       <div>
         <Grid container justify="center" className={classes.container}>
-          <Button className={classes.button} onClick={setFilters({
-              initialDate: initialDate,
-              finalDate: finalDate,
-              minOdd: minOdd,
-              maxOdd: maxOdd,
-              sportStatus: sportStatus,
-              marketStatus: marketStatus
-          }, handleClose)}>Applica</Button>
+          <Button
+            className={classes.button}
+            onClick={() =>
+              filterOdds({
+                initialDate: initialDate,
+                finalDate: finalDate,
+                minOdd: minOdd,
+                maxOdd: maxOdd,
+                sportStatus: sportStatus,
+                marketStatus: marketStatus,
+              })
+            }
+          >
+            Applica
+          </Button>
           <Button className={classes.button} onClick={resetFilters}>
             Resetta
           </Button>
-          <Button className={classes.button} onClick={handleClose}>
+          <Button
+            className={classes.button}
+            onClick={() =>
+              props.handleClose({
+                initialDate: initialDate,
+                finalDate: finalDate,
+                minOdd: minOdd,
+                maxOdd: maxOdd,
+                sportStatus: sportStatus,
+                marketStatus: marketStatus,
+              })
+            }
+          >
             Chiudi
           </Button>
         </Grid>

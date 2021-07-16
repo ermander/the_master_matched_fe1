@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 // Material UI
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
@@ -7,50 +8,39 @@ import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 
 // Components
-import DutcherFiltersBody from "./DutcherFiltersBody"
+import DutcherFiltersBody from "./DutcherFiltersBody";
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  openModalButton: {
-    color: "white",
-    marginLeft: "10px",
-    borderBottom: "1px solid white",
-    borderBottomLeftRadius: "0%",
-    borderBottomRightRadius: "0%",
-    "&:hover": {
-      backgroundColor: "rgba(255, 255, 255, 0.08)",
-      boxShadow: "10px white",
+export default function DutcherFilters(props, closeDutcherFilterModal) {
+  const useStyles = makeStyles((theme) => ({
+    modal: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
-  },
-}));
-
-export default function TransitionsModal({setFilters}) {
+    paper: {
+      backgroundColor: theme.palette.background.paper,
+      border: "2px solid #000",
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+    openModalButton: {
+      color: "white",
+      marginLeft: "10px",
+      borderBottom: "1px solid white",
+      borderBottomLeftRadius: "0%",
+      borderBottomRightRadius: "0%",
+      "&:hover": {
+        backgroundColor: "rgba(255, 255, 255, 0.08)",
+        boxShadow: "10px white",
+      },
+    },
+  }));
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
     <div>
       <Button
         type="button"
-        onClick={handleOpen}
+        onClick={props.openDutcherFilterModal}
         className={classes.openModalButton}
       >
         Filtri
@@ -59,17 +49,21 @@ export default function TransitionsModal({setFilters}) {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={open}
-        onClose={handleClose}
+        open={props.showDutcherFilterModal}
+        onClose={props.closeDutcherFilterModal}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={open}>
+        <Fade in={props.showDutcherFilterModal}>
           <div className={classes.paper}>
-            <DutcherFiltersBody handleClose={handleClose} setFilters={() => setFilters}/>
+            <DutcherFiltersBody
+              handleClose={props.closeDutcherFilterModal}
+              setFilters={() => props.setFilters}
+              filterOdds={props.filterOdds}
+            />
           </div>
         </Fade>
       </Modal>

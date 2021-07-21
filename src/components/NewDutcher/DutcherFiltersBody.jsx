@@ -18,8 +18,21 @@ import DateFnsUtils from "@date-io/date-fns";
 import "date-fns";
 // SASS
 import "../../styles/_dutcher-filters-body.scss";
+import { connect } from "react-redux";
 
-export default function DutcherFiltersBody({props, filterOdds}) {
+import { months } from "../Utils/months.js";
+
+const mapStateToProps = (state) => state;
+
+const mapDispatchToProps = (dispatch) => ({
+  setFiltersToRedux: (payload) =>
+    dispatch({
+      type: "ADD_TEMPORARY_ODDS",
+      payload: payload,
+    }),
+});
+
+function DutcherFiltersBody(props) {
   const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: "#3a3b44",
@@ -65,6 +78,70 @@ export default function DutcherFiltersBody({props, filterOdds}) {
     checkedUnderOver: false,
     checkedGoalNoGoal: false,
   });
+
+  const setFilters = (options) => {
+    console.log(options);
+    let odds = props.dutcher.odds;
+    props.setFiltersToRedux([]);
+    // FILTERING BY MIN AND MAX ODD
+    if (options.minOdd !== null) {
+      odds = odds.filter(
+        (odd) => parseFloat(odd.odd_one) >= parseFloat(options.minOdd)
+      );
+    }
+    if (options.maxOdd !== null) {
+      odds = odds.filter(
+        (odd) => parseFloat(odd.odd_one) <= parseFloat(options.maxOdd)
+      );
+    }
+
+    // FILTERING BY SPORT
+
+    // FILTERING BT MARKET
+    if (options.marketStatus.checkedAllMarkets === false) {
+      if (options.marketStatus.checkedDoppiaChance === false) {
+        odds = odds.filter((odd) => odd.market !== "DC");
+      }
+      if (options.marketStatus.checkedUnderOver === false) {
+        odds = odds.filter((odd) => odd.market !== "U/O");
+      }
+      if (options.marketStatus.checkedGoalNoGoal === false) {
+        odds = odds.filter((odd) => odd.market !== "GG/NG");
+      }
+    }
+
+    // FILTERING BY DATE
+    // Deleting odds with no data or time specified
+    odds = odds.filter(
+      (odd) => odd.start_date !== undefined || odd.start_time !== undefined
+    );
+    const initialDate = new Date(options.initialDate);
+    const finalDate = new Date(options.finalDate)
+    // Creating a valid date format
+    odds = odds.map((odd) => {
+      let date = new Date();
+      date.setFullYear(
+        parseInt(odd.start_date.split("/")[2]),
+        parseInt(odd.start_date.split("/")[1] - 1),
+        parseInt(odd.start_date.split("/")[0])
+      );
+      date.setHours(parseInt(odd.start_time.split(":")[0]));
+      date.setMinutes(parseInt(odd.start_time.split(":")[0]));
+      return {
+        ...odd,
+        date,
+      };
+    });
+    // Filtering by start date
+    odds = odds.filter((odd) => odd.date.valueOf() >= initialDate.valueOf());
+    // Filtering by end date
+    odds = odds.filter((odd) => odd.date.valueOf() <= finalDate)
+    console.log(odds);
+
+    // UPDATING THE ODDS PROPS
+    props.setFiltersToRedux(odds);
+    props.handleShow();
+  };
 
   const handleInitialDateChange = (date) => {
     setInitialDate(date);
@@ -227,7 +304,7 @@ export default function DutcherFiltersBody({props, filterOdds}) {
       checkedUnderOver: false,
       checkedGoalNoGoal: false,
     });
-    props.handleClose();
+    props.handleShow();
   };
   return (
     <>
@@ -442,13 +519,13 @@ export default function DutcherFiltersBody({props, filterOdds}) {
           <Button
             className={classes.button}
             onClick={() =>
-              filterOdds({
-                initialDate: initialDate,
-                finalDate: finalDate,
-                minOdd: minOdd,
-                maxOdd: maxOdd,
-                sportStatus: sportStatus,
-                marketStatus: marketStatus,
+              setFilters({
+                initialDate,
+                finalDate,
+                minOdd,
+                maxOdd,
+                sportStatus,
+                marketStatus,
               })
             }
           >
@@ -457,19 +534,7 @@ export default function DutcherFiltersBody({props, filterOdds}) {
           <Button className={classes.button} onClick={resetFilters}>
             Resetta
           </Button>
-          <Button
-            className={classes.button}
-            onClick={() =>
-              props.handleClose({
-                initialDate: initialDate,
-                finalDate: finalDate,
-                minOdd: minOdd,
-                maxOdd: maxOdd,
-                sportStatus: sportStatus,
-                marketStatus: marketStatus,
-              })
-            }
-          >
+          <Button className={classes.button} onClick={props.handleShow}>
             Chiudi
           </Button>
         </Grid>
@@ -477,3 +542,5 @@ export default function DutcherFiltersBody({props, filterOdds}) {
     </>
   );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(DutcherFiltersBody);

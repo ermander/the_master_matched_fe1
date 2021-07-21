@@ -24,91 +24,53 @@ import {
 } from "../components/NewDutcher/dutcherFunctions";
 
 // REDUX
-const mapStateToProps = (state) => ({ ...state });
+const mapStateToProps = (state) => state;
 
 const mapDispatchToProps = (dispatch) => ({
-  openDutcherFilterModal: () => {
+  setFirstBookmaker: (payload) =>
     dispatch({
-      type: "OPEN_DUTCHER_FILTER_MODAL",
-    });
-  },
-
-  closeDutcherFilterModal: (payload) => {
-    // Action creator
-    dispatch({
-      type: "CLOSE_DUTCHER_FILTER_MODAL",
+      type: "SET_FIRST_BOOKMAKER",
       payload: payload,
-    });
-  },
+    }),
+  // FETCH ODDS
+  fetchOdds: () => dispatch(handleFetchOdds()),
 });
+
+const handleFetchOdds = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: "ADD_MAIN_ODDS",
+      payload: [],
+    });
+    dispatch({
+      type: "ADD_TEMPORARY_ODDS",
+      payload: [],
+    });
+    const odds = await fetchOdds();
+    dispatch({
+      type: "ADD_MAIN_ODDS",
+      payload: odds,
+    });
+    dispatch({
+      type: "ADD_TEMPORARY_ODDS",
+      payload: odds,
+    });
+  };
+};
 
 export const NewDutcher = (props) => {
   const [sidebarStatus, setSidebarStatus] = useState(false);
-  const [mainOdds, setOdds] = useState([]);
-  const [temporaryOdds, setTemporaryOdds] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState({});
   const collapeSidebar = () => {
     setSidebarStatus(!sidebarStatus);
   };
-  console.log(props)
-
-  const handleFetchOdds = async () => {
-    setLoading(true);
-    setTemporaryOdds([]);
-    setOdds([]);
-    try {
-      const odds = await fetchOdds();
-      setOdds(odds);
-      setTemporaryOdds(odds);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const refreshOdds = async () => {
-    return handleFetchOdds();
-  };
-
-  const handleSetBookmaker = (bookmaker) => {
-    setTemporaryOdds([]);
-    setLoading(true);
-    const odds = setBookmaker(mainOdds, bookmaker);
-    setTemporaryOdds(odds);
-    setLoading(false);
-  };
-
-  const filterOdds = (options) => {
-    setFilters(options);
-  };
-
-  const updateOddsWithFilter = (props) => {
-    console.log(props + "props")
-    let odds = mainOdds;
-
-    // Filtering by min and max odd
-    if (filters.minOdd) {
-      odds = odds.filter((odd) => (parseFloat(odd.odd_one) > parseFloat(filters.minOdd)));
-    }
-
-    if (filters.maxOdd) {
-      odds = odds.filter((odd) => (parseFloat(odd.odd_one) < parseFloat(filters.maxOdd)));
-    }
-    setTemporaryOdds(odds);
+    return props.fetchOdds();
   };
 
   useEffect(() => {
-    handleFetchOdds();
+    props.fetchOdds();
   }, []);
-
-  useEffect(() => {
-    setFilters(props.dutcherFilters);
-  }, [props.dutcherFilters]);
-
-  useEffect(() => {
-    updateOddsWithFilter();
-  }, [filters]);
 
   return (
     <>
@@ -131,7 +93,7 @@ export const NewDutcher = (props) => {
             <ToolsTitle title="Odds - Matcher" />
           </div>
           <div className="first-bookmaker-containter">
-            <FirstBookmakerSelectForm setFirstBookmaker={handleSetBookmaker} />
+            <FirstBookmakerSelectForm setFirstBookmaker={props.setFirstBookmaker} />
             <Button
               variant="outlined"
               color="primary"
@@ -141,15 +103,9 @@ export const NewDutcher = (props) => {
               Ricarica
               <RefreshIcon />
             </Button>
-            <DutcherFilters
-              setFilters={setFilters}
-              openDutcherFilterModal={props.openDutcherFilterModal}
-              showDutcherFilterModal={props.showDutcherFilterModal}
-              closeDutcherFilterModal={props.closeDutcherFilterModal}
-              filterOdds={filterOdds}
-            />
+            <DutcherFilters />
           </div>
-          <DutcherTable odds={temporaryOdds} />
+          <DutcherTable />
           <Disclaimer />
         </div>
       </div>

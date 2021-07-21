@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -10,6 +10,7 @@ import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -45,7 +46,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DialogSelect({ setFirstBookmaker }) {
+const mapStateToProps = (state) => state;
+
+const mapDispatchToProps = () => ({
+
+})
+
+function FirstBookmakerSelectForm(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [bookmaker, setBookmaker] = React.useState("");
@@ -62,11 +69,60 @@ export default function DialogSelect({ setFirstBookmaker }) {
     setOpen(false);
   };
 
-  const setBookmakerProp = () => {
-    setFirstBookmaker(bookmaker);
-    setOpen(false);
+  const setFirstBookmaker = (firstBookmaker) => {
+    let odds = props.dutcher.odds;
+    if (firstBookmaker !== "") {
+      if (firstBookmaker.toLowerCase() === "golgol") {
+        odds = odds.filter(
+          (odd) => odd.book_one.toLowerCase() === "golgol" || odd.book_two.toLowerCase() === "golgol"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "eurobet") {
+        odds = odds.filter(
+          (odd) => odd.book_one.toLowerCase() === "eurobet" || odd.book_two.toLowerCase() === "eurobet"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "lopoca") {
+        odds = odds.filter(
+          (odd) => odd.book_one.toLowerCase() === "lopoca" || odd.book_two.toLowerCase() === "lopoca"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "marathonbet") {
+        odds = odds.filter(
+          (odd) =>
+            odd.book_one.toLowerCase() === "marathonbet" || odd.book_two.toLowerCase() === "marathonbet"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "overplus") {
+        odds = odds.filter(
+          (odd) => odd.book_one.toLowerCase() === "overplus" || odd.book_two.toLowerCase() === "overplus"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "planetwin") {
+        odds = odds.filter(
+          (odd) => odd.book_one === "planetwin" || odd.book_two === "planetwin"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "sisal") {
+        odds = odds.filter(
+          (odd) => odd.book_one.toLowerCase() === "sisal" || odd.book_two.toLowerCase() === "sisal"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "starcasino") {
+        odds = odds.filter(
+          (odd) =>
+            odd.book_one.toLowerCase() === "starcasino" || odd.book_two.toLowerCase() === "starcasino"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "vincitu") {
+        odds = odds.filter(
+          (odd) => odd.book_one.toLowerCase() === "vincitu" || odd.book_two.toLowerCase() === "vincitu"
+        );
+      }
+      props.setFirstBookmaker(odds)
+      handleClose()
+    }
   };
-
   return (
     <div>
       <Button onClick={handleClickOpen} className={classes.button}>
@@ -118,7 +174,7 @@ export default function DialogSelect({ setFirstBookmaker }) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={setBookmakerProp} color="primary">
+          <Button onClick={() => setFirstBookmaker(bookmaker)} color="primary">
             Ok
           </Button>
         </DialogActions>
@@ -126,3 +182,5 @@ export default function DialogSelect({ setFirstBookmaker }) {
     </div>
   );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(FirstBookmakerSelectForm);

@@ -11,7 +11,7 @@ import { faGooglePlusG, faFacebook } from "@fortawesome/free-brands-svg-icons";
 // SASS
 import "../../styles/_login.scss";
 
-const mapStateToProps = (state) => ({ ...state });
+const mapStateToProps = (state) => state
 
 const mapDispatchToProps = (dispatch) => ({
   setUserLogged: () => {

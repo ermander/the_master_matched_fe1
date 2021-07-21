@@ -10,7 +10,11 @@ import Button from "@material-ui/core/Button";
 // Components
 import DutcherFiltersBody from "./DutcherFiltersBody";
 
-export default function DutcherFilters(props, closeDutcherFilterModal) {
+function DutcherFilters() {
+  const [ show, setShow ] = useState(false)
+  const handleShow = () => {
+    setShow(!show)
+  }
   const useStyles = makeStyles((theme) => ({
     modal: {
       display: "flex",
@@ -40,7 +44,7 @@ export default function DutcherFilters(props, closeDutcherFilterModal) {
     <div>
       <Button
         type="button"
-        onClick={props.openDutcherFilterModal}
+        onClick={setShow}
         className={classes.openModalButton}
       >
         Filtri
@@ -49,20 +53,18 @@ export default function DutcherFilters(props, closeDutcherFilterModal) {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={props.showDutcherFilterModal}
-        onClose={props.closeDutcherFilterModal}
+        open={show}
+        onClose={handleShow}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={props.showDutcherFilterModal}>
+        <Fade in={show}>
           <div className={classes.paper}>
             <DutcherFiltersBody
-              handleClose={props.closeDutcherFilterModal}
-              setFilters={() => props.setFilters}
-              filterOdds={props.filterOdds}
+              handleShow={handleShow}
             />
           </div>
         </Fade>
@@ -70,3 +72,4 @@ export default function DutcherFilters(props, closeDutcherFilterModal) {
     </div>
   );
 }
+export default DutcherFilters

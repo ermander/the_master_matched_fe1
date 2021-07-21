@@ -19,6 +19,7 @@ export const fetchOdds = async() => {
         const response = await fetch("https://odds-and-db-be-server.herokuapp.com/google-odds/dutcher-odds");
         const parsedResponse = await response.json();
         let odds = parsedResponse.map((odd) => {
+          
             return {
               ...odd,
               event: odd.home + " vs " + odd.away,

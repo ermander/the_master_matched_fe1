@@ -10,6 +10,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { connect } from "react-redux";
 
+
 const columns = [
   { id: "openMatchInfoModal", minWidth: 30, align: "center" },
   { id: "match_start", label: "Data", minWidth: 100, align: "center" },

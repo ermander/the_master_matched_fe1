@@ -1,5 +1,5 @@
 import { logos } from "../Utils/bookmakersLogos";
-import OpenDutcherMatchInfoModal from "../NewDutcher/OpenDutcherMatchInfoModal"
+import OpenDutcherMatchInfoModal from "../Dutcher/OpenDutcherMatchInfoModal"
 
 export const setBookmaker = (odds, bookmaker) => {
   console.log(bookmaker);

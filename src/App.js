@@ -24,8 +24,7 @@ import ComingSoon from "./components/Coming Soon Page/ComingSoon"
 import ProfitTracker from "./pages/ProfitTracker"
 import Casino from "./components/ProfitTracker/Casino"
 
-import NewSidebar from "./components/NewSidebar/NewSidebar";
-import NewDutcher from "./pages/NewDutcher";
+import Dutcher from "./pages/Dutcher";
 
 
 function App() {
@@ -47,9 +46,6 @@ function App() {
           <Route path="/restore-password" exact>
             <RestorePassword />
           </Route>
-          <Route path="/prova">
-            <NewSidebar />
-          </Route>
 
           {/*Tools offline */}
           <Route path="/cashback-2-vie" exact>
@@ -63,7 +59,7 @@ function App() {
           </Route>
           {/* Tools Online */}
           <Route path="/dutcher" exact>
-            <NewDutcher />
+            <Dutcher />
           </Route>
           <Route path="/trimatcher" exact>
             <Trimatcher />

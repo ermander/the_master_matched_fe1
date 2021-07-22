@@ -30,7 +30,6 @@ function Login(props) {
 
   const handleLogin = async () => {
     try {
-      console.log(email, password);
       const response = await fetch(
         "https://the-master-matched-be-new.herokuapp.com/users/login",
         {
@@ -46,13 +45,11 @@ function Login(props) {
       );
       if (response.ok) {
         props.setUserLogged()
-        console.log(response);
         const parsedResponse = await response.json();
         localStorage.setItem("accessToken", parsedResponse.accessToken);
         localStorage.setItem("refreshToken", parsedResponse.refreshToken);
         history.push("/dutcher");
       } else {
-        console.log(response);
         setShow(true);
         setTimeout(() => setShow(false), 3000);
       }
@@ -117,7 +114,6 @@ function Login(props) {
                     type="password"
                     placeholder="Password..."
                     onChange={(e) => setPassword(e.currentTarget.value)}
-                    onKeyPress={handleLogin}
                   />
                 </Col>
               </Row>

@@ -14,7 +14,7 @@ import {
 // SASS
 import "../../styles/_new-sidebar.scss"
 
-export default class NewSidebar extends Component {
+export default class Sidebar extends Component {
   render() {
     return (
       <div className={this.props.collapsed ? "sidebar collapsed" : "sidebar"}>

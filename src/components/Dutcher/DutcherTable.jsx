@@ -99,14 +99,14 @@ const useStyles = makeStyles({
   },
   tdColors: {
     color: "white",
-    "&:nth-child(8)": {
+    "&:nth-child(9)": {
       backgroundColor: "#a6d8ff!important",
       color: "black",
       fontWeight: "bold",
       border: "2px solid white",
       borderLeft: "3px solid white",
     },
-    "&:nth-child(9)": {
+    "&:nth-child(10)": {
       backgroundColor: "#a6d8ff!important",
       color: "black",
       fontWeight: "bold",

@@ -5,6 +5,9 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import { connect } from "react-redux";
 
+// Components
+import DutcherMatchInfoCard from "./DutcherMatchInfoCard";
+
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
   showDutcherMatchInfoModal: (payload) =>
@@ -18,12 +21,14 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    width: "100%"
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "#3a3b44",
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    width: "60%",
   },
 }));
 
@@ -57,10 +62,7 @@ function DutcherMatchInfoModal(props) {
       >
         <Fade in={props.dutcher.showDutcherMatchInfoModal}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Transition modal</h2>
-            <p id="transition-modal-description">
-              react-transition-group animates me.
-            </p>
+            <DutcherMatchInfoCard />
           </div>
         </Fade>
       </Modal>

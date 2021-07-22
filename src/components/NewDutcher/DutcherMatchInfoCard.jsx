@@ -10,6 +10,9 @@ import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
+// Bookmakers Links
+import { links } from "../Utils/bookmakersLinks";
+
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
   showDutcherMatchInfoModal: (payload) =>
@@ -78,9 +81,50 @@ const useStyles = makeStyles({
 
 function DutcherMatchInfoCard(props) {
   const [showStakes, setShowStakes] = useState(false);
+  const [stake, setStake] = useState("");
+  const [bonus, setBonus] = useState("");
+  const [oddOne, setOddOne] = useState("");
+  const [oddTwo, setOddTwo] = useState("");
+  const [stakeBookOne, setStakeBookOne] = useState(null);
+  const [stakeBookTwo, setStakeBookTwo] = useState(null);
+  const [profit, setProfit] = useState("");
+
   const handleSetShowStakes = () => {
     setShowStakes(true);
   };
+  // CALCULATING STAKES
+  const calcBettingStakes = (props) => {
+    //console.log(props);
+    handleSetShowStakes();
+    console.log(props);
+    const stakeCalc = props.stake !== "" ? props.stake.stake : 100;
+    const bonusCalc = props.bonus !== "" ? props.bonus.bonus : 0;
+    const oddOneCalc =
+      props.oddOne !== ""
+        ? props.oddOne.oddOne
+        : parseFloat(props.infoes.odd_one);
+    const oddTwoCalc =
+      props.oddTwo !== ""
+        ? props.oddTwo.oddTwo
+        : parseFloat(props.infoes.odd_two);
+
+    if (bonusCalc === 0) {
+      const stakeBookTwo = (stakeCalc * oddOneCalc) / oddTwoCalc;
+      const profit = stakeCalc * oddOneCalc - stakeBookTwo - stakeCalc;
+      setProfit(profit.toFixed(2));
+      setStakeBookOne(stakeCalc);
+      setStakeBookTwo(parseFloat(stakeBookTwo.toFixed(0)));
+    }
+    if (bonusCalc !== 0) {
+      const stakeBookTwo = ((stakeCalc + bonusCalc) * oddOneCalc) / oddTwoCalc;
+      const profit =
+        (stakeCalc + bonusCalc) * oddOneCalc - stakeBookTwo - stakeCalc;
+      setProfit(profit.toFixed(2));
+      setStakeBookOne(stakeCalc);
+      setStakeBookTwo(parseFloat(stakeBookTwo.toFixed(0)));
+    }
+  };
+
   const classes = useStyles();
   const infoes = props.dutcher.matchInfo;
 
@@ -108,13 +152,19 @@ function DutcherMatchInfoCard(props) {
         style={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "center",
         }}
       >
         {" "}
         <Card className={classes.cardInfoesContainer} variant="outlined">
           {props.dutcher.matchInfo.roi !== undefined ? (
-            <CardContent>
+            <CardContent
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                justifyContent: "space-between",
+              }}
+            >
               <p>
                 Squadra Casa:{" "}
                 <strong style={{ marginLeft: "10px" }}>{infoes.home}</strong>
@@ -168,7 +218,33 @@ function DutcherMatchInfoCard(props) {
               shrink: true,
             }}
             placeholder="100"
-            onChange={() => {}}
+            onChange={(e) =>
+              setStake({
+                stake:
+                  e.currentTarget.value === ""
+                    ? 100
+                    : parseFloat(e.currentTarget.value),
+              })
+            }
+          />
+          <TextField
+            className={classes.inputFields}
+            id="standard-number"
+            id="label"
+            label="Stake Bonus"
+            type="number"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder="0"
+            onChange={(e) =>
+              setBonus({
+                bonus:
+                  e.currentTarget.value === ""
+                    ? 0
+                    : parseFloat(e.currentTarget.value),
+              })
+            }
           />
           <TextField
             className={classes.inputFields}
@@ -180,7 +256,14 @@ function DutcherMatchInfoCard(props) {
               shrink: true,
             }}
             placeholder={`${infoes.odd_one}`}
-            onChange={() => {}}
+            onChange={(e) =>
+              setOddOne({
+                oddOne:
+                  e.currentTarget.value === ""
+                    ? parseFloat(infoes.odd_one)
+                    : parseFloat(e.currentTarget.value),
+              })
+            }
           />
           <TextField
             className={classes.inputFields}
@@ -192,13 +275,28 @@ function DutcherMatchInfoCard(props) {
               shrink: true,
             }}
             placeholder={`${infoes.odd_two}`}
-            onChange={() => {}}
+            onChange={(e) =>
+              setOddTwo({
+                oddTwo:
+                  e.currentTarget.value === ""
+                    ? parseFloat(infoes.odd_two)
+                    : parseFloat(e.currentTarget.value),
+              })
+            }
           />
           <Button
             variant="outlined"
             color="primary"
             className={classes.button}
-            onClick={() => handleSetShowStakes()}
+            onClick={() =>
+              calcBettingStakes({
+                stake,
+                bonus,
+                oddOne,
+                oddTwo,
+                infoes,
+              })
+            }
           >
             Calcola Importi
           </Button>
@@ -219,12 +317,41 @@ function DutcherMatchInfoCard(props) {
               }
         }
       >
-        <p>
-          Punta {}€ su {infoes.book_one}
-        </p>
-        <p>
-          Punta {}€ su {infoes.book_two}
-        </p>
+        {infoes.book_one !== undefined ? (
+          <>
+            <p>
+              Punta
+              <strong> {stakeBookOne}€ </strong>
+              su{" "}
+              <strong>
+                {" "}
+                <a href={links[infoes.book_one.toLowerCase()]} target="_blank">
+                  {infoes.book_one}
+                </a>
+              </strong>
+            </p>
+            <p>
+              Punta <strong>{stakeBookTwo}€</strong> su
+              <strong>
+                {" "}
+                <a href={links[infoes.book_two.toLowerCase()]} target="_blank">
+                  {infoes.book_two}
+                </a>
+              </strong>
+            </p>
+            <p>
+              Guadagnerai{" "}
+              {profit >= 0 ? (
+                <strong style={{ color: "green" }}>{profit}</strong>
+              ) : (
+                <strong style={{ color: "red" }}>{profit}</strong>
+              )}
+              €
+            </p>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
       <div
         style={{

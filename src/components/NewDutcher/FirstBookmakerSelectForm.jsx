@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -48,9 +48,13 @@ const useStyles = makeStyles((theme) => ({
 
 const mapStateToProps = (state) => state;
 
-const mapDispatchToProps = () => ({
-
-})
+const mapDispatchToProps = (dispatch) => ({
+  saveFirstBookmaker: (payload) =>
+    dispatch({
+      type: "SAVE_FIRST_BOOKMAKER",
+      payload: payload,
+    }),
+});
 
 function FirstBookmakerSelectForm(props) {
   const classes = useStyles();
@@ -74,28 +78,37 @@ function FirstBookmakerSelectForm(props) {
     if (firstBookmaker !== "") {
       if (firstBookmaker.toLowerCase() === "golgol") {
         odds = odds.filter(
-          (odd) => odd.book_one.toLowerCase() === "golgol" || odd.book_two.toLowerCase() === "golgol"
+          (odd) =>
+            odd.book_one.toLowerCase() === "golgol" ||
+            odd.book_two.toLowerCase() === "golgol"
         );
       }
       if (firstBookmaker.toLowerCase() === "eurobet") {
         odds = odds.filter(
-          (odd) => odd.book_one.toLowerCase() === "eurobet" || odd.book_two.toLowerCase() === "eurobet"
+          (odd) =>
+            odd.book_one.toLowerCase() === "eurobet" ||
+            odd.book_two.toLowerCase() === "eurobet"
         );
       }
       if (firstBookmaker.toLowerCase() === "lopoca") {
         odds = odds.filter(
-          (odd) => odd.book_one.toLowerCase() === "lopoca" || odd.book_two.toLowerCase() === "lopoca"
+          (odd) =>
+            odd.book_one.toLowerCase() === "lopoca" ||
+            odd.book_two.toLowerCase() === "lopoca"
         );
       }
       if (firstBookmaker.toLowerCase() === "marathonbet") {
         odds = odds.filter(
           (odd) =>
-            odd.book_one.toLowerCase() === "marathonbet" || odd.book_two.toLowerCase() === "marathonbet"
+            odd.book_one.toLowerCase() === "marathonbet" ||
+            odd.book_two.toLowerCase() === "marathonbet"
         );
       }
       if (firstBookmaker.toLowerCase() === "overplus") {
         odds = odds.filter(
-          (odd) => odd.book_one.toLowerCase() === "overplus" || odd.book_two.toLowerCase() === "overplus"
+          (odd) =>
+            odd.book_one.toLowerCase() === "overplus" ||
+            odd.book_two.toLowerCase() === "overplus"
         );
       }
       if (firstBookmaker.toLowerCase() === "planetwin") {
@@ -105,22 +118,28 @@ function FirstBookmakerSelectForm(props) {
       }
       if (firstBookmaker.toLowerCase() === "sisal") {
         odds = odds.filter(
-          (odd) => odd.book_one.toLowerCase() === "sisal" || odd.book_two.toLowerCase() === "sisal"
+          (odd) =>
+            odd.book_one.toLowerCase() === "sisal" ||
+            odd.book_two.toLowerCase() === "sisal"
         );
       }
       if (firstBookmaker.toLowerCase() === "starcasino") {
         odds = odds.filter(
           (odd) =>
-            odd.book_one.toLowerCase() === "starcasino" || odd.book_two.toLowerCase() === "starcasino"
+            odd.book_one.toLowerCase() === "starcasino" ||
+            odd.book_two.toLowerCase() === "starcasino"
         );
       }
       if (firstBookmaker.toLowerCase() === "vincitu") {
         odds = odds.filter(
-          (odd) => odd.book_one.toLowerCase() === "vincitu" || odd.book_two.toLowerCase() === "vincitu"
+          (odd) =>
+            odd.book_one.toLowerCase() === "vincitu" ||
+            odd.book_two.toLowerCase() === "vincitu"
         );
       }
-      props.setFirstBookmaker(odds)
-      handleClose()
+      props.setFirstBookmaker(odds);
+      props.saveFirstBookmaker(firstBookmaker);
+      handleClose();
     }
   };
   return (
@@ -183,4 +202,7 @@ function FirstBookmakerSelectForm(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FirstBookmakerSelectForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FirstBookmakerSelectForm);

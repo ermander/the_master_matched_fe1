@@ -27,7 +27,7 @@ export default class NewSidebar extends Component {
         <div id="user-profile-image">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
-              alt="user profile image"
+              alt="user profile"
             />
             <p>Benvenuto USERNAME</p>
           </div>

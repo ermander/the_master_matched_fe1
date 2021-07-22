@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // MaterialUI
 import Grid from "@material-ui/core/Grid";
@@ -19,8 +19,6 @@ import "date-fns";
 // SASS
 import "../../styles/_dutcher-filters-body.scss";
 import { connect } from "react-redux";
-
-import { months } from "../Utils/months.js";
 
 const mapStateToProps = (state) => state;
 
@@ -79,8 +77,11 @@ function DutcherFiltersBody(props) {
     checkedGoalNoGoal: false,
   });
 
+  let firstFinalDateSet = new Date();
+  const currentMonth = firstFinalDateSet.getMonth();
+  firstFinalDateSet.setMonth(currentMonth + 2);
+
   const setFilters = (options) => {
-    console.log(options);
     let odds = props.dutcher.odds;
     props.setFiltersToRedux([]);
     // FILTERING BY MIN AND MAX ODD
@@ -109,14 +110,13 @@ function DutcherFiltersBody(props) {
         odds = odds.filter((odd) => odd.market !== "GG/NG");
       }
     }
-
     // FILTERING BY DATE
     // Deleting odds with no data or time specified
     odds = odds.filter(
       (odd) => odd.start_date !== undefined || odd.start_time !== undefined
     );
     const initialDate = new Date(options.initialDate);
-    const finalDate = new Date(options.finalDate)
+    const finalDate = new Date(options.finalDate);
     // Creating a valid date format
     odds = odds.map((odd) => {
       let date = new Date();
@@ -135,8 +135,18 @@ function DutcherFiltersBody(props) {
     // Filtering by start date
     odds = odds.filter((odd) => odd.date.valueOf() >= initialDate.valueOf());
     // Filtering by end date
-    odds = odds.filter((odd) => odd.date.valueOf() <= finalDate)
-    console.log(odds);
+    odds = odds.filter((odd) => odd.date.valueOf() <= finalDate);
+
+    // If the user as select a first bookmaker, filtering based on first bookmaker selection
+    if (props.dutcher.firstBookmaker !== null) {
+      odds = odds.filter(
+        (odd) =>
+          odd.book_one.toLowerCase() ===
+            props.dutcher.firstBookmaker.toLowerCase() ||
+          odd.book_two.toLowerCase() ===
+            props.dutcher.firstBookmaker.toLowerCase()
+      );
+    }
 
     // UPDATING THE ODDS PROPS
     props.setFiltersToRedux(odds);
@@ -304,8 +314,13 @@ function DutcherFiltersBody(props) {
       checkedUnderOver: false,
       checkedGoalNoGoal: false,
     });
+    props.setFiltersToRedux(props.dutcher.odds);
     props.handleShow();
   };
+
+  useEffect(() => {
+    setFinalDate(firstFinalDateSet);
+  }, []);
   return (
     <>
       <div>

@@ -1,13 +1,18 @@
-.makeStyles-paper-8{
-    background-color: #3a3b44!important;
-    div > div > div > input{
-        color: white!important;
-    }
-    div > div > div > label{
-        color: white!important;
-    }
+div[role="presentation"] {
+  div > div > div > div {
+    background-color: #3a3b44 !important;
+  }
+  input {
+    color: white !important;
+  }
+  div > div > div > label {
+    color: white !important;
+  }
 
-    svg{
-        color: white;
-    }
+  svg {
+    color: white;
+  }
+  div[role="button"] {
+    color: white;
+  }
 }

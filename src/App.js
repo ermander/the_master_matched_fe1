@@ -5,7 +5,7 @@ import "./App.scss"
 import "bootstrap/dist/css/bootstrap.min.css";
 
 //Homepage
-import Homepage from "./components/Homepage/Homepage"
+//import Homepage from "./components/Homepage/Homepage"
 // User authentication and registration
 import Login from "./components/Login/Login"
 import Registration from "./components/Registration/Registration"
@@ -15,7 +15,7 @@ import OfflineDutcher from "./components/OfflineTools/Dutcher/OfflineDutcher"
 import OfflineTrimatcher from "./components/OfflineTools/Trimatcher/OfflineTrimatcher"
 
 // Online Tools
-import Dutcher from "./pages/Dutcher"
+//import Dutcher from "./pages/Dutcher"
 import Trimatcher from "./pages/Trimatcher"
 
 import ComingSoon from "./components/Coming Soon Page/ComingSoon"

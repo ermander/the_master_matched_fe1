@@ -17,10 +17,21 @@ export default function (state = {}, action) {
       };
     // FIRST BOOKMAKER
     case "SET_FIRST_BOOKMAKER":
-      return{
+      return {
         ...state,
-        temporaryOdds: action.payload
-      }
+        temporaryOdds: action.payload,
+      };
+    case "SAVE_FIRST_BOOKMAKER":
+      return {
+        ...state,
+        firstBookmaker: action.payload,
+      };
+    case "SHOW_DUTCHER_MATCH_INFO_MODAL":
+      return {
+        ...state,
+        showDutcherMatchInfoModal: !state.showDutcherMatchInfoModal,
+        matchInfo: action.payload,
+      };
     // ODDS FILTERS
     default:
       return state;

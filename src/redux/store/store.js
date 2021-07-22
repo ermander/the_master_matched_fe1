@@ -12,6 +12,9 @@ const initialState = {
   dutcher: {
     odds: [],
     temporaryOdds: [],
+    firstBookmaker: null,
+    showDutcherMatchInfoModal: false,
+    matchInfo: {}
   },
 };
 

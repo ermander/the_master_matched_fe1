@@ -7,6 +7,7 @@ import DutcherTable from "../components/Dutcher/DutcherTable";
 import FirstBookmakerSelectForm from "../components/NewDutcher/FirstBookmakerSelectForm";
 import Disclaimer from "../components/Disclaimer";
 import DutcherFilters from "../components/NewDutcher/DutcherFilters";
+import DutcherMatchInfoModal from "../components/NewDutcher/DutcherMatchInfoModal";
 // FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // ChartJS
@@ -18,10 +19,7 @@ import { Button } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import ToolsTitle from "../components/ToolsTitle";
 // Functions
-import {
-  setBookmaker,
-  fetchOdds,
-} from "../components/NewDutcher/dutcherFunctions";
+import { fetchOdds } from "../components/NewDutcher/dutcherFunctions";
 
 // REDUX
 const mapStateToProps = (state) => state;
@@ -71,10 +69,10 @@ export const NewDutcher = (props) => {
   useEffect(() => {
     props.fetchOdds();
   }, []);
-
   return (
     <>
       <div className="dutcher-page">
+        <DutcherMatchInfoModal />
         <NewSidebar
           collapsed={sidebarStatus}
           className={sidebarStatus ? "sidebar-collapsed" : "sidebar"}
@@ -93,7 +91,9 @@ export const NewDutcher = (props) => {
             <ToolsTitle title="Odds - Matcher" />
           </div>
           <div className="first-bookmaker-containter">
-            <FirstBookmakerSelectForm setFirstBookmaker={props.setFirstBookmaker} />
+            <FirstBookmakerSelectForm
+              setFirstBookmaker={props.setFirstBookmaker}
+            />
             <Button
               variant="outlined"
               color="primary"

@@ -135,7 +135,7 @@ function DutcherFiltersBody(props) {
     // Filtering by start date
     odds = odds.filter((odd) => odd.date.valueOf() >= initialDate.valueOf());
     // Filtering by end date
-    odds = odds.filter((odd) => odd.date.valueOf() <= finalDate);
+    odds = odds.filter((odd) => odd.date.valueOf() <= finalDate.valueOf());
 
     // If the user as select a first bookmaker, filtering based on first bookmaker selection
     if (props.dutcher.firstBookmaker !== null) {

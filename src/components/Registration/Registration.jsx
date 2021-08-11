@@ -7,7 +7,7 @@ import { Row, Col, Button, Image, Alert } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGooglePlusG, faFacebook } from "@fortawesome/free-brands-svg-icons";
 // SASS
-import "../../styles/_registration.scss";
+import "../../styles/Registration/_registration.scss";
 
 function Registration() {
   // States and functions

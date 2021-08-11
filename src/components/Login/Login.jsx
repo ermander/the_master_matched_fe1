@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGooglePlusG, faFacebook } from "@fortawesome/free-brands-svg-icons";
 
 // SASS
-import "../../styles/_login.scss";
+import "../../styles/Login/_login.scss";
 
 const mapStateToProps = (state) => state
 

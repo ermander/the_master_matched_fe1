@@ -1,87 +1,202 @@
-import React from 'react'
-import ReactTable from "react-table-v6"
-import "react-table-v6/react-table.css";
+import React from "react";
 
-const DataTablePage = (props) => {
-    const data = {
-        columns: [
-            {
-                Header: "Data",
-                accessor: "start_date",
-                minWidth: 100
-            },
-            {
-                Header: "Ora",
-                accessor: "start_time",
-                minWidth: 80
-            },
-            {
-              Header: "Campionato",
-              accessor: "tournament",
-              minWidth: 160,
-              filterable: true
-            },
-            {
-              Header: "Evento",
-              accessor: "event",
-              minWidth: 250,
-              filterable: true
-            },
-            {
-                Header: "1",
-                accessor: "odd_one",
-                minWidth: 80
-            },
-            {
-                Header: "Book 1",
-                accessor: "book_one_image",
-                minWidth: 100
-            },            
-            {
-                Header: "X",
-                accessor: "odd_two",
-                minWidth: 80
-            },
-            {
-                Header: "Book 2",
-                accessor: "book_two_image",
-                minWidth: 100
-            },
-            {
-                Header: "2",
-                accessor: "odd_three",
-                minWidth: 80
-            },
-            {
-                Header: "Book 3",
-                accessor: "book_three_image",
-                minWidth: 100
-            },
-            {
-                Header: "Rating",
-                accessor: "tableRoi",
-                minWidth: 120
-            },
-            {
-                Header: "CashBack ROI %",
-                accessor: "tablePercentageRoi",
-                minWidth: 80
-            },
-            {
-                Header: "",
-                accessor: "button",
-                minWidth: 40
-            },
-        ],
-    }
-    return <ReactTable
-        id="trimatcher-table"
-        data={props.odds}
-        columns={data.columns}        
-        defaultPageSize={10}
-    />
+// MaterialUI
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableRow from "@material-ui/core/TableRow";
+
+// React Redux
+import { connect } from "react-redux";
+
+const columns = [
+  { id: "openMatchInfoModal", minWidth: 30, align: "center" },
+  { id: "match_start", label: "Data", minWidth: 80, align: "center" },
+  {
+    id: "nation",
+    label: "Nazione",
+    minWidth: 100,
+    align: "center",
+  },
+  {
+    id: "tournament",
+    label: "Campionato",
+    minWidth: 100,
+    align: "center",
+  },
+  {
+    id: "event",
+    label: "Evento",
+    minWidth: 100,
+    align: "center",
+  },
+
+  {
+    id: "book_one_image",
+    label: "Book 1",
+    minWidth: 30,
+    align: "center",
+  },
+  {
+    id: "odd_one",
+    label: "1",
+    minWidth: 30,
+    align: "center",
+  },
+  {
+    id: "book_two_image",
+    label: "Book X",
+    minWidth: 30,
+    align: "center",
+  },
+  {
+    id: "odd_two",
+    label: "2",
+    minWidth: 30,
+    align: "center",
+  },
+  {
+    id: "book_three_image",
+    label: "2",
+    minWidth: 30,
+    align: "center",
+  },
+  {
+    id: "odd_three",
+    label: "2",
+    minWidth: 30,
+    align: "center",
+  },
+  {
+    id: "tableRoi",
+    label: "%",
+    minWidth: 30,
+    align: "center",
+  },
+];
+
+const useStyles = makeStyles({
+  root: {
+    width: "95%",
+    marginLeft: "2.5%",
+    marginRight: "2.5%",
+    padding: "1%",
+    backgroundColor: "#23242d!important",
+  },
+  container: {
+    maxHeight: 440,
+    backgroundColor: "#23242d",
+  },
+  thCells: {
+    color: "white",
+    backgroundColor: "#23242d",
+  },
+  tdColors: {
+    color: "white",
+    "&:nth-child(7)": {
+      backgroundColor: "#a6d8ff!important",
+      color: "black",
+      fontWeight: "bold",
+      border: "2px solid white",
+      borderLeft: "3px solid white",
+    },
+    "&:nth-child(9)": {
+      backgroundColor: "#a6d8ff!important",
+      color: "black",
+      fontWeight: "bold",
+      border: "2px solid white",
+      borderLeft: "3px solid white",
+    },
+    "&:nth-child(11)": {
+      backgroundColor: "#a6d8ff!important",
+      color: "black",
+      fontWeight: "bold",
+      border: "2px solid white",
+      borderRight: "3px solid white",
+    },
+    pagination: {
+      color: "white",
+    },
+  },
+});
+
+const mapStateToProps = (state) => state;
+
+function StickyHeadTable(props) {
+  const classes = useStyles();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  return (
+    <Paper className={classes.root}>
+      <TableContainer className={classes.container}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead className={classes.tableHead}>
+            <TableRow className={classes.tableHead}>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth }}
+                  className={classes.thCells}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.trimatcher.temporaryOdds
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, i) => {
+                return (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={i}>
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          className={classes.tdColors}
+                        >
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={props.trimatcher.temporaryOdds.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+        className={classes.pagination}
+      />
+    </Paper>
+  );
 }
 
-export default DataTablePage
-
-
+export default connect(mapStateToProps)(StickyHeadTable);

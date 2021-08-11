@@ -11,7 +11,7 @@
     bottom: 0;
     z-index: 1030;
   }
-  
+
   // Collapsed sidebar
   .sidebar-collapsed {
     margin-left: -15%;
@@ -38,21 +38,21 @@
     }
 
     // Container for the first bookmaker select form
-    .first-bookmaker-containter {
+    .first-bookmaker-container {
       display: flex;
       flex-direction: row;
       justify-content: left;
       margin: 0.5% 2.5%;
-      .refresh-button{
+      .refresh-button {
         color: white;
         border-radius: 0%;
         border: 0px;
         border-bottom: 1px solid white;
         margin-left: 10px;
-      }:hover{
+      }
+      :hover {
         background-color: rgba(255, 255, 255, 0.08);
       }
-      
     }
 
     .burger-menu-container {
@@ -87,7 +87,7 @@
         background-color: #7267d3;
       }
 
-      .MuiToolbar-root.MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters{
+      .MuiToolbar-root.MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters {
         color: white;
       }
     }
@@ -115,7 +115,7 @@
       color: white !important;
     }
 
-    .refresh-button{
+    .refresh-button {
       color: white;
       border-radius: 0%;
       border: 0px;
@@ -126,7 +126,6 @@
     .title-container {
       margin: 0.5% 2.5%;
     }
-
 
     .burger-menu-container {
       background-color: #2c2c34;
@@ -142,7 +141,7 @@
         }
       }
     }
-    .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded{
+    .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
       ::-webkit-scrollbar {
         background-color: #3a3b44;
         width: 8px;
@@ -156,9 +155,24 @@
         border-radius: 10px;
         background-color: #7267d3;
       }
-      .MuiToolbar-root.MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters{
+      .MuiToolbar-root.MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters {
         color: white;
       }
     }
+  }
+}
+
+table {
+  th {
+    font-size: 12px !important;
+    font-weight: bold !important;
+  }
+  td {
+    font-size: 12px !important;
+    padding: 14px !important;
+  }
+  img {
+    max-width: 70px;
+    min-height: 30px;
   }
 }

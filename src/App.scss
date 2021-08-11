@@ -1,19 +1,27 @@
-@import "./styles/dutcher";
+// Login
+@import "./styles/Login/login";
+
+// Registration
+@import "./styles/Registration/registration";
+
+// Restore Password
+@import "./styles/RestorePassword/restore-password";
+
+// Dutcher
+@import "./styles/Dutcher/dutcher";
+@import "./styles/Dutcher/dutcher-filters-modal";
+@import "./styles/Dutcher/dutcher-filters-body";
+@import "./styles/Dutcher/dutcher-match-info-modal";
+
+// Trimatcher
+@import "./styles/Trimatcher/trimatcher";
+
 @import "./styles/tools-title";
-@import "./styles//dutcher-filters-modal";
-@import "./styles//trimatcher";
-@import "./styles/trimatcher-filters-modal";
 @import "./styles/match-info-modal";
 @import "./styles//profit-tracker";
 @import "./styles//sidebar";
 @import "./styles/casino";
-@import "./styles/login";
-@import "./styles//registration";
-@import "./styles//restore-password";
 @import "./styles/new-sidebar";
-@import "./styles//new-dutcher";
-@import "./styles/dutcher-filters-body";
-@import "./styles/dutcher-match-info-modal";
 .row {
   margin-left: 0 !important;
   margin-right: 0 !important;

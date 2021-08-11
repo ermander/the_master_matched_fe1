@@ -10,10 +10,9 @@ import DutcherFilters from "../components/Dutcher/DutcherFilters";
 import DutcherMatchInfoModal from "../components/Dutcher/DutcherMatchInfoModal";
 // FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// ChartJS
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 // SASS
-import "../styles/_new-dutcher.scss";
+import "../styles/Dutcher/_dutcher.scss";
 // MaterialUI
 import { Button } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
@@ -90,7 +89,7 @@ export const Dutcher = (props) => {
           <div className="title-container">
             <ToolsTitle title="Odds - Matcher" />
           </div>
-          <div className="first-bookmaker-containter">
+          <div className="first-bookmaker-container">
             <FirstBookmakerSelectForm
               setFirstBookmaker={props.setFirstBookmaker}
             />

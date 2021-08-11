@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { Row, Col, Button, Image } from 'react-bootstrap'
 
 // SASS
-import "../../styles/_restore-password.scss"
+import "../../styles/RestorePassword/_restore-password.scss"
 
 export default class RestorePassword extends Component {
     render() {

@@ -1,29 +1,40 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
-import dutcherReducer from "../reducers/dutcher.js";
+
+// Reducers
 import userReducer from "../reducers/user.js";
+import dutcherReducer from "../reducers/dutcher.js";
+import trimatcherReducer from "../reducers/trimatcher.js";
+
+// Redux Thunk
 import thunk from "redux-thunk";
 
 const initialState = {
-  // USER INFORMATION STATE
+  // User Informations
   user: {
     isUserLogged: false,
   },
-  // DUTCHER INFORMATIONS STATE
+  // Dutcher Informations
   dutcher: {
     odds: [],
     temporaryOdds: [],
     firstBookmaker: null,
     showDutcherMatchInfoModal: false,
-    matchInfo: {}
+    matchInfo: {},
+  },
+  // Trimatcher informations
+  trimatcher: {
+    odds: [],
+    temporaryOdds: [],
   },
 };
 
 const mainReducer = combineReducers({
   user: userReducer,
   dutcher: dutcherReducer,
+  trimatcher: trimatcherReducer,
 });
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default function configureStore() {
   return createStore(

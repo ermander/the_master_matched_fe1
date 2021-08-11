@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
     }),
 });
 
-function DutcherFiltersBody(props) {
+function TrimatcherFiltersBody(props) {
   const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: "#3a3b44",
@@ -558,4 +558,4 @@ function DutcherFiltersBody(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DutcherFiltersBody);
+export default connect(mapStateToProps, mapDispatchToProps)(TrimatcherFiltersBody);

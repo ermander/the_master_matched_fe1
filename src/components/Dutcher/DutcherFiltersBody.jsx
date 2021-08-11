@@ -13,11 +13,13 @@ import { Button } from "@material-ui/core";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-
 import DateFnsUtils from "@date-io/date-fns";
 import "date-fns";
+
 // SASS
 import "../../styles/Dutcher/_dutcher-filters-body.scss";
+
+// React Redux
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => state;

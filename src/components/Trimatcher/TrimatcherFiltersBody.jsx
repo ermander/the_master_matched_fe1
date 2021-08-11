@@ -10,22 +10,29 @@ import {
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-
 import DateFnsUtils from "@date-io/date-fns";
 import "date-fns";
+
+// Components
+import FirstBookmakerSelectForm from "../Trimatcher/FirstBookmakerSelectForm";
+
 // SASS
-import "../../styles/Dutcher/_dutcher-filters-body.scss";
+import "../../styles/Trimatcher/_trimatcher-filters-body.scss";
+
+// Functions
+import { trimatcherFilterOdds } from "./functions/trimatcherFilterOdds";
+
+// React Redux
 import { connect } from "react-redux";
 
+// Redux State
 const mapStateToProps = (state) => state;
 
+// Redux Dispatch
 const mapDispatchToProps = (dispatch) => ({
   setFiltersToRedux: (payload) =>
     dispatch({
-      type: "ADD_TEMPORARY_ODDS",
+      type: "SET_TRIMATCHER_TEMPORARY_ODDS",
       payload: payload,
     }),
 });
@@ -59,98 +66,32 @@ function TrimatcherFiltersBody(props) {
   }));
 
   const classes = useStyles();
-  // The first commit of Material-UI
+
   const [initialDate, setInitialDate] = useState(new Date());
   const [finalDate, setFinalDate] = useState(new Date());
   const [minOdd, setMinOdd] = useState(null);
   const [maxOdd, setMaxOdd] = useState(null);
-  const [sportStatus, setSportStatus] = useState({
-    checkedAllSports: true,
-    checkedCalcio: false,
-    checkedBasket: false,
-    checkedTennis: false,
-  });
-  const [marketStatus, setMarketStatus] = useState({
-    checkedAllMarkets: true,
-    checkedDoppiaChance: false,
-    checkedUnderOver: false,
-    checkedGoalNoGoal: false,
-  });
 
   let firstFinalDateSet = new Date();
   const currentMonth = firstFinalDateSet.getMonth();
   firstFinalDateSet.setMonth(currentMonth + 2);
 
   const setFilters = (options) => {
-    let odds = props.dutcher.odds;
-    props.setFiltersToRedux([]);
-    // FILTERING BY MIN AND MAX ODD
-    if (options.minOdd !== null) {
-      odds = odds.filter(
-        (odd) => parseFloat(odd.odd_one) >= parseFloat(options.minOdd)
+    // New Filter Method
+    let odds;
+    // Passing the filters and the odds to the filter function
+    if (props.trimatcher.firstBookmaker !== null) {
+      // Setting empy the Redux Store
+      props.setFiltersToRedux([]);
+      odds = trimatcherFilterOdds(
+        options,
+        props.trimatcher.odds,
+        props.trimatcher.firstBookmaker
       );
+      // UPDATING THE ODDS PROPS
+      props.setFiltersToRedux(odds);
+      props.handleShow();
     }
-    if (options.maxOdd !== null) {
-      odds = odds.filter(
-        (odd) => parseFloat(odd.odd_one) <= parseFloat(options.maxOdd)
-      );
-    }
-
-    // FILTERING BY SPORT
-
-    // FILTERING BT MARKET
-    if (options.marketStatus.checkedAllMarkets === false) {
-      if (options.marketStatus.checkedDoppiaChance === false) {
-        odds = odds.filter((odd) => odd.market !== "DC");
-      }
-      if (options.marketStatus.checkedUnderOver === false) {
-        odds = odds.filter((odd) => odd.market !== "U/O");
-      }
-      if (options.marketStatus.checkedGoalNoGoal === false) {
-        odds = odds.filter((odd) => odd.market !== "GG/NG");
-      }
-    }
-    // FILTERING BY DATE
-    // Deleting odds with no data or time specified
-    odds = odds.filter(
-      (odd) => odd.start_date !== undefined || odd.start_time !== undefined
-    );
-    const initialDate = new Date(options.initialDate);
-    const finalDate = new Date(options.finalDate);
-    // Creating a valid date format
-    odds = odds.map((odd) => {
-      let date = new Date();
-      date.setFullYear(
-        parseInt(odd.start_date.split("/")[2]),
-        parseInt(odd.start_date.split("/")[1] - 1),
-        parseInt(odd.start_date.split("/")[0])
-      );
-      date.setHours(parseInt(odd.start_time.split(":")[0]));
-      date.setMinutes(parseInt(odd.start_time.split(":")[0]));
-      return {
-        ...odd,
-        date,
-      };
-    });
-    // Filtering by start date
-    odds = odds.filter((odd) => odd.date.valueOf() >= initialDate.valueOf());
-    // Filtering by end date
-    odds = odds.filter((odd) => odd.date.valueOf() <= finalDate.valueOf());
-
-    // If the user as select a first bookmaker, filtering based on first bookmaker selection
-    if (props.dutcher.firstBookmaker !== null) {
-      odds = odds.filter(
-        (odd) =>
-          odd.book_one.toLowerCase() ===
-            props.dutcher.firstBookmaker.toLowerCase() ||
-          odd.book_two.toLowerCase() ===
-            props.dutcher.firstBookmaker.toLowerCase()
-      );
-    }
-
-    // UPDATING THE ODDS PROPS
-    props.setFiltersToRedux(odds);
-    props.handleShow();
   };
 
   const handleInitialDateChange = (date) => {
@@ -170,130 +111,6 @@ function TrimatcherFiltersBody(props) {
   };
 
   /*
-    SETTING SPORT FILTER STATUS
-  */
-
-  const handleSportStatus = (event) => {
-    if (event.target.name === "checkedAllSports") {
-      sportStatus.checkedAllSports === true
-        ? setSportStatus({
-            checkedAllSports: false,
-            checkedCalcio: true,
-            checkedBasket: true,
-            checkedTennis: true,
-          })
-        : setSportStatus({
-            checkedAllSports: true,
-            checkedCalcio: false,
-            checkedBasket: false,
-            checkedTennis: false,
-          });
-    }
-    if (event.target.name === "checkedCalcio") {
-      sportStatus.checkedCalcio === true
-        ? setSportStatus({
-            ...sportStatus,
-            checkedAllSports: false,
-            checkedCalcio: false,
-          })
-        : setSportStatus({
-            ...sportStatus,
-            checkedAllSports: false,
-            checkedCalcio: true,
-          });
-    }
-    if (event.target.name === "checkedBasket") {
-      sportStatus.checkedBasket === true
-        ? setSportStatus({
-            ...sportStatus,
-            checkedAllSports: false,
-            checkedBasket: false,
-          })
-        : setSportStatus({
-            ...sportStatus,
-            checkedAllSports: false,
-            checkedBasket: true,
-          });
-    }
-    if (event.target.name === "checkedTennis") {
-      sportStatus.checkedTennis === true
-        ? setSportStatus({
-            ...sportStatus,
-            checkedAllSports: false,
-            checkedTennis: false,
-          })
-        : setSportStatus({
-            ...sportStatus,
-            checkedAllSports: false,
-            checkedTennis: true,
-          });
-    }
-  };
-
-  /*
-    SETTING MARKET FILTER STATUS
-*/
-
-  const handleMarketStatus = (event) => {
-    if (event.target.name === "checkedAllMarkets") {
-      marketStatus.checkedAllMarkets === true
-        ? setMarketStatus({
-            ...marketStatus,
-            checkedAllMarkets: false,
-            checkedDoppiaChance: true,
-            checkedUnderOver: true,
-            checkedGoalNoGoal: true,
-          })
-        : setMarketStatus({
-            ...marketStatus,
-            checkedAllMarkets: true,
-            checkedDoppiaChance: false,
-            checkedUnderOver: false,
-            checkedGoalNoGoal: false,
-          });
-    }
-    if (event.target.name === "checkedDoppiaChance") {
-      marketStatus.checkedDoppiaChance === true
-        ? setMarketStatus({
-            ...marketStatus,
-            checkedAllMarkets: false,
-            checkedDoppiaChance: false,
-          })
-        : setMarketStatus({
-            ...marketStatus,
-            checkedAllMarkets: false,
-            checkedDoppiaChance: true,
-          });
-    }
-    if (event.target.name === "checkedUnderOver") {
-      marketStatus.checkedUnderOver === true
-        ? setMarketStatus({
-            ...marketStatus,
-            checkedAllMarkets: false,
-            checkedUnderOver: false,
-          })
-        : setMarketStatus({
-            ...marketStatus,
-            checkedAllMarkets: false,
-            checkedUnderOver: true,
-          });
-    }
-    if (event.target.name === "checkedGoalNoGoal") {
-      marketStatus.checkedGoalNoGoal === true
-        ? setMarketStatus({
-            ...marketStatus,
-            checkedAllMarkets: false,
-            checkedGoalNoGoal: false,
-          })
-        : setMarketStatus({
-            ...marketStatus,
-            checkedAllMarkets: false,
-            checkedGoalNoGoal: true,
-          });
-    }
-  };
-
-  /*
         RESET ALL THE FILTERS
     */
 
@@ -302,19 +119,7 @@ function TrimatcherFiltersBody(props) {
     setFinalDate(new Date());
     setMinOdd(null);
     setMaxOdd(null);
-    setSportStatus({
-      checkedAllSports: true,
-      checkedCalcio: false,
-      checkedBasket: false,
-      checkedTennis: false,
-    });
-    setMarketStatus({
-      checkedAllMarkets: true,
-      checkedDoppiaChance: false,
-      checkedUnderOver: false,
-      checkedGoalNoGoal: false,
-    });
-    props.setFiltersToRedux(props.dutcher.odds);
+    props.setFiltersToRedux(props.trimatcher.odds);
     props.handleShow();
   };
 
@@ -408,128 +213,14 @@ function TrimatcherFiltersBody(props) {
           />
         </Grid>
       </div>
-      <Grid container justify="flex-start" className={classes.container}>
-        <dvi style={{ width: "calc(50% - 20px)", margin: "0px 10px" }}>
-          <h6 style={{ margin: "10px 0" }}>Sports</h6>
-          <FormGroup row>
-            <FormControlLabel
-              className={classes.sportSwitch}
-              control={
-                <Switch
-                  style={{ color: "#7267d3" }}
-                  checked={sportStatus.checkedAllSports}
-                  onChange={handleSportStatus}
-                  name="checkedAllSports"
-                />
-              }
-              label="Tutti gli sport"
-            />
-          </FormGroup>
-          <FormGroup row>
-            <FormControlLabel
-              className={classes.sportSwitch}
-              control={
-                <Switch
-                  style={{ color: "#7267d3" }}
-                  checked={sportStatus.checkedCalcio}
-                  onChange={handleSportStatus}
-                  name="checkedCalcio"
-                />
-              }
-              label="Calcio"
-            />
-          </FormGroup>
-          <FormGroup row>
-            <FormControlLabel
-              className={classes.sportSwitch}
-              control={
-                <Switch
-                  style={{ color: "#7267d3" }}
-                  checked={sportStatus.checkedBasket}
-                  onChange={handleSportStatus}
-                  name="checkedBasket"
-                />
-              }
-              label="Basket"
-            />
-          </FormGroup>
-          <FormGroup row>
-            <FormControlLabel
-              className={classes.sportSwitch}
-              control={
-                <Switch
-                  style={{ color: "#7267d3" }}
-                  checked={sportStatus.checkedTennis}
-                  onChange={handleSportStatus}
-                  name="checkedTennis"
-                />
-              }
-              label="Tennis"
-            />
-          </FormGroup>
-        </dvi>
-        <dvi style={{ width: "calc(50% - 20px)", margin: "0px 10px" }}>
-          <h6 style={{ margin: "10px 0" }}>Mercati</h6>
-          <FormGroup row>
-            <FormControlLabel
-              className={classes.sportSwitch}
-              control={
-                <Switch
-                  style={{ color: "#7267d3" }}
-                  checked={marketStatus.checkedAllMarkets}
-                  onChange={handleMarketStatus}
-                  name="checkedAllMarkets"
-                />
-              }
-              label="Tutti i mercati"
-            />
-          </FormGroup>
-          <FormGroup row>
-            <FormControlLabel
-              className={classes.sportSwitch}
-              control={
-                <Switch
-                  style={{ color: "#7267d3" }}
-                  checked={marketStatus.checkedDoppiaChance}
-                  onChange={handleMarketStatus}
-                  name="checkedDoppiaChance"
-                />
-              }
-              label="Doppia Chance"
-            />
-          </FormGroup>
-          <FormGroup row>
-            <FormControlLabel
-              className={classes.sportSwitch}
-              control={
-                <Switch
-                  style={{ color: "#7267d3" }}
-                  checked={marketStatus.checkedUnderOver}
-                  onChange={handleMarketStatus}
-                  name="checkedUnderOver"
-                />
-              }
-              label="Under/Over"
-            />
-          </FormGroup>
-          <FormGroup row>
-            <FormControlLabel
-              className={classes.sportSwitch}
-              control={
-                <Switch
-                  style={{ color: "#7267d3" }}
-                  checked={marketStatus.checkedGoalNoGoal}
-                  onChange={handleMarketStatus}
-                  name="checkedGoalNoGoal"
-                />
-              }
-              label="Goal/NoGoal"
-            />
-          </FormGroup>
-        </dvi>
-      </Grid>
-
       <div>
+        <Grid
+          container
+          justify="center"
+          style={{ marginTop: "1rem", marginBottom: "1rem" }}
+        >
+          <FirstBookmakerSelectForm />
+        </Grid>
         <Grid container justify="center" className={classes.container}>
           <Button
             className={classes.button}
@@ -539,8 +230,6 @@ function TrimatcherFiltersBody(props) {
                 finalDate,
                 minOdd,
                 maxOdd,
-                sportStatus,
-                marketStatus,
               })
             }
           >
@@ -558,4 +247,7 @@ function TrimatcherFiltersBody(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrimatcherFiltersBody);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TrimatcherFiltersBody);

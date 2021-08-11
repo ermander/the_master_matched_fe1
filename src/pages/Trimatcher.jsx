@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import Sidebar from "../components/Sidebar/Sidebar";
 import ToolsTitle from "../components/ToolsTitle";
 import Disclaimer from "../components/Disclaimer";
-import FirstBookmakerSelectForm from "../components/Dutcher/FirstBookmakerSelectForm";
 import TrimatcherFilters from "../components/Trimatcher/TrimatcherFilters";
 import TrimatcherTable from "../components/Trimatcher/TrimatcherTable";
 
@@ -21,9 +20,9 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 // MaterialUI
 import { Button } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import { fetchTrimatcherOdds } from "../components/Trimatcher/functions/fetchTrimatcherOdds";
 
 // Functions
+import { fetchTrimatcherOdds } from "../components/Trimatcher/functions/fetchTrimatcherOdds";
 
 // Redux State
 const mapStateToProps = (state) => state;
@@ -93,7 +92,6 @@ function Trimatcher(props) {
             <ToolsTitle title="Tri - Matcher" />
           </div>
           <div className="first-bookmaker-container">
-            <FirstBookmakerSelectForm />
             <Button
               variant="outlined"
               color="primary"

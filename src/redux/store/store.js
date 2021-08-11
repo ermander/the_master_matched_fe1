@@ -25,6 +25,7 @@ const initialState = {
   trimatcher: {
     odds: [],
     temporaryOdds: [],
+    firstBookmaker: null,
   },
 };
 

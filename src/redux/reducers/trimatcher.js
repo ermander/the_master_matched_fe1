@@ -11,6 +11,11 @@ export default function (state = {}, action) {
         ...state,
         temporaryOdds: action.payload,
       };
+    case "SET_TRIMATCHER_FIRST_BOOKMAKER":
+      return {
+        ...state,
+        firstBookmaker: action.payload,
+      };
     default:
       return state;
   }

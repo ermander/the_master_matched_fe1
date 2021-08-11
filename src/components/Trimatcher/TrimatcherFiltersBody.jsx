@@ -15,6 +15,7 @@ import "date-fns";
 
 // Components
 import FirstBookmakerSelectForm from "../Trimatcher/FirstBookmakerSelectForm";
+import FirstBookmakerAlert from "./FirstBookmakerAlert";
 
 // SASS
 import "../../styles/Trimatcher/_trimatcher-filters-body.scss";
@@ -71,6 +72,7 @@ function TrimatcherFiltersBody(props) {
   const [finalDate, setFinalDate] = useState(new Date());
   const [minOdd, setMinOdd] = useState(null);
   const [maxOdd, setMaxOdd] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
 
   let firstFinalDateSet = new Date();
   const currentMonth = firstFinalDateSet.getMonth();
@@ -91,6 +93,12 @@ function TrimatcherFiltersBody(props) {
       // UPDATING THE ODDS PROPS
       props.setFiltersToRedux(odds);
       props.handleShow();
+    }
+    if (props.trimatcher.firstBookmaker === null) {
+      setShowAlert(true);
+      setTimeout(function () {
+        setShowAlert(false);
+      }, 2500);
     }
   };
 
@@ -213,6 +221,7 @@ function TrimatcherFiltersBody(props) {
           />
         </Grid>
       </div>
+      <FirstBookmakerAlert showAlert={showAlert} />
       <div>
         <Grid
           container

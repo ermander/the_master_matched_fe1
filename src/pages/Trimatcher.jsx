@@ -7,8 +7,9 @@ import { connect } from "react-redux";
 import Sidebar from "../components/Sidebar/Sidebar";
 import ToolsTitle from "../components/ToolsTitle";
 import Disclaimer from "../components/Disclaimer";
-import TrimatcherFilters from "../components/Trimatcher/TrimatcherFilters";
 import TrimatcherTable from "../components/Trimatcher/TrimatcherTable";
+import TrimatcherFilters from "../components/Trimatcher/TrimatcherFilters";
+import TrimatcherMatchInfoModal from "../components/Trimatcher/TrimatcherMatchInfoModal"
 
 // SASS Styles
 import "../styles/Trimatcher/_trimatcher.scss";
@@ -72,6 +73,7 @@ function Trimatcher(props) {
   return (
     <>
       <div className="trimatcher-page">
+        <TrimatcherMatchInfoModal />
         <Sidebar
           collapsed={sidebarStatus}
           className={sidebarStatus ? "sidebar-collapsed" : "sidebar"}
@@ -92,6 +94,7 @@ function Trimatcher(props) {
             <ToolsTitle title="Tri - Matcher" />
           </div>
           <div className="first-bookmaker-container">
+            <TrimatcherFilters />
             <Button
               variant="outlined"
               color="primary"
@@ -101,7 +104,6 @@ function Trimatcher(props) {
               Ricarica
               <RefreshIcon />
             </Button>
-            <TrimatcherFilters />
           </div>
           <TrimatcherTable />
           <Disclaimer />

@@ -16,6 +16,12 @@ export default function (state = {}, action) {
         ...state,
         firstBookmaker: action.payload,
       };
+    case "SHOW_TRIMATCHER_MATCH_INFO_MODAL":
+      return {
+        ...state,
+        showTrimatcherMatchInfoModal: !state.showTrimatcherMatchInfoModal,
+        matchInfo: action.payload,
+      };
     default:
       return state;
   }

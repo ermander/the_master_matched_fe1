@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from "react";
-// Redux
+
+// React Redux
 import { connect } from "react-redux";
+
 // Components
 import Sidebar from "../components/Sidebar/Sidebar";
+import ToolsTitle from "../components/ToolsTitle";
+import Disclaimer from "../components/Disclaimer";
 import DutcherTable from "../components/Dutcher/DutcherTable";
 import FirstBookmakerSelectForm from "../components/Dutcher/FirstBookmakerSelectForm";
-import Disclaimer from "../components/Disclaimer";
 import DutcherFilters from "../components/Dutcher/DutcherFilters";
 import DutcherMatchInfoModal from "../components/Dutcher/DutcherMatchInfoModal";
+
+
 // FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-// SASS
+
+// SASS Styles
 import "../styles/Dutcher/_dutcher.scss";
+
 // MaterialUI
 import { Button } from "@material-ui/core";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import ToolsTitle from "../components/ToolsTitle";
+
 // Functions
 import { fetchOdds } from "../components/Dutcher/dutcherFunctions";
 

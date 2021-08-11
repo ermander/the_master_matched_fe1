@@ -10,16 +10,16 @@ import Fade from "@material-ui/core/Fade";
 import { connect } from "react-redux";
 
 // Components
-import DutcherMatchInfoCard from "./DutcherMatchInfoCard";
+import TrimatcherMatchInfoCard from "./TrimatcherMatchInfoCard";
 
 // Redux State
 const mapStateToProps = (state) => state;
 
 // Redux Dispatch
 const mapDispatchToProps = (dispatch) => ({
-  showDutcherMatchInfoModal: (payload) =>
+  showTrimatcherMatchInfoModal: (payload) =>
     dispatch({
-      type: "SHOW_DUTCHER_MATCH_INFO_MODAL",
+      type: "SHOW_TRIMATCHER_MATCH_INFO_MODAL",
       payload: payload,
     }),
 });
@@ -41,9 +41,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function DutcherMatchInfoModal(props) {
+function TrimatcherMatchInfoModal(props) {
   const classes = useStyles();
-  
+
   useEffect(() => {
     console.log(props);
   }, []);
@@ -53,17 +53,17 @@ function DutcherMatchInfoModal(props) {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={props.dutcher.showDutcherMatchInfoModal}
-        onClose={() => props.showDutcherMatchInfoModal({})}
+        open={props.trimatcher.showTrimatcherMatchInfoModal}
+        onClose={() => props.showTrimatcherMatchInfoModal({})}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={props.dutcher.showDutcherMatchInfoModal}>
+        <Fade in={props.trimatcher.showTrimatcherMatchInfoModal}>
           <div className={classes.paper}>
-            <DutcherMatchInfoCard />
+            <TrimatcherMatchInfoCard />
           </div>
         </Fade>
       </Modal>
@@ -73,4 +73,4 @@ function DutcherMatchInfoModal(props) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DutcherMatchInfoModal);
+)(TrimatcherMatchInfoModal);

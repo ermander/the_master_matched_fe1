@@ -26,6 +26,8 @@ const initialState = {
     odds: [],
     temporaryOdds: [],
     firstBookmaker: null,
+    showTrimatcherMatchInfoModal: false,
+    matchInfo: {},
   },
 };
 

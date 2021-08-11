@@ -1,4 +1,5 @@
 import { logos } from "../../Utils/bookmakersLogos";
+import OpenTrimatcherMatchInfoModal from "../OpenTrimatcherMatchInfoModal"
 
 export const fetchTrimatcherOdds = async () => {
   try {
@@ -27,6 +28,7 @@ export const fetchTrimatcherOdds = async () => {
         book_one: odd.book_one.toLowerCase(),
         book_two: odd.book_two.toLowerCase(),
         match_start: odd.start_date + ", " + odd.start_time,
+        openTrimatcherInfoModal: <OpenTrimatcherMatchInfoModal matchInfo={odd} />
       };
     });
     odds.sort((a, b) => {

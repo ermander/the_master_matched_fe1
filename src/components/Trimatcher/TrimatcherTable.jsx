@@ -15,7 +15,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { connect } from "react-redux";
 
 const columns = [
-  { id: "openMatchInfoModal", minWidth: 30, align: "center" },
+  { id: "openTrimatcherInfoModal", minWidth: 30, align: "center" },
   { id: "match_start", label: "Data", minWidth: 80, align: "center" },
   {
     id: "nation",

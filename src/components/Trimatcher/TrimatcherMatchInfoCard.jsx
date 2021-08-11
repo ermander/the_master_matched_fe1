@@ -17,18 +17,23 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 // Bookmakers Links
 import { links } from "../Utils/bookmakersLinks";
 
+// Functions
+import { calcBettingStakes } from "./functions/calcBettingStakes";
+import { firstCalcBettingStakes } from "./functions/firstCalcBettingStakes"
+
 // Redux State
 const mapStateToProps = (state) => state;
 
 // Redux Dispatch
 const mapDispatchToProps = (dispatch) => ({
-  showDutcherMatchInfoModal: (payload) =>
+  showTrimatcherMatchInfoModal: (payload) =>
     dispatch({
-      type: "SHOW_DUTCHER_MATCH_INFO_MODAL",
+      type: "SHOW_TRIMATCHER_MATCH_INFO_MODAL",
       payload: payload,
     }),
 });
 
+// MaterialUI Styles
 const useStyles = makeStyles({
   root: {
     backgroundColor: "#3a3b44",
@@ -68,8 +73,16 @@ const useStyles = makeStyles({
     padding: "16px",
   },
   inputFields: {
-    width: "80%",
+    width: "45%",
     marginTop: "1.5rem",
+    marginLeft: "2.5%",
+    marginRight: "2.5%",
+  },
+  inputFieldsOdds: {
+    width: "95%",
+    marginTop: "1.5rem",
+    marginLeft: "2.5%",
+    marginRight: "2.5%",
   },
   button: {
     marginTop: "1.5rem",
@@ -86,64 +99,69 @@ const useStyles = makeStyles({
   },
 });
 
-function DutcherMatchInfoCard(props) {
+function TrimatcherMatchInfoCard(props) {
   const [showStakes, setShowStakes] = useState(false);
-  const [stake, setStake] = useState("");
-  const [bonus, setBonus] = useState("");
-  const [oddOne, setOddOne] = useState("");
-  const [oddTwo, setOddTwo] = useState("");
-  const [stakeBookOne, setStakeBookOne] = useState(null);
-  const [stakeBookTwo, setStakeBookTwo] = useState(null);
+  // Stake forms
+  // 1
+  const [stakeLay1, setStakeLay1] = useState("");
+  const [bonusLay1, setBonusLay1] = useState("");
+  // X
+  const [stakeLayX, setStakeLayX] = useState("");
+  const [bonusLayX, setBonusLayX] = useState("");
+  // 2
+  const [stakeLay2, setStakeLay2] = useState("");
+  const [bonusLay2, setBonusLay2] = useState("");
+  // Odd 1 value
+  const [odd1, setOdd1] = useState("");
+  // Odd X value
+  const [oddX, setOddX] = useState("");
+  // Odd 2 value
+  const [odd2, setOdd2] = useState("");
+  // Stake shown to the user
+  const [stakeBook1, setStakeBook1] = useState(null);
+  const [stakeBookX, setStakeBookX] = useState(null);
+  const [stakeBook2, setStakeBook2] = useState(null);
+  // Profit/Loss
   const [profit, setProfit] = useState("");
 
   const handleSetShowStakes = () => {
     setShowStakes(true);
   };
-  // CALCULATING STAKES
-  const calcBettingStakes = (props) => {
-    //console.log(props);
-    handleSetShowStakes();
-    console.log(props);
-    const stakeCalc = props.stake !== "" ? props.stake.stake : 100;
-    const bonusCalc = props.bonus !== "" ? props.bonus.bonus : 0;
-    const oddOneCalc =
-      props.oddOne !== ""
-        ? props.oddOne.oddOne
-        : parseFloat(props.infoes.odd_one);
-    const oddTwoCalc =
-      props.oddTwo !== ""
-        ? props.oddTwo.oddTwo
-        : parseFloat(props.infoes.odd_two);
 
-    if (bonusCalc === 0) {
-      const stakeBookTwo = (stakeCalc * oddOneCalc) / oddTwoCalc;
-      const profit = stakeCalc * oddOneCalc - stakeBookTwo - stakeCalc;
-      setProfit(profit.toFixed(2));
-      setStakeBookOne(stakeCalc);
-      setStakeBookTwo(parseFloat(stakeBookTwo.toFixed(0)));
-    }
-    if (bonusCalc !== 0) {
-      const stakeBookTwo = ((stakeCalc + bonusCalc) * oddOneCalc) / oddTwoCalc;
-      const profit =
-        (stakeCalc + bonusCalc) * oddOneCalc - stakeBookTwo - stakeCalc;
-      setProfit(profit.toFixed(2));
-      setStakeBookOne(stakeCalc);
-      setStakeBookTwo(parseFloat(stakeBookTwo.toFixed(0)));
-    }
+  // CALCULATING STAKES
+  const handleCalcBettingStakes = (options) => {
+    const bettingInfoes = calcBettingStakes(options);
+
+    // if (bonusCalc === 0) {
+    //   const stakeBookTwo = (stakeCalc * oddOneCalc) / oddTwoCalc;
+    //   const profit = stakeCalc * oddOneCalc - stakeBookTwo - stakeCalc;
+    //   setProfit(profit.toFixed(2));
+    //   setStakeBookOne(stakeCalc);
+    //   setStakeBookTwo(parseFloat(stakeBookTwo.toFixed(0)));
+    // }
+    // if (bonusCalc !== 0) {
+    //   const stakeBookTwo = ((stakeCalc + bonusCalc) * oddOneCalc) / oddTwoCalc;
+    //   const profit =
+    //     (stakeCalc + bonusCalc) * oddOneCalc - stakeBookTwo - stakeCalc;
+
+    // setProfit(profit.toFixed(2));
+    // setStakeBookOne(stakeCalc);
+    // setStakeBookTwo(parseFloat(stakeBookTwo.toFixed(0)));
   };
 
   const classes = useStyles();
-  const infoes = props.dutcher.matchInfo;
+  const infoes = props.trimatcher.matchInfo;
 
   useEffect(() => {
-    console.log(props.dutcher.matchInfo);
+    console.log(props.trimatcher.matchInfo);
+    firstCalcBettingStakes(infoes.odd_one, infoes.odd_two, infoes.odd_three)
   }, []);
 
   return (
     <>
       <div>
         <Button
-          onClick={() => props.showDutcherMatchInfoModal({})}
+          onClick={() => props.showTrimatcherMatchInfoModal({})}
           style={{
             position: "relative",
             top: "0px",
@@ -163,7 +181,7 @@ function DutcherMatchInfoCard(props) {
       >
         {" "}
         <Card className={classes.cardInfoesContainer} variant="outlined">
-          {props.dutcher.matchInfo.roi !== undefined ? (
+          {props.trimatcher.matchInfo.roi !== undefined ? (
             <CardContent
               style={{
                 display: "flex",
@@ -215,46 +233,50 @@ function DutcherMatchInfoCard(props) {
           )}
         </Card>
         <Card className={classes.cartInputContainer} variant="outlined">
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            {" "}
+            <TextField
+              className={classes.inputFields}
+              id="standard-number"
+              id="label"
+              label="Stake Punta 1"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="100"
+              onChange={(e) =>
+                setStakeLay1({
+                  stakeLay1:
+                    e.currentTarget.value === ""
+                      ? 100
+                      : parseFloat(e.currentTarget.value),
+                })
+              }
+            />
+            <TextField
+              className={classes.inputFields}
+              id="standard-number"
+              id="label"
+              label="Stake Bonus 1"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="0"
+              onChange={(e) =>
+                setBonusLay1({
+                  bonusLay1:
+                    e.currentTarget.value === ""
+                      ? 0
+                      : parseFloat(e.currentTarget.value),
+                })
+              }
+            />
+          </div>
+
           <TextField
-            className={classes.inputFields}
-            id="standard-number"
-            id="label"
-            label="Stake Punta"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            placeholder="100"
-            onChange={(e) =>
-              setStake({
-                stake:
-                  e.currentTarget.value === ""
-                    ? 100
-                    : parseFloat(e.currentTarget.value),
-              })
-            }
-          />
-          <TextField
-            className={classes.inputFields}
-            id="standard-number"
-            id="label"
-            label="Stake Bonus"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            placeholder="0"
-            onChange={(e) =>
-              setBonus({
-                bonus:
-                  e.currentTarget.value === ""
-                    ? 0
-                    : parseFloat(e.currentTarget.value),
-              })
-            }
-          />
-          <TextField
-            className={classes.inputFields}
+            className={classes.inputFieldsOdds}
             id="standard-number"
             id="label"
             label={`Quota ${infoes.book_one}`}
@@ -264,16 +286,57 @@ function DutcherMatchInfoCard(props) {
             }}
             placeholder={`${infoes.odd_one}`}
             onChange={(e) =>
-              setOddOne({
-                oddOne:
+              setOdd1({
+                odd1:
                   e.currentTarget.value === ""
                     ? parseFloat(infoes.odd_one)
                     : parseFloat(e.currentTarget.value),
               })
             }
           />
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            {" "}
+            <TextField
+              className={classes.inputFields}
+              id="standard-number"
+              id="label"
+              label="Stake Punta X"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="100"
+              onChange={(e) =>
+                setStakeLayX({
+                  stakeLayX:
+                    e.currentTarget.value === ""
+                      ? 100
+                      : parseFloat(e.currentTarget.value),
+                })
+              }
+            />
+            <TextField
+              className={classes.inputFields}
+              id="standard-number"
+              id="label"
+              label="Stake Bonus X"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="0"
+              onChange={(e) =>
+                setBonusLayX({
+                  bonusLayX:
+                    e.currentTarget.value === ""
+                      ? 0
+                      : parseFloat(e.currentTarget.value),
+                })
+              }
+            />
+          </div>
           <TextField
-            className={classes.inputFields}
+            className={classes.inputFieldsOdds}
             id="standard-number"
             id="label"
             label={`Quota ${infoes.book_two}`}
@@ -283,8 +346,68 @@ function DutcherMatchInfoCard(props) {
             }}
             placeholder={`${infoes.odd_two}`}
             onChange={(e) =>
-              setOddTwo({
-                oddTwo:
+              setOddX({
+                oddX:
+                  e.currentTarget.value === ""
+                    ? parseFloat(infoes.odd_two)
+                    : parseFloat(e.currentTarget.value),
+              })
+            }
+          />
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            {" "}
+            <TextField
+              className={classes.inputFields}
+              id="standard-number"
+              id="label"
+              label="Stake Punta 2"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="100"
+              onChange={(e) =>
+                setStakeLay2({
+                  stakeLay2:
+                    e.currentTarget.value === ""
+                      ? 100
+                      : parseFloat(e.currentTarget.value),
+                })
+              }
+            />
+            <TextField
+              className={classes.inputFields}
+              id="standard-number"
+              id="label"
+              label="Stake Bonus 2"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="0"
+              onChange={(e) =>
+                setBonusLay2({
+                  bonusLay2:
+                    e.currentTarget.value === ""
+                      ? 0
+                      : parseFloat(e.currentTarget.value),
+                })
+              }
+            />
+          </div>
+          <TextField
+            className={classes.inputFieldsOdds}
+            id="standard-number"
+            id="label"
+            label={`Quota ${infoes.book_three}`}
+            type="number"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            placeholder={`${infoes.odd_three}`}
+            onChange={(e) =>
+              setOdd2({
+                odd2:
                   e.currentTarget.value === ""
                     ? parseFloat(infoes.odd_two)
                     : parseFloat(e.currentTarget.value),
@@ -296,12 +419,19 @@ function DutcherMatchInfoCard(props) {
             color="primary"
             className={classes.button}
             onClick={() =>
-              calcBettingStakes({
-                stake,
-                bonus,
-                oddOne,
-                oddTwo,
-                infoes,
+              handleCalcBettingStakes({
+                stakeLay1,
+                bonusLay1,
+                stakeLayX,
+                bonusLayX,
+                stakeLay2,
+                bonusLay2,
+                odd1,
+                oddX,
+                odd2,
+                odd_one: infoes.odd_one,
+                odd_two: infoes.odd_two,
+                odd_three: infoes.odd_three,
               })
             }
           >
@@ -309,7 +439,7 @@ function DutcherMatchInfoCard(props) {
           </Button>
         </Card>
       </div>
-      <div
+      {/* <div
         style={
           showStakes
             ? {
@@ -359,7 +489,7 @@ function DutcherMatchInfoCard(props) {
         ) : (
           <></>
         )}
-      </div>
+      </div> */}
       <div
         style={{
           display: "flex",
@@ -370,7 +500,7 @@ function DutcherMatchInfoCard(props) {
         <Button
           variant="outlined"
           color="primary"
-          onClick={() => props.showDutcherMatchInfoModal({})}
+          onClick={() => props.showTrimatcherMatchInfoModal({})}
           className={classes.button}
           style={{ marginRight: "5px" }}
         >
@@ -392,4 +522,4 @@ function DutcherMatchInfoCard(props) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DutcherMatchInfoCard);
+)(TrimatcherMatchInfoCard);

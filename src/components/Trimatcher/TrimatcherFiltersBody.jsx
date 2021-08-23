@@ -88,7 +88,7 @@ function TrimatcherFiltersBody(props) {
       odds = trimatcherFilterOdds(
         options,
         props.trimatcher.odds,
-        props.trimatcher.firstBookmaker
+        props.trimatcher.firstBookmaker.toLowerCase()
       );
       // UPDATING THE ODDS PROPS
       props.setFiltersToRedux(odds);

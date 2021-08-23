@@ -1,4 +1,4 @@
-import { logos } from "../../Utils/bookmakersLogos";
+import { logos } from "../../../Utils/bookmakersLogos";
 import OpenTrimatcherMatchInfoModal from "../OpenTrimatcherMatchInfoModal"
 
 export const fetchTrimatcherOdds = async () => {

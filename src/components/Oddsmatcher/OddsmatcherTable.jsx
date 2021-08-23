@@ -1,6 +1,4 @@
 import React from "react";
-
-// MaterialUI
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -10,13 +8,11 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-
-// React Redux
 import { connect } from "react-redux";
 
 const columns = [
-  { id: "openTrimatcherInfoModal", minWidth: 30, align: "center" },
-  { id: "match_start", label: "Data", minWidth: 80, align: "center" },
+  { id: "openMatchInfoModal", minWidth: 30, align: "center" },
+  { id: "match_start", label: "Data", minWidth: 100, align: "center" },
   {
     id: "nation",
     label: "Nazione",
@@ -26,49 +22,54 @@ const columns = [
   {
     id: "tournament",
     label: "Campionato",
-    minWidth: 100,
+    minWidth: 130,
     align: "center",
   },
   {
     id: "event",
     label: "Evento",
-    minWidth: 100,
+    minWidth: 130,
     align: "center",
   },
-
+  {
+    id: "market",
+    label: "Mercato",
+    minWidth: 30,
+    align: "center",
+  },
   {
     id: "book_one_image",
-    label: "Book 1",
+    label: "Book",
+    minWidth: 30,
+    align: "center",
+  },
+  {
+    id: "odd_one_type",
+    label: "Tipo",
     minWidth: 30,
     align: "center",
   },
   {
     id: "odd_one",
-    label: "1",
-    minWidth: 30,
-    align: "center",
-  },
-  {
-    id: "book_two_image",
-    label: "Book X",
+    label: "Punta",
     minWidth: 30,
     align: "center",
   },
   {
     id: "odd_two",
-    label: "X",
+    label: "Banca",
     minWidth: 30,
     align: "center",
   },
   {
-    id: "book_three_image",
-    label: "Book 2",
+    id: "odd_two_type",
+    label: "Tipo",
     minWidth: 30,
     align: "center",
   },
   {
-    id: "odd_three",
-    label: "2",
+    id: "book_two_image",
+    label: "Exchange",
     minWidth: 30,
     align: "center",
   },
@@ -98,13 +99,6 @@ const useStyles = makeStyles({
   },
   tdColors: {
     color: "white",
-    "&:nth-child(7)": {
-      backgroundColor: "#a6d8ff!important",
-      color: "black",
-      fontWeight: "bold",
-      border: "2px solid white",
-      borderLeft: "3px solid white",
-    },
     "&:nth-child(9)": {
       backgroundColor: "#a6d8ff!important",
       color: "black",
@@ -112,7 +106,7 @@ const useStyles = makeStyles({
       border: "2px solid white",
       borderLeft: "3px solid white",
     },
-    "&:nth-child(11)": {
+    "&:nth-child(10)": {
       backgroundColor: "#a6d8ff!important",
       color: "black",
       fontWeight: "bold",
@@ -160,7 +154,7 @@ function StickyHeadTable(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.trimatcher.temporaryOdds
+            {props.oddsmatcher.temporaryOdds
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, i) => {
                 return (
@@ -188,7 +182,7 @@ function StickyHeadTable(props) {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={props.trimatcher.temporaryOdds.length}
+        count={props.oddsmatcher.temporaryOdds.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}

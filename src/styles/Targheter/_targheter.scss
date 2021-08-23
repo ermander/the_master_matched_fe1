@@ -1,0 +1,179 @@
+.targheter-page {
+    display: flex;
+    flex-direction: row;
+    background-color: #22222f;
+    // Normal sidebar
+    .sidebar {
+      margin-left: 0;
+      transition-duration: margin-left 0.6s;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      z-index: 1030;
+    }
+  
+    // Collapsed sidebar
+    .sidebar-collapsed {
+      margin-left: -15%;
+      transition-duration: margin-left 0.6s;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      z-index: 1030;
+    }
+  
+    .targheter-container {
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 100vh;
+      margin-left: 15%;
+      background-color: #0a0b18;
+      width: 100%;
+      transition-duration: margin-left 0.6s;
+  
+      .title-container {
+        margin: 0.5% 2.5%;
+      }
+  
+      // Container for the first bookmaker select form
+      .first-bookmaker-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        margin: 0.5% 2.5%;
+        .refresh-button {
+          color: white;
+          border-radius: 0%;
+          border: 0px;
+          border-bottom: 1px solid white;
+          margin-left: 10px;
+        }
+        :hover {
+          background-color: rgba(255, 255, 255, 0.08);
+        }
+      }
+  
+      .burger-menu-container {
+        // Button container, collapsiong menu
+        background-color: #2c2c34;
+        button {
+          width: 70px;
+          height: 50px;
+          background-color: transparent;
+          border: none;
+          color: #cacacc;
+          svg {
+            font-size: 25px;
+            font-weight: 200;
+          }
+        }
+      }
+  
+      // targheter Odds Table
+      .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
+        ::-webkit-scrollbar {
+          background-color: #3a3b44;
+          width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+          color: #7267d3;
+          width: 10px;
+          border-radius: 0%;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+          background-color: #7267d3;
+        }
+  
+        .MuiToolbar-root.MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters {
+          color: white;
+        }
+      }
+    }
+  
+    /*
+      COLLAPSED SIDEBAR
+    */
+    .targheter-container-collapsed {
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 100vh;
+      margin-left: 0;
+      background-color: #0a0b18;
+      width: 100%;
+      transition-duration: margin-left 0.6s;
+  
+      .first-bookmaker-containter {
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        margin: 0.5% 2.5%;
+        color: white !important;
+      }
+  
+      .refresh-button {
+        color: white;
+        border-radius: 0%;
+        border: 0px;
+        border-bottom: 1px solid white;
+        margin-left: 10px;
+      }
+  
+      .title-container {
+        margin: 0.5% 2.5%;
+      }
+  
+      .burger-menu-container {
+        background-color: #2c2c34;
+        button {
+          width: 70px;
+          height: 50px;
+          background-color: transparent;
+          border: none;
+          color: #cacacc;
+          svg {
+            font-size: 25px;
+            font-weight: 200;
+          }
+        }
+      }
+      .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded {
+        ::-webkit-scrollbar {
+          background-color: #3a3b44;
+          width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+          color: #7267d3;
+          width: 10px;
+          border-radius: 0%;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+          background-color: #7267d3;
+        }
+        .MuiToolbar-root.MuiToolbar-regular.MuiTablePagination-toolbar.MuiToolbar-gutters {
+          color: white;
+        }
+      }
+    }
+  }
+  
+  table {
+    th {
+      font-size: 12px !important;
+      font-weight: bold !important;
+    }
+    td {
+      font-size: 12px !important;
+      padding: 14px !important;
+    }
+    img {
+      max-width: 70px;
+      min-height: 30px;
+    }
+  }
+  

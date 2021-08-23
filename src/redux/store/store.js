@@ -2,6 +2,7 @@ import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 
 // Reducers
 import userReducer from "../reducers/user.js";
+import oddsmatcherReducer from "../reducers/oddsmatcher.js";
 import dutcherReducer from "../reducers/dutcher.js";
 import trimatcherReducer from "../reducers/trimatcher.js";
 
@@ -12,6 +13,14 @@ const initialState = {
   // User Informations
   user: {
     isUserLogged: false,
+  },
+  // Oddsmatcher informations
+  oddsmatcher: {
+    odds: [],
+    temporaryOdds: [],
+    firstBookmaker: null,
+    showOddsmatcherMatchInfoModal: false,
+    matchInfo: {},
   },
   // Dutcher Informations
   dutcher: {
@@ -33,6 +42,7 @@ const initialState = {
 
 const mainReducer = combineReducers({
   user: userReducer,
+  oddsmatcher: oddsmatcherReducer,
   dutcher: dutcherReducer,
   trimatcher: trimatcherReducer,
 });

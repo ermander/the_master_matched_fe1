@@ -1,4 +1,4 @@
-import { logos } from "../Utils/bookmakersLogos";
+import { logos } from "../../Utils/bookmakersLogos";
 import OpenDutcherMatchInfoModal from "../Dutcher/OpenDutcherMatchInfoModal"
 
 export const setBookmaker = (odds, bookmaker) => {
@@ -22,16 +22,17 @@ export const fetchOdds = async (showDutcherMatchInfoModal) => {
     );
     const parsedResponse = await response.json();
     let odds = parsedResponse.map((odd) => {
+      console.log(odd.book_one, odd.book_two)
       return {
         ...odd,
         event: odd.home + " vs " + odd.away,
         roi: odd.roi.toFixed(2),
         tableRoi: odd.roi.toFixed(2) + "%",
         book_one_image: (
-          <img src={logos[odd.book_one]} alt={logos[odd.book_one] + " logo"} />
+          <img src={logos[odd.book_one.toLowerCase()]} alt={logos[odd.book_one.toLowerCase()] + " logo"} />
         ),
         book_two_image: (
-          <img src={logos[odd.book_two]} alt={logos[odd.book_two] + " logo"} />
+          <img src={logos[odd.book_two.toLowerCase()]} alt={logos[odd.book_two.toLowerCase()] + " logo"} />
         ),
         book_one: odd.book_one.toLowerCase(),
         book_two: odd.book_two.toLowerCase(),

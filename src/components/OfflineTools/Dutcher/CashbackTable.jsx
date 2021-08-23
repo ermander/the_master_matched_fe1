@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import ModifyBookmaker from "./ModifyBookmaker"
 import "./cashback-table.css"
-import authAxios from '../../Utils/http';
+import authAxios from "../../../Utils/http"
 
 class CashbackTable extends Component {
 

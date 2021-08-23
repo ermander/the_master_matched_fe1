@@ -45,7 +45,6 @@ function TrimatcherMatchInfoModal(props) {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log(props);
   }, []);
   return (
     <div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Form, Alert } from "react-bootstrap"
 import { Button } from 'ui-neumorphism'
-import authAxios from '../../Utils/http';
+import authAxios from "../../../Utils/http"
 import "./new-cashback-bookmaker.css"
 
 class NewCashBackBookmaker extends Component {

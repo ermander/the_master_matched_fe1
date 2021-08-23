@@ -4,7 +4,7 @@ import { Switch, Button } from 'ui-neumorphism'
 import Navbar from "../../Navbar/Navbar"
 import CashbackTable from "./CashbackTable"
 import NewCashBackBookmaker from "./NewCashBackBookmaker"
-import authAxios from "../../Utils/http"
+import authAxios from "../../../Utils/http"
 import 'ui-neumorphism/dist/index.css'
 import "./dutcher.css"
 

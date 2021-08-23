@@ -46,14 +46,14 @@ export default class Sidebar extends Component {
           </button>
           <SidebarItem
             title={"Odds Searcher"}
-            numberOfItems={["Oddsmatcher", "Dutcher", "Trimatcher"]}
+            numberOfItems={["Oddsmatcher", "Dutcher", "Trimatcher", "Targheter"]}
             icon={faSearch}
           />
           <SidebarItem
             title={"Offline Tolls"}
             numberOfItems={[
-              "Punta - Banca",
-              "Punta - Punta",
+              "Punta Banca",
+              "Punta Punta",
               "Trimatcher",
               "Multipla",
               "Condizionato",

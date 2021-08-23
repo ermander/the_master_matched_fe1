@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 // Bookmakers Links
-import { links } from "../Utils/bookmakersLinks";
+import { links } from "../../Utils/bookmakersLinks"
 
 // Functions
 import { calcBettingStakes } from "./functions/calcBettingStakes";
@@ -128,8 +128,30 @@ function TrimatcherMatchInfoCard(props) {
     setShowStakes(true);
   };
 
+  // First stakes calculated
+  const handleFirstCalcBettingStakes = (oddOne, oddTwo, oddThree) => {
+    const bettingInfoes = firstCalcBettingStakes(oddOne, oddTwo, oddThree)
+    if(bettingInfoes.case === "first"){
+      setStakeLay1(100)
+      setStakeLayX(bettingInfoes.contropuntaUno)
+      setStakeLay2(bettingInfoes.contropuntaDue)
+
+    }
+    if(bettingInfoes.case === "second"){
+      setStakeLayX(100)
+      setStakeLay1(bettingInfoes.contropuntaUno)
+      setStakeLay2(bettingInfoes.contropuntaDue)
+    }
+    if(bettingInfoes.case === "third"){
+      setStakeLay2(100)
+      setStakeLay1(bettingInfoes.contropuntaUno)
+      setStakeLayX(bettingInfoes.contropuntaDue)
+    }
+  }
+
   // CALCULATING STAKES
   const handleCalcBettingStakes = (options) => {
+    console.log(options)
     const bettingInfoes = calcBettingStakes(options);
 
     // if (bonusCalc === 0) {
@@ -154,7 +176,7 @@ function TrimatcherMatchInfoCard(props) {
 
   useEffect(() => {
     console.log(props.trimatcher.matchInfo);
-    firstCalcBettingStakes(infoes.odd_one, infoes.odd_two, infoes.odd_three)
+    handleFirstCalcBettingStakes(infoes.odd_one, infoes.odd_two, infoes.odd_three)
   }, []);
 
   return (
@@ -244,7 +266,7 @@ function TrimatcherMatchInfoCard(props) {
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder="100"
+              placeholder={stakeLay1}
               onChange={(e) =>
                 setStakeLay1({
                   stakeLay1:
@@ -305,7 +327,7 @@ function TrimatcherMatchInfoCard(props) {
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder="100"
+              placeholder={stakeLayX}
               onChange={(e) =>
                 setStakeLayX({
                   stakeLayX:
@@ -365,7 +387,7 @@ function TrimatcherMatchInfoCard(props) {
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder="100"
+              placeholder={stakeLay2}
               onChange={(e) =>
                 setStakeLay2({
                   stakeLay2:

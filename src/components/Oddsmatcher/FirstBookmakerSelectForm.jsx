@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-
-// MaterialUI
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -12,8 +10,6 @@ import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-
-// React Redux
 import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -53,17 +49,17 @@ const useStyles = makeStyles((theme) => ({
 const mapStateToProps = (state) => state;
 
 const mapDispatchToProps = (dispatch) => ({
-  firstBookmaker: (payload) =>
+  saveFirstBookmaker: (payload) =>
     dispatch({
-      type: "SET_TRIMATCHER_FIRST_BOOKMAKER",
+      type: "SAVE_FIRST_BOOKMAKER",
       payload: payload,
     }),
 });
 
 function FirstBookmakerSelectForm(props) {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const [bookmaker, setBookmaker] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const [bookmaker, setBookmaker] = React.useState("");
 
   const handleChange = (event) => {
     setBookmaker(event.target.value);
@@ -78,14 +74,78 @@ function FirstBookmakerSelectForm(props) {
   };
 
   const setFirstBookmaker = (firstBookmaker) => {
-    props.firstBookmaker(firstBookmaker)
-    handleClose()
-  }
-
+    let odds = props.dutcher.odds;
+    if (firstBookmaker !== "") {
+      if (firstBookmaker.toLowerCase() === "golgol") {
+        odds = odds.filter(
+          (odd) =>
+            odd.book_one.toLowerCase() === "golgol" ||
+            odd.book_two.toLowerCase() === "golgol"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "eurobet") {
+        odds = odds.filter(
+          (odd) =>
+            odd.book_one.toLowerCase() === "eurobet" ||
+            odd.book_two.toLowerCase() === "eurobet"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "lopoca") {
+        odds = odds.filter(
+          (odd) =>
+            odd.book_one.toLowerCase() === "lopoca" ||
+            odd.book_two.toLowerCase() === "lopoca"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "marathonbet") {
+        odds = odds.filter(
+          (odd) =>
+            odd.book_one.toLowerCase() === "marathonbet" ||
+            odd.book_two.toLowerCase() === "marathonbet"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "overplus") {
+        odds = odds.filter(
+          (odd) =>
+            odd.book_one.toLowerCase() === "overplus" ||
+            odd.book_two.toLowerCase() === "overplus"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "planetwin") {
+        odds = odds.filter(
+          (odd) => odd.book_one === "planetwin" || odd.book_two === "planetwin"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "sisal") {
+        odds = odds.filter(
+          (odd) =>
+            odd.book_one.toLowerCase() === "sisal" ||
+            odd.book_two.toLowerCase() === "sisal"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "starcasino") {
+        odds = odds.filter(
+          (odd) =>
+            odd.book_one.toLowerCase() === "starcasino" ||
+            odd.book_two.toLowerCase() === "starcasino"
+        );
+      }
+      if (firstBookmaker.toLowerCase() === "vincitu") {
+        odds = odds.filter(
+          (odd) =>
+            odd.book_one.toLowerCase() === "vincitu" ||
+            odd.book_two.toLowerCase() === "vincitu"
+        );
+      }
+      props.setFirstBookmaker(odds);
+      props.saveFirstBookmaker(firstBookmaker);
+      handleClose();
+    }
+  };
   return (
     <div>
       <Button onClick={handleClickOpen} className={classes.button}>
-        Seleziona Bookmaker
+        Bookmaker
       </Button>
       <Dialog
         disableBackdropClick
@@ -113,8 +173,8 @@ function FirstBookmakerSelectForm(props) {
                 input={<Input />}
                 className={classes.select}
               >
-                <MenuItem value={"Tutti"}>
-                  <em>Tutti</em>
+                <MenuItem value="">
+                  <em>None</em>
                 </MenuItem>
                 <MenuItem value={"GolGol"}>GolGol</MenuItem>
                 <MenuItem value={"Eurobet"}>Eurobet</MenuItem>

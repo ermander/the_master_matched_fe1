@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 // Bookmakers Links
-import { links } from "../Utils/bookmakersLinks";
+import { links } from "../../Utils/bookmakersLinks";
 
 // Redux State
 const mapStateToProps = (state) => state;

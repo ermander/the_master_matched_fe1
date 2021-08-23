@@ -45,7 +45,6 @@ const handleFetchTrimatcherOdds = () => {
       payload: [],
     });
     const odds = await fetchTrimatcherOdds();
-    console.log(odds);
     dispatch({
       type: "SET_TRIMATCHER_MAIN_ODDS",
       payload: odds,

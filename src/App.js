@@ -12,6 +12,7 @@ import Login from "./components/Login/Login";
 import Registration from "./components/Registration/Registration";
 import RestorePassword from "./components/Restore Password/RestorePassword";
 
+// Online Tools
 // OddsMatcher Page
 import OddsMatcher from "./pages/OddsMatcher";
 // Dutcher Page
@@ -20,12 +21,11 @@ import Dutcher from "./pages/Dutcher";
 import Trimatcher from "./pages/Trimatcher";
 // Targheter Page
 import Targheter from "./pages/Targheter";
-// Punta e Banca
-import PuntaBanca from "./pages/PuntaBanca";
 
 // Offline tools
-import OfflineDutcher from "./components/OfflineTools/Dutcher/OfflineDutcher";
-import OfflineTrimatcher from "./components/OfflineTools/Trimatcher/OfflineTrimatcher";
+// Punta e Banca
+import PuntaBanca from "./pages/PuntaBanca";
+import PuntaPunta from "./pages/PuntaPunta";
 
 // Online Tools
 
@@ -55,17 +55,6 @@ function App() {
             <RestorePassword />
           </Route>
 
-          {/*Tools offline */}
-          <Route path="/cashback-2-vie" exact>
-            <OfflineDutcher />
-          </Route>
-          <Route path="/cashback-3-vie" exact>
-            <OfflineTrimatcher />
-          </Route>
-          <Route path="/coming-soon">
-            <ComingSoon />
-          </Route>
-
           {/* Tools Online */}
           <Route path="/oddsmatcher" exact>
             <OddsMatcher />
@@ -84,6 +73,9 @@ function App() {
           <Route path="/punta banca" exact>
             <PuntaBanca />
           </Route>
+          <Route path="/punta punta" exact>
+            <PuntaPunta />
+          </Route>
 
           {/* Profit Tracker */}
           <Route path="/profit-tracker/partite-in-corso" exact>
@@ -91,6 +83,10 @@ function App() {
           </Route>
           <Route path="/profit-tracker/casino" exact>
             <Casino />
+          </Route>
+
+          <Route path="/coming-soon">
+            <ComingSoon />
           </Route>
         </Switch>
       </Router>

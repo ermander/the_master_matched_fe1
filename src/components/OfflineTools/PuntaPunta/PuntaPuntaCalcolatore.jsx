@@ -10,11 +10,8 @@ import TextField from "@material-ui/core/TextField";
 // Components
 import MissingInfoesAlert from "./MissingInfoesAlert";
 import ShowStakesAlert from "./ShowStakesAlert";
-import UnbalanceBet from "./UnbalanceBet";
+import UnbalancedBet from "./UnbalancedBet";
 import AdvancedSwitch from "./AdvancedSwitch";
-
-// Functions
-import { calculateReturn } from "./calculateReturn";
 
 // Redux
 import { connect } from "react-redux";
@@ -54,23 +51,23 @@ const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
   setUnbalancedBet: () =>
     dispatch({
-      type: "SET_UNBALANCED_BET",
+      type: "SET_PUNTA_UNBALANCED_BET",
       payload: 100,
     }),
   deleteUnbalancedBet: () =>
     dispatch({
-      type: "DELETE_UNBALANCED_BET",
+      type: "DELETE_PUNTA_UNBALANCED_BET",
       payload: null,
     }),
 });
-function PuntaBancaCalcolatore(props) {
-  const [odd, setOdd] = useState(null);
-  const [lay, setLay] = useState(null);
+
+function PuntaPuntaCalcolatore(props) {
+  const [oddOne, setOddOne] = useState(null);
+  const [oddTwo, setOddTwo] = useState(null);
   const [stake, setStake] = useState(null);
   const [bonus, setBonus] = useState(null);
-  const [commissions, setCommissions] = useState(null);
   const [value, setValue] = useState(null);
-  const [layStake, setLayStake] = useState(null);
+  const [coverBet, setCoverBet] = useState(null);
   const [profitOne, setProfitOne] = useState(null);
   const [profitTwo, setProfitTwo] = useState(null);
   const [alert, showAlert] = useState(false);
@@ -79,7 +76,6 @@ function PuntaBancaCalcolatore(props) {
   // State for the advanced bet mode switch
   const [switchState, setSwitchState] = useState(false);
 
-  // Handle advanced bet mode switch state
   const handleSetSwitchState = () => {
     setSwitchState(!switchState);
     if (!switchState) {
@@ -88,44 +84,19 @@ function PuntaBancaCalcolatore(props) {
       props.deleteUnbalancedBet();
     }
   };
-
   const closeAlert = () => {
     showAlert(false);
   };
   const closeStakesAlert = () => {
     showStakesAlert(false);
   };
-
-  const handleCalculateReturn = (options) => {
-    console.log(options);
-    const infoes = calculateReturn({
-      odd: options.odd,
-      lay: options.lay,
-      stake: options.stake,
-      bonus: options.bonus,
-      commissions: options.commissions,
-      unbalancedBet: options.unbalancedBet,
-    });
-    if (infoes.value !== undefined) {
-      setValue(infoes.value);
-      showAlert(true);
-      setTimeout(() => {
-        showAlert(false);
-      }, 3000);
-    } else {
-      setLayStake(infoes.layStake);
-      setProfitOne(infoes.profitOne);
-      setProfitTwo(infoes.profitTwo);
-      showStakesAlert(true);
-    }
-  };
   const classes = useStyles();
+
   return (
     <>
-      <div className="punta-banca-calcolatore-container">
-        {" "}
+      <div className="punta-punta-calcolatore-container">
         <Card className={classes.cardInfoesContainer} variant="outlined">
-          <div className="punta-banca-switch-container">
+          <div className="punta-punta-switch-container">
             <AdvancedSwitch
               switchState={switchState}
               setSwitchState={handleSetSwitchState}
@@ -137,15 +108,32 @@ function PuntaBancaCalcolatore(props) {
                 className={classes.inputFields}
                 id="standard-number"
                 id="label"
-                label="Quota Punta"
+                label="Quota Punta 1"
                 type="number"
-                placeholder="0.00"
-                onChange={(e) => setOdd({ odd: e.currentTarget.value })}
+                placeholder="@0.00"
+                onChange={(e) => setOddOne({ odd: e.currentTarget.value })}
                 InputLabelProps={{
                   shrink: true,
                 }}
               />
-            </CardContent>{" "}
+            </CardContent>
+
+            <CardContent className={classes.cardContent}>
+              <TextField
+                className={classes.inputFields}
+                id="standard-number"
+                id="label"
+                label="Quota Punta 2"
+                type="number"
+                placeholder="@0.00"
+                onChange={(e) => setOddTwo({ oddTwo: e.currentTarget.value })}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </CardContent>
+          </div>
+          <div className="form-container">
             <CardContent className={classes.cardContent}>
               <TextField
                 className={classes.inputFields}
@@ -164,7 +152,7 @@ function PuntaBancaCalcolatore(props) {
                   shrink: true,
                 }}
               />
-            </CardContent>
+            </CardContent>{" "}
             <CardContent className={classes.cardContent}>
               <TextField
                 className={classes.inputFields}
@@ -186,69 +174,29 @@ function PuntaBancaCalcolatore(props) {
             </CardContent>
           </div>
           <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          >
-            <CardContent className={classes.cardContent}>
-              <TextField
-                className={classes.inputFields}
-                id="standard-number"
-                id="label"
-                label="Quota Banca"
-                type="number"
-                placeholder="0.00"
-                onChange={(e) => setLay({ lay: e.currentTarget.value })}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </CardContent>
-            <CardContent className={classes.cardContent}>
-              <TextField
-                className={classes.inputFields}
-                id="standard-number"
-                id="label"
-                label="Commissione %"
-                type="number"
-                placeholder="Es. 0.05%"
-                onChange={(e) =>
-                  setCommissions({ commissions: e.currentTarget.value })
-                }
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </CardContent>
-          </div>
-          <div
             className={
               switchState
                 ? "punta-banca-slider-container"
                 : "punta-banca-slider-container-hide"
             }
           >
-            <UnbalanceBet />
+            <UnbalancedBet />
           </div>
-          <div className="punta-banca-button-container">
+          <div className="punta-punta-button-container">
             <Button
-              onClick={() =>
-                handleCalculateReturn({
-                  odd,
-                  lay,
-                  stake,
-                  bonus,
-                  commissions,
-                  unbalancedBet: props.puntaBanca.unbalancedBet,
-                })
-              }
+            //   onClick={() =>
+            //     handleCalculateReturn({
+            //       oddOne,
+            //       oddTwo,
+            //       stake,
+            //       bonus,
+            //       unbalancedBet: props.puntaBanca.unbalancedBet,
+            //     })
+            //   }
             >
               Calcola
             </Button>
           </div>
-
           <div className="show-profit">
             <MissingInfoesAlert
               show={alert}
@@ -258,7 +206,7 @@ function PuntaBancaCalcolatore(props) {
             <ShowStakesAlert
               stake={stake}
               bonus={bonus}
-              layStake={layStake}
+              coverBet={coverBet}
               profitOne={profitOne}
               profitTwo={profitTwo}
               show={stakesAlert}
@@ -274,4 +222,4 @@ function PuntaBancaCalcolatore(props) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PuntaBancaCalcolatore);
+)(PuntaPuntaCalcolatore);

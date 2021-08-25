@@ -15,7 +15,7 @@ const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
   setUnbalancedBet: (payload) =>
     dispatch({
-      type: "SET_PUNTA_UNBALANCED_BET",
+      type: "SET_UNBALANCED_BET",
       payload: payload,
     }),
 });
@@ -51,8 +51,8 @@ function ContinuousSlider(props) {
         <Grid item xs>
           <Slider
             value={value}
-            min={50}
-            max={150}
+            min={80}
+            max={120}
             defaultValue={100}
             onChange={handleChange}
             aria-labelledby="continuous-slider"

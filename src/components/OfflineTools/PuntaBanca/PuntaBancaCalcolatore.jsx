@@ -7,7 +7,12 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
-import { calculateReturn } from "./calculateReturn"
+// Components
+import MissingInfoesAlert from "./MissingInfoesAlert";
+import ShowStakesAlert from "./ShowStakesAlert";
+import UnbalanceBet from "./UnbalanceBet";
+
+import { calculateReturn } from "./calculateReturn";
 
 const useStyles = makeStyles({
   root: {
@@ -45,6 +50,42 @@ function PuntaBancaCalcolatore() {
   const [stake, setStake] = useState(null);
   const [bonus, setBonus] = useState(null);
   const [commissions, setCommissions] = useState(null);
+  const [value, setValue] = useState(null);
+  const [layStake, setLayStake] = useState(null);
+  const [profit, setProfit] = useState(null);
+  const [alert, showAlert] = useState(false);
+  const [stakesAlert, showStakesAlert] = useState(false);
+
+  const closeAlert = () => {
+    showAlert(false);
+  };
+  const closeStakesAlert = () => {
+    showStakesAlert(false);
+  };
+
+  const handleCalculateReturn = (options) => {
+    console.log(options);
+
+    const infoes = calculateReturn({
+      odd: options.odd,
+      lay: options.lay,
+      stake: options.stake,
+      bonus: options.bonus,
+      commissions: options.commissions,
+    });
+    console.log(infoes);
+    if (infoes.value !== undefined) {
+      setValue(infoes.value);
+      showAlert(true);
+      setTimeout(() => {
+        showAlert(false);
+      }, 3000);
+    } else {
+      setLayStake(infoes.layStake);
+      setProfit(infoes.profit);
+      showStakesAlert(true);
+    }
+  };
 
   const classes = useStyles();
   return (
@@ -124,7 +165,7 @@ function PuntaBancaCalcolatore() {
                 id="label"
                 label="Commissione %"
                 type="number"
-                placeholder="5.00%"
+                placeholder="Es. 0.05%"
                 onChange={(e) =>
                   setCommissions({ commissions: e.currentTarget.value })
                 }
@@ -134,10 +175,13 @@ function PuntaBancaCalcolatore() {
               />
             </CardContent>
           </div>
+          <div>
+            <UnbalanceBet />
+          </div>
           <div className="punta-banca-button-container">
             <Button
               onClick={() =>
-                calculateReturn({
+                handleCalculateReturn({
                   odd,
                   lay,
                   stake,
@@ -148,6 +192,22 @@ function PuntaBancaCalcolatore() {
             >
               Calcola
             </Button>
+          </div>
+
+          <div className="show-profit">
+            <MissingInfoesAlert
+              show={alert}
+              value={value}
+              noShow={closeAlert}
+            />
+            <ShowStakesAlert
+              stake={stake}
+              bonus={bonus}
+              layStake={layStake}
+              profit={profit}
+              show={stakesAlert}
+              noshow={closeStakesAlert}
+            />
           </div>
         </Card>
       </div>

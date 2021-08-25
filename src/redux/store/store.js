@@ -5,6 +5,7 @@ import userReducer from "../reducers/user.js";
 import oddsmatcherReducer from "../reducers/oddsmatcher.js";
 import dutcherReducer from "../reducers/dutcher.js";
 import trimatcherReducer from "../reducers/trimatcher.js";
+import puntaBancaReducer from "../reducers/puntaBanca.js";
 
 // Redux Thunk
 import thunk from "redux-thunk";
@@ -38,6 +39,9 @@ const initialState = {
     showTrimatcherMatchInfoModal: false,
     matchInfo: {},
   },
+  puntaBanca: {
+    unbalancedBet: null,
+  },
 };
 
 const mainReducer = combineReducers({
@@ -45,6 +49,7 @@ const mainReducer = combineReducers({
   oddsmatcher: oddsmatcherReducer,
   dutcher: dutcherReducer,
   trimatcher: trimatcherReducer,
+  puntaBanca: puntaBancaReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

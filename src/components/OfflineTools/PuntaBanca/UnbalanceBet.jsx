@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from "react";
+
+// Material UI
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
-import RemoveIcon from '@material-ui/icons/Remove';
-import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from "@material-ui/icons/Remove";
+import AddIcon from "@material-ui/icons/Add";
+
+// Redux
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => state;
+const mapDispatchToProps = (dispatch) => ({
+  setUnbalancedBet: (payload) =>
+    dispatch({
+      type: "SET_UNBALANCED_BET",
+      payload: payload,
+    }),
+});
 
 const useStyles = makeStyles({
   root: {
@@ -12,12 +26,13 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ContinuousSlider() {
+function ContinuousSlider(props) {
   const classes = useStyles();
   const [value, setValue] = useState(100);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    props.setUnbalancedBet(parseInt(newValue));
   };
 
   useEffect(() => {
@@ -50,3 +65,5 @@ export default function ContinuousSlider() {
     </div>
   );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContinuousSlider);

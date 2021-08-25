@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // MaterialUI
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,7 +13,11 @@ import ShowStakesAlert from "./ShowStakesAlert";
 import UnbalanceBet from "./UnbalanceBet";
 import AdvancedSwitch from "./AdvancedSwitch";
 
+// Functions
 import { calculateReturn } from "./calculateReturn";
+
+// Redux
+import { connect } from "react-redux";
 
 const useStyles = makeStyles({
   root: {
@@ -45,7 +49,21 @@ const useStyles = makeStyles({
     textAlign: "center",
   },
 });
-function PuntaBancaCalcolatore() {
+
+const mapStateToProps = (state) => state;
+const mapDispatchToProps = (dispatch) => ({
+  setUnbalancedBet: () =>
+    dispatch({
+      type: "SET_UNBALANCED_BET",
+      payload: 100,
+    }),
+  deleteUnbalancedBet: () =>
+    dispatch({
+      type: "DELETE_UNBALANCED_BET",
+      payload: null,
+    }),
+});
+function PuntaBancaCalcolatore(props) {
   const [odd, setOdd] = useState(null);
   const [lay, setLay] = useState(null);
   const [stake, setStake] = useState(null);
@@ -63,6 +81,11 @@ function PuntaBancaCalcolatore() {
   // Handle advanced bet mode switch state
   const handleSetSwitchState = () => {
     setSwitchState(!switchState);
+    if (!switchState) {
+      props.setUnbalancedBet();
+    } else {
+      props.deleteUnbalancedBet();
+    }
   };
 
   const closeAlert = () => {
@@ -81,8 +104,8 @@ function PuntaBancaCalcolatore() {
       stake: options.stake,
       bonus: options.bonus,
       commissions: options.commissions,
+      unbalancedBet: options.unbalancedBet,
     });
-    console.log(infoes);
     if (infoes.value !== undefined) {
       setValue(infoes.value);
       showAlert(true);
@@ -95,7 +118,6 @@ function PuntaBancaCalcolatore() {
       showStakesAlert(true);
     }
   };
-
   const classes = useStyles();
   return (
     <>
@@ -190,7 +212,13 @@ function PuntaBancaCalcolatore() {
               />
             </CardContent>
           </div>
-          <div className="punta-banca-slider-container">
+          <div
+            className={
+              switchState
+                ? "punta-banca-slider-container"
+                : "punta-banca-slider-container-hide"
+            }
+          >
             <UnbalanceBet />
           </div>
           <div className="punta-banca-button-container">
@@ -202,6 +230,7 @@ function PuntaBancaCalcolatore() {
                   stake,
                   bonus,
                   commissions,
+                  unbalancedBet: props.puntaBanca.unbalancedBet,
                 })
               }
             >
@@ -230,4 +259,7 @@ function PuntaBancaCalcolatore() {
   );
 }
 
-export default PuntaBancaCalcolatore;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PuntaBancaCalcolatore);

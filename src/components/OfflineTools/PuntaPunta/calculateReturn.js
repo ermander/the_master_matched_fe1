@@ -22,13 +22,11 @@ export const calculateReturn = ({
   } else if (stake === null && bonus === null) {
     value = "Devi inserire almeno uno stake";
   } else {
-    if (bonus === null || bonus === "") {
+    if (bonus.bonus === null || bonus.bonus === 0) {
       coverBet =
         (parseFloat(oddOne.oddOne) * parseInt(realStake)) /
         parseFloat(oddTwo.oddTwo);
-      console.log(coverBet);
       if (unbalancedBet !== null) {
-        console.log("No bonus");
         if (unbalancedBet > 100) {
           const unbalancedBetPercentage = parseFloat(unbalancedBet) - 100;
           coverBet =
@@ -44,6 +42,8 @@ export const calculateReturn = ({
         coverBet = parseInt(coverBet);
       }
 
+      console.log("entro");
+      coverBet = parseInt(coverBet);
       // Profit if oddOne wins
       profitOne =
         parseInt(realStake) * parseFloat(oddOne.oddOne) -

@@ -91,7 +91,7 @@
 
 .punta-banca-calcolatore-container {
   margin: 2.5% auto;
-  width: 60%;
+  width: 55%;
   input {
     color: white;
   }
@@ -102,22 +102,27 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 2rem;
+    padding: 1rem;
   }
   .punta-banca-button-container {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     button {
       color: white;
       border-radius: 0%;
-      border: 0px;
       border-bottom: 1px solid white;
       margin-bottom: 10px;
+      span {
+        border: none;
+      }
+      :hover {
+        border: none;
+        background-color: transparent;
+      }
     }
     :hover {
-      border: none;
       border-bottom: 1px solid white;
       border-radius: 0%;
       background-color: rgba(255, 255, 255, 0.08);
@@ -149,3 +154,18 @@
   left: 4rem;
 }
 
+.show-profit {
+  .MuiAlert-icon {
+    display: none;
+  }
+
+  .MuiAlert-message {
+    margin-left: auto;
+  }
+
+  .p-tags-container {
+    p {
+      display: inline;
+    }
+  }
+}

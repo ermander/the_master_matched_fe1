@@ -27,6 +27,7 @@ export default function TransitionAlerts(props) {
     <div className={classes.root}>
       <Collapse in={props.show}>
         <Alert
+          className="prova"
           action={
             <IconButton
               aria-label="close"
@@ -40,13 +41,16 @@ export default function TransitionAlerts(props) {
             </IconButton>
           }
           variant="outlined"
-          severity="success"
           className={classes.alert}
         >
-          <p style={{ color: "white", margin: "0" }}>Punta {stake + bonus}€</p>
-          <p style={{ color: "white", margin: "0" }}>Banca {layStake}€</p>
+          <div className="p-tags-container">
+            <p style={{ color: "white" }}>Punta {stake + bonus}€,</p>
+            <p style={{ color: "white", marginLeft: "10px" }}>
+              Banca {layStake}€
+            </p>
+          </div>
           <p style={{ color: "white", margin: "0" }}>
-            Guadagnerai {props.profit}€
+            Guadagnerai {props.profitOne}€ oppure {props.profitTwo}€
           </p>
         </Alert>
       </Collapse>

@@ -7,8 +7,16 @@ export const calculateReturn = ({
   unbalancedBet,
 }) => {
   let value;
+  let realStake;
   let layStake;
-  let profit;
+  let profitOne;
+  let profitTwo;
+
+  if (stake === null || stake.stake === "") {
+    realStake = 0;
+  } else {
+    realStake = stake.stake;
+  }
 
   if (odd === null || lay === null) {
     console.log("Devi inserire entrambe le quote!");
@@ -19,7 +27,7 @@ export const calculateReturn = ({
   } else {
     if (bonus === null || bonus === "") {
       layStake =
-        (parseFloat(odd.odd) * parseFloat(stake.stake)) /
+        (parseFloat(odd.odd) * parseFloat(realStake)) /
         (parseFloat(lay.lay) -
           parseFloat(commissions === null ? 0.05 : commissions.commissions));
 
@@ -35,16 +43,24 @@ export const calculateReturn = ({
       }
       layStake = layStake.toFixed(2);
 
-      profit =
+      //a) Profit if back bet wins:
+      // Profit = back stake * (back bet odds – 1) – lay stake * (lay bet odds – 1)
+      profitOne =
+        parseFloat(realStake) * parseFloat(odd.odd - 1) -
+        parseFloat(layStake) * parseFloat(lay.lay - 1);
+      // b) Profit if lay bet wins:
+      // Profit = lay stake * (1 – commission) – back stake
+      profitTwo =
         parseFloat(layStake) *
           (1 -
             parseFloat(commissions === null ? 0.05 : commissions.commissions)) -
-        parseFloat(stake.stake);
-      profit = profit.toFixed(2);
+        realStake;
+      profitOne = profitOne.toFixed(2);
+      profitTwo = profitTwo.toFixed(2);
     } else {
       layStake =
         (parseFloat(odd.odd) *
-          (parseFloat(stake.stake) + parseFloat(bonus.bonus))) /
+          (parseFloat(realStake) + parseFloat(bonus.bonus))) /
         (parseFloat(lay.lay) -
           parseFloat(commissions === null ? 0.05 : commissions.commissions));
 
@@ -60,18 +76,30 @@ export const calculateReturn = ({
       }
       layStake = layStake.toFixed(2);
 
-      profit =
+      // a) Profit if free bet wins:
+      // Profit = free bet value * back odds – lay stake * (lay odds – 1)
+      profitOne =
+        (parseFloat(realStake) + parseFloat(bonus.bonus)) *
+          parseFloat(odd.odd) -
+        parseFloat(layStake) * parseFloat(lay.lay - 1) -
+        parseFloat(realStake);
+      // b) Profit if lay bet wins:
+      // Profit = lay stake * (1 – commission) – back stake
+      profitTwo =
         parseFloat(layStake) *
           (1 -
             parseFloat(commissions === null ? 0.05 : commissions.commissions)) -
-        parseFloat(stake.stake);
-      profit = profit.toFixed(2);
+        parseFloat(realStake);
+
+      profitOne = profitOne.toFixed(2);
+      profitTwo = profitTwo.toFixed(2);
     }
   }
 
   return {
     value,
     layStake,
-    profit,
+    profitOne,
+    profitTwo,
   };
 };

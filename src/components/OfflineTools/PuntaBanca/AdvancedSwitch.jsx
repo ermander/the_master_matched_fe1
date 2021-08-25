@@ -4,9 +4,6 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 
 export default function SwitchLabels(props) {
-  useEffect(() => {
-    console.log(props);
-  });
   return (
     <FormGroup row>
       <FormControlLabel

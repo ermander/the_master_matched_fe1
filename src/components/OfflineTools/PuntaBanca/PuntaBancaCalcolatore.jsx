@@ -71,7 +71,8 @@ function PuntaBancaCalcolatore(props) {
   const [commissions, setCommissions] = useState(null);
   const [value, setValue] = useState(null);
   const [layStake, setLayStake] = useState(null);
-  const [profit, setProfit] = useState(null);
+  const [profitOne, setProfitOne] = useState(null);
+  const [profitTwo, setProfitTwo] = useState(null);
   const [alert, showAlert] = useState(false);
   const [stakesAlert, showStakesAlert] = useState(false);
 
@@ -97,7 +98,6 @@ function PuntaBancaCalcolatore(props) {
 
   const handleCalculateReturn = (options) => {
     console.log(options);
-
     const infoes = calculateReturn({
       odd: options.odd,
       lay: options.lay,
@@ -114,7 +114,8 @@ function PuntaBancaCalcolatore(props) {
       }, 3000);
     } else {
       setLayStake(infoes.layStake);
-      setProfit(infoes.profit);
+      setProfitOne(infoes.profitOne);
+      setProfitTwo(infoes.profitTwo);
       showStakesAlert(true);
     }
   };
@@ -153,7 +154,12 @@ function PuntaBancaCalcolatore(props) {
                 label="Valore Puntata"
                 type="number"
                 placeholder="0€"
-                onChange={(e) => setStake({ stake: e.currentTarget.value })}
+                onChange={(e) =>
+                  setStake({
+                    stake:
+                      e.currentTarget.value === "" ? 0 : e.currentTarget.value,
+                  })
+                }
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -167,7 +173,12 @@ function PuntaBancaCalcolatore(props) {
                 label="Valore Bonus"
                 type="number"
                 placeholder="0€"
-                onChange={(e) => setBonus({ bonus: e.currentTarget.value })}
+                onChange={(e) =>
+                  setBonus({
+                    bonus:
+                      e.currentTarget.value === "" ? 0 : e.currentTarget.value,
+                  })
+                }
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -248,7 +259,8 @@ function PuntaBancaCalcolatore(props) {
               stake={stake}
               bonus={bonus}
               layStake={layStake}
-              profit={profit}
+              profitOne={profitOne}
+              profitTwo={profitTwo}
               show={stakesAlert}
               noshow={closeStakesAlert}
             />

@@ -11,6 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import MissingInfoesAlert from "./MissingInfoesAlert";
 import ShowStakesAlert from "./ShowStakesAlert";
 import UnbalanceBet from "./UnbalanceBet";
+import AdvancedSwitch from "./AdvancedSwitch";
 
 import { calculateReturn } from "./calculateReturn";
 
@@ -56,6 +57,14 @@ function PuntaBancaCalcolatore() {
   const [alert, showAlert] = useState(false);
   const [stakesAlert, showStakesAlert] = useState(false);
 
+  // State for the advanced bet mode switch
+  const [switchState, setSwitchState] = useState(false);
+
+  // Handle advanced bet mode switch state
+  const handleSetSwitchState = () => {
+    setSwitchState(!switchState);
+  };
+
   const closeAlert = () => {
     showAlert(false);
   };
@@ -93,6 +102,12 @@ function PuntaBancaCalcolatore() {
       <div className="punta-banca-calcolatore-container">
         {" "}
         <Card className={classes.cardInfoesContainer} variant="outlined">
+          <div className="punta-banca-switch-container">
+            <AdvancedSwitch
+              switchState={switchState}
+              setSwitchState={handleSetSwitchState}
+            />
+          </div>
           <div className="form-container">
             <CardContent className={classes.cardContent}>
               <TextField

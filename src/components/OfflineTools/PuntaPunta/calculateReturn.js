@@ -51,9 +51,9 @@ export const calculateReturn = ({
         parseInt(coverBet);
       // Profit if oddTwo wins
       profitTwo =
-        parseInt(realStake) * parseFloat(oddOne.oddOne) -
-        parseInt(realStake) -
-        parseInt(coverBet);
+        parseInt(coverBet) * parseFloat(oddTwo.oddTwo) -
+        parseInt(coverBet) -
+        parseInt(realStake);
 
       profitOne = profitOne.toFixed(2);
       profitTwo = profitTwo.toFixed(2);
@@ -86,10 +86,9 @@ export const calculateReturn = ({
           parseInt(coverBet);
         // Profit if oddTwo wins
         profitTwo =
-          (parseInt(realStake) + parseInt(bonus.bonus)) *
-            parseFloat(oddOne.oddOne) -
-          parseInt(realStake) -
-          parseInt(coverBet);
+          parseInt(coverBet) * parseFloat(oddTwo.oddTwo) -
+          parseInt(coverBet) -
+          parseInt(realStake);
 
         profitOne = profitOne.toFixed(2);
         profitTwo = profitTwo.toFixed(2);

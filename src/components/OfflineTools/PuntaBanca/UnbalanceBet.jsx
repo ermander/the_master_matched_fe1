@@ -51,8 +51,8 @@ function ContinuousSlider(props) {
         <Grid item xs>
           <Slider
             value={value}
-            min={50}
-            max={150}
+            min={70}
+            max={130}
             defaultValue={100}
             onChange={handleChange}
             aria-labelledby="continuous-slider"

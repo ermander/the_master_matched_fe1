@@ -13,6 +13,9 @@ import ShowStakesAlert from "./ShowStakesAlert";
 import UnbalancedBet from "./UnbalancedBet";
 import AdvancedSwitch from "./AdvancedSwitch";
 
+// Functions
+import { calculateReturn } from "./calculateReturn";
+
 // Redux
 import { connect } from "react-redux";
 
@@ -90,6 +93,29 @@ function PuntaPuntaCalcolatore(props) {
   const closeStakesAlert = () => {
     showStakesAlert(false);
   };
+
+  const handleCalculateReturn = (options) => {
+    console.log(options);
+    const infoes = calculateReturn({
+      oddOne: options.oddOne,
+      oddTwo: options.oddTwo,
+      stake: options.stake,
+      bonus: options.bonus,
+      unbalancedBet: options.unbalancedBet,
+    });
+    if (infoes.value !== undefined) {
+      setValue(infoes.value);
+      showAlert(true);
+      setTimeout(() => {
+        showAlert(false);
+      }, 3000);
+    } else {
+      setCoverBet(infoes.coverBet);
+      setProfitOne(infoes.profitOne);
+      setProfitTwo(infoes.profitTwo);
+      showStakesAlert(true);
+    }
+  };
   const classes = useStyles();
 
   return (
@@ -111,7 +137,7 @@ function PuntaPuntaCalcolatore(props) {
                 label="Quota Punta 1"
                 type="number"
                 placeholder="@0.00"
-                onChange={(e) => setOddOne({ odd: e.currentTarget.value })}
+                onChange={(e) => setOddOne({ oddOne: e.currentTarget.value })}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -184,15 +210,18 @@ function PuntaPuntaCalcolatore(props) {
           </div>
           <div className="punta-punta-button-container">
             <Button
-            //   onClick={() =>
-            //     handleCalculateReturn({
-            //       oddOne,
-            //       oddTwo,
-            //       stake,
-            //       bonus,
-            //       unbalancedBet: props.puntaBanca.unbalancedBet,
-            //     })
-            //   }
+              onClick={() =>
+                handleCalculateReturn(
+                  {
+                    oddOne,
+                    oddTwo,
+                    stake,
+                    bonus,
+                    unbalancedBet: props.puntaPunta.unbalancedBet,
+                  },
+                  console.log(props)
+                )
+              }
             >
               Calcola
             </Button>

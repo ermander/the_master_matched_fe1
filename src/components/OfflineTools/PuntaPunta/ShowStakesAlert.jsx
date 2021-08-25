@@ -21,7 +21,7 @@ export default function TransitionAlerts(props) {
   const classes = useStyles();
   const stake = props.stake === null ? 0 : parseFloat(props.stake.stake);
   const bonus = props.bonus === null ? 0 : parseFloat(props.bonus.bonus);
-  const layStake = props.layStake === null ? 0 : parseFloat(props.layStake);
+  const coverBet = props.coverBet === null ? 0 : parseFloat(props.coverBet);
 
   return (
     <div className={classes.root}>
@@ -44,9 +44,11 @@ export default function TransitionAlerts(props) {
           className={classes.alert}
         >
           <div className="p-tags-container">
-            <p style={{ color: "white" }}>Punta {stake + bonus}€,</p>
+            <p style={{ color: "white" }}>
+              Punta {stake + bonus}€ sul primo bookmaker,
+            </p>
             <p style={{ color: "white", marginLeft: "10px" }}>
-              Banca {layStake}€
+              Contropunta {coverBet}€ sul secondo bookmakers
             </p>
           </div>
           <p style={{ color: "white", margin: "0" }}>

@@ -175,7 +175,7 @@ function PuntaBancaCalcolatore() {
               />
             </CardContent>
           </div>
-          <div>
+          <div className="punta-banca-slider-container">
             <UnbalanceBet />
           </div>
           <div className="punta-banca-button-container">
